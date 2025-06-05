@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { StickyScroll } from '../ui/sticky-scroll-reveal';
 
 import { BackgroundBeams } from "../ui/background-beams";
-
+import { InfiniteMovingCards } from "../ui/infinite-moving-cards";
 import Image from 'next/image';
 import { LampContainer } from "../ui/lamp";
 import Footer from '../Footer/Footer.js'
@@ -92,6 +92,69 @@ const content = [
   },
 ];
  
+const testimonials = [
+  {
+    quote:
+      "Artificial Intelligence is likely to be either the best or worst thing to happen to humanity. We simply don't know yet, but we must prepare responsibly.",
+    name: "Stephen Hawking",
+    title: "Theoretical Physicist",
+  },
+  {
+    quote:
+      "The Internet of Things is not a concept; it is a network, the true technology-enabled Network of all networks.",
+    name: "Edewede Oriwoh",
+    title: "Cybersecurity & IoT Researcher",
+  },
+  {
+    quote:
+      "Quantum computing is the next frontier in the race for powerful problem-solving, capable of transforming cybersecurity, material science, and AI.",
+    name: "Sundar Pichai",
+    title: "CEO, Google",
+  },
+  {
+    quote:
+      "Blockchain is the tech. Bitcoin is merely the first mainstream manifestation of its potential.",
+    name: "Marc Kenigsberg",
+    title: "Blockchain Evangelist",
+  },
+  {
+    quote:
+      "Augmented Reality will not replace the real world — it will enhance it with data and context we’ve never had before.",
+    name: "Tim Cook",
+    title: "CEO, Apple Inc.",
+  },
+  {
+    quote:
+      "5G will be the backbone of the future digital economy, enabling ultra-fast, low-latency communication for everything from self-driving cars to remote surgery.",
+    name: "Hans Vestberg",
+    title: "CEO, Verizon",
+  },
+  {
+    quote:
+      "Edge computing is transforming the way we process data — bringing computation closer to where it is generated, and enabling real-time decision making.",
+    name: "Satya Nadella",
+    title: "CEO, Microsoft",
+  },
+  {
+    quote:
+      "Web3 is the internet owned by the builders and users, orchestrated with tokens.",
+    name: "Chris Dixon",
+    title: "General Partner, Andreessen Horowitz",
+  },
+  {
+    quote:
+      "Space is the new frontier for innovation. Private space tech is not a luxury, but a necessary evolution of our species.",
+    name: "Elon Musk",
+    title: "CEO, SpaceX",
+  },
+  {
+    quote:
+      "Generative AI is not just automation — it is creativity redefined by algorithms. We must learn to co-create with machines.",
+    name: "Sam Altman",
+    title: "CEO, OpenAI",
+  },
+];
+
 export function HomePage() {
   return (
     <>
@@ -126,10 +189,13 @@ export function HomePage() {
  <BackgroundBeams />
       {/* Explore Technologies */}
       <section className="relative mt-20 overflow-hidden rounded-2xl p-2 shadow-md hover:shadow-xl  ">
+       
         <LampContainer>
       Explore Technologies
     </LampContainer>
+
         <div className="grid grid-cols-2 mt-10 sm:grid-cols-3 md:grid-cols-4 gap-5">
+        
           {images1.map((img, index) => (
            <div key={index} className="relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl border border-gray-200 bg-white">
       <Image
@@ -140,13 +206,25 @@ export function HomePage() {
       /> 
       </div>
           ))}
+          
         </div>
+
       </section>
       
 <div className="w-full py-2 mt-20">
+  
       <StickyScroll content={content} />
+      
     </div>
     <MyBook/>
+      <div className="h-[20rem] rounded-md flex flex-col antialiased bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+      <h1 className='text-white font-bold text-3xl md:mt-[-34px] p-1'>Latest Tech</h1>
+      <InfiniteMovingCards
+        items={testimonials}
+        direction="right"
+        speed="slow"
+      />
+    </div>
     <Footer/>
          </>
   );
