@@ -1,8 +1,8 @@
 'use client';
+
 import React, { useRef, useState, useEffect } from 'react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/vsDark'; // very light theme
-// Or use `duotoneDark`, `duotoneLight`, `dracula`, `nightOwl`, etc.
+import theme from 'prism-react-renderer/themes/nightOwl'; // ✅ use available theme
 
 import { res, esp, ard } from '../../../code';
 
@@ -51,7 +51,7 @@ const CodeBox = ({ language = 'cpp', num, exNam }) => {
             <pre className={`${className} p-4`} style={style}>
               {tokens.map((line, i) => (
                 <div key={i} {...getLineProps({ line, key: i })}>
-                  <span className="opacity-50 pr-4">{i + 1}</span>
+                  <span className="opacity-50 pr-4 select-none">{i + 1}</span>
                   {line.map((token, key) => (
                     <span key={key} {...getTokenProps({ token, key })} />
                   ))}
