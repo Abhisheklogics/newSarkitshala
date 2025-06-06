@@ -125,28 +125,29 @@ const testimonials = [
 export function HomePage() {
  return (
   <>
-  
-    <section className="mt-28 px-2 sm:px-4">
-       <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-[30rem] overflow-hidden">
-      <Vortex
-        backgroundColor="black"
-        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
-      >
-        <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
-          Welcome to Sarkitshala
-        </h2>
-        <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
-         Learn Arduino, IoT, and Embedded Systems
-with projects, tutorials,
-and real-world applications.
-Guided by experts in the field.
-        </p>
-         </Vortex>
-        </div>
-    
-  
-     
-        <div className="w-full max-w-6xl rounded-2xl overflow-hidden shadow-2xl">
+    <section className="mt-28 px-2 sm:px-4 max-w-7xl mx-auto">
+      {/* Vortex Section */}
+      <div className="w-full rounded-md h-[30rem] overflow-hidden mb-10">
+        <Vortex
+          backgroundColor="black"
+          className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
+        >
+          <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
+            Welcome to Sarkitshala
+          </h2>
+          <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center leading-relaxed">
+            Learn Arduino, IoT, and Embedded Systems<br />
+            with projects, tutorials,<br />
+            and real-world applications.<br />
+            Guided by experts in the field.
+          </p>
+        </Vortex>
+      </div>
+
+      {/* Grid container for ImageSlider and RecentPosts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Image Slider */}
+        <div className="w-full rounded-2xl overflow-hidden shadow-2xl">
           <ImagesSlider
             className="w-full h-[16rem] sm:h-[22rem] md:h-[28rem] lg:h-[32rem] rounded-xl"
             images={images.map((img) => img.src)}
@@ -170,13 +171,15 @@ Guided by experts in the field.
             </motion.div>
           </ImagesSlider>
         </div>
-        <div className="w-full max-w-7xl px-2">
+
+        {/* Recent Posts */}
+        <div className="w-full max-w-full rounded-2xl overflow-hidden">
           <RecentPosts />
         </div>
-      
+      </div>
     </section>
 
-    <section className="relative mt-16 sm:mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl">
+    <section className="relative mt-16 sm:mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
       <ShootingStars />
       <StarsBackground />
       <LampContainer>Explore Technologies</LampContainer>
@@ -197,15 +200,15 @@ Guided by experts in the field.
       </div>
     </section>
 
-    <section className="w-full py-10 mt-20 px-2 sm:px-4">
+    <section className="w-full py-10 mt-20 px-2 sm:px-4 max-w-7xl mx-auto">
       <StickyScroll content={content} />
     </section>
 
-    <section className="mt-16 px-2 sm:px-4">
+    <section className="mt-16 px-2 sm:px-4 max-w-7xl mx-auto">
       <MyBook />
     </section>
 
-    <section className="h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-2 sm:px-4">
+    <section className="h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-2 sm:px-4 max-w-7xl mx-auto">
       <h1 className="text-white font-bold text-3xl sm:text-4xl mb-4 text-center">Latest Tech</h1>
       <div className="w-full max-w-6xl">
         <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
@@ -216,6 +219,7 @@ Guided by experts in the field.
       <Footer />
     </footer>
   </>
-)
+);
+
 
 }
