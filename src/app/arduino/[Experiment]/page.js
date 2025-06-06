@@ -3,12 +3,10 @@ import getData from "@/app/apiCall";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const CodeBox = dynamic(() => import('@/components/code/code'), {
-  ssr: false
-});
-const AllCom = dynamic(() => import('@/components/AllCom'), {ssr:false})
-const LEDArduino =dynamic(()=>import('@/components/Led'), {ssr:false})
-const Side=dynamic(()=>import('@/components/side'))
+const CodeBox = dynamic(() => import('@/components/code/code'));
+const AllCom = dynamic(() => import('@/components/AllCom'))
+const LEDArduino =dynamic(()=>import('@/components/Led'))
+
 export async function generateStaticParams() {
   try {
       const response = await getData('https://sarkitshala.com/api/experiments/Arduino');

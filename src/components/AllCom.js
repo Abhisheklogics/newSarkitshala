@@ -2,9 +2,7 @@ import Image from "next/image";
 
 import dynamic from "next/dynamic";
 import   '../app/globals.css'
-const CodeBox = dynamic(() => import('@/components/code/code'), {
-  ssr: false
-});
+const CodeBox = dynamic(() => import('@/components/code/code'));
 
 export default function AllCom({ data }) {
   

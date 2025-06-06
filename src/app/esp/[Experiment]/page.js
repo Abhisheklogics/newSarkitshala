@@ -4,10 +4,8 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import getData from "@/app/apiCall";
-const CodeBox=dynamic(()=>import('@/components/code/code'),{
-  ssr:false
-})
-const Esp = dynamic(() => import('@/components/Esp'), {ssr:false})
+const CodeBox=dynamic(()=>import('@/components/code/code'))
+const Esp = dynamic(() => import('@/components/Esp'))
 export async function generateStaticParams() {
   try {
       const response = await getData('https://sarkitshala.com/api/experiments/Esp');

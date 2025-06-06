@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
- import Side from "./side";
+
 const LEDArduino = ({data}) => {
 
   return (
@@ -412,7 +412,7 @@ controlling the LED using digitalWrite() and analogWrite(), we can create blinki
 brightness control, and automated lighting systems.</p>
       </section>
     </div>
-    <Side/>
+    
     </>
 
   );
