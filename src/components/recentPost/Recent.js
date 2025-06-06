@@ -67,7 +67,7 @@ const RecentPosts = () => {
         bg-gradient-to-r from-gray-900 via-black to-gray-700
         h-auto sm:h-[430px]
          dark:bg-gray-900 rounded-xl
-        mt-8 mx-auto sm:mx-0
+        mt-8 md:mt-4 mx-auto sm:mx-0
         md:ml-0 ml-10
         relative
         ${isDesktop ? 'md:absolute md:top-[85px] md:right-[10px]' : ''}

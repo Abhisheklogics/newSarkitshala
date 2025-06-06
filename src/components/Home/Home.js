@@ -131,7 +131,7 @@ export function HomePage() {
               <StarsBackground />
         <div className="mx-auto w-full max-w-5xl rounded-2xl overflow-hidden shadow-xl">
           <ImagesSlider
-            className="h-[25rem] sm:h-[22rem] rounded-xl md:h-[26rem] w-[45rem]"
+            className=" h-[15rem] rounded-xl md:h-[26rem]   w-[45rem]"
             images={images.map((img) => img.src)}
           >
             <motion.div
