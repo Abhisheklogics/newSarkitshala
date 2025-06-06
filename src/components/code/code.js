@@ -1,24 +1,20 @@
 'use client';
+import React, { useRef, useState, useEffect } from 'react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import theme from 'prism-react-renderer/themes/vsDark'; // very light theme
+// Or use `duotoneDark`, `duotoneLight`, `dracula`, `nightOwl`, etc.
 
-import React, { useState, useRef, useEffect } from 'react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-// You can try different themes here, e.g. `prism`, `okaidia`, `tomorrow`, `coy`
-// import { prism as syntaxTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { darcula as syntaxTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { res, esp, ard } from '../../../code';
 
-const CodeBox = ({ code, language, num, exNam }) => {
+const CodeBox = ({ language = 'cpp', num, exNam }) => {
   const [buttonText, setButtonText] = useState('Copy');
   const codeRef = useRef(null);
   const timeoutRef = useRef(null);
 
-  if (exNam === 'Raspberry') {
-    code = res[num - 1];
-  } else if (exNam === 'esp') {
-    code = esp[num - 1];
-  } else if (exNam === 'ard') {
-    code = ard[num - 1];
-  }
+  let code = '';
+  if (exNam === 'Raspberry') code = res[num - 1];
+  else if (exNam === 'esp') code = esp[num - 1];
+  else if (exNam === 'ard') code = ard[num - 1];
 
   const handleCopy = () => {
     if (codeRef.current) {
@@ -26,13 +22,10 @@ const CodeBox = ({ code, language, num, exNam }) => {
         setButtonText('Copied!');
         clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => setButtonText('Copy'), 2000);
-      }).catch((err) => {
-        console.error('Failed to copy: ', err);
       });
     }
   };
 
-  // Clean timeout on unmount
   useEffect(() => {
     return () => clearTimeout(timeoutRef.current);
   }, []);
@@ -41,37 +34,32 @@ const CodeBox = ({ code, language, num, exNam }) => {
     <div className="relative w-full max-w-full">
       <button
         onClick={handleCopy}
-        className="absolute right-4 top-4 z-10 flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 text-white text-sm font-medium px-3 py-1.5 rounded shadow-md transition duration-200"
-        aria-label="Copy code to clipboard"
+        className="absolute right-4 top-4 z-10 flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-3 py-1.5 rounded shadow-md"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-          aria-hidden="true"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8 16h8M8 12h8m-6-8h6a2 2 0 012 2v12a2 2 0 01-2 2h-6a2 2 0 01-2-2V6a2 2 0 012-2z" />
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16h8M8 12h8m-6-8h6a2 2 0 012 2v12a2 2 0 01-2 2h-6a2 2 0 01-2-2V6a2 2 0 012-2z" />
         </svg>
         <span>{buttonText}</span>
       </button>
 
       <div
         ref={codeRef}
-        className="mt-12 rounded-md border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shadow-lg overflow-auto max-h-[480px] sm:max-h-[380px] md:max-h-[500px]"
-        style={{ fontFamily: "'Fira Code', monospace", fontSize: '1rem' }}
+        className="mt-12 rounded-md border bg-zinc-900 text-sm overflow-auto max-h-[500px] font-mono"
       >
-        <SyntaxHighlighter
-          language={language}
-          style={syntaxTheme}
-          showLineNumbers={true}
-          wrapLongLines={true}
-          customStyle={{ margin: 0, padding: '1rem', minHeight: '100%' }}
-        >
-          {code}
-        </SyntaxHighlighter>
+        <Highlight {...defaultProps} code={code} language={language} theme={theme}>
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre className={`${className} p-4`} style={style}>
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line, key: i })}>
+                  <span className="opacity-50 pr-4">{i + 1}</span>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token, key })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { ImagesSlider } from '../ui/images-slider';
 import Link from 'next/link';
 import { StickyScroll } from '../ui/sticky-scroll-reveal';
-import { BackgroundBeams } from '../ui/background-beams';
+import { Vortex } from '../ui/vortex';
 import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 import Image from 'next/image';
 import { LampContainer } from '../ui/lamp';
@@ -123,15 +123,32 @@ const testimonials = [
 ];
 
 export function HomePage() {
-  return (
-    <>
+ return (
+  <>
+  
+    <section className="mt-28 px-2 sm:px-4">
+       <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-[30rem] overflow-hidden">
+      <Vortex
+        backgroundColor="black"
+        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
+      >
+        <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
+          Welcome to Sarkitshala
+        </h2>
+        <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
+         Learn Arduino, IoT, and Embedded Systems
+with projects, tutorials,
+and real-world applications.
+Guided by experts in the field.
+        </p>
+         </Vortex>
+        </div>
+    
+  
      
-      <section className="mt-28 mr-18 px-4">
-        <ShootingStars />
-              <StarsBackground />
-        <div className="mx-auto w-full max-w-5xl rounded-2xl overflow-hidden shadow-xl">
+        <div className="w-full max-w-6xl rounded-2xl overflow-hidden shadow-2xl">
           <ImagesSlider
-            className=" h-[15rem] rounded-xl md:h-[26rem]   w-[45rem]"
+            className="w-full h-[16rem] sm:h-[22rem] md:h-[28rem] lg:h-[32rem] rounded-xl"
             images={images.map((img) => img.src)}
           >
             <motion.div
@@ -153,41 +170,52 @@ export function HomePage() {
             </motion.div>
           </ImagesSlider>
         </div>
-        <RecentPosts />
-      </section>
-
-      
-
-      <section className="relative mt-20 overflow-hidden rounded-2xl px-4 py-6 shadow-lg">
-         <ShootingStars />
-              <StarsBackground />
-        <LampContainer>Explore Technologies</LampContainer>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
-          {images1.map((img, index) => (
-            <div key={index} className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition">
-              <Image
-                src={img}
-                alt={`Technology ${index + 1}`}
-                className="w-full h-40 md:h-52 lg:h-60 object-cover transform group-hover:scale-105 transition duration-300"
-                priority={index < 2}
-              />
-            </div>
-          ))}
+        <div className="w-full max-w-7xl px-2">
+          <RecentPosts />
         </div>
-      </section>
+      
+    </section>
 
-      <div className="w-full py-10 mt-20">
-        <StickyScroll content={content} />
+    <section className="relative mt-16 sm:mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl">
+      <ShootingStars />
+      <StarsBackground />
+      <LampContainer>Explore Technologies</LampContainer>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
+        {images1.map((img, index) => (
+          <div
+            key={index}
+            className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all"
+          >
+            <Image
+              src={img}
+              alt={`Technology ${index + 1}`}
+              className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover transform group-hover:scale-105 transition duration-300"
+              priority={index < 2}
+            />
+          </div>
+        ))}
       </div>
+    </section>
 
+    <section className="w-full py-10 mt-20 px-2 sm:px-4">
+      <StickyScroll content={content} />
+    </section>
+
+    <section className="mt-16 px-2 sm:px-4">
       <MyBook />
+    </section>
 
-      <div className="h-[22rem] rounded-md flex flex-col antialiased bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden px-4">
-        <h1 className="text-white font-bold text-3xl md:text-4xl mb-4">Latest Tech</h1>
+    <section className="h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-2 sm:px-4">
+      <h1 className="text-white font-bold text-3xl sm:text-4xl mb-4 text-center">Latest Tech</h1>
+      <div className="w-full max-w-6xl">
         <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
       </div>
+    </section>
 
+    <footer className="mt-20">
       <Footer />
-    </>
-  );
+    </footer>
+  </>
+)
+
 }

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import getData from "@/app/apiCall";
 
-const Loading = dynamic(() => import('@/components/loading/Loading'));
+
 
 const CodeBox = dynamic(() => import('@/components/code/code'));
 export async function generateStaticParams() {
