@@ -93,10 +93,7 @@ export default async function Page({ params }) {
     const { Experiment } = await params; 
     
     const data = await getData(`https://sarkitshala.com/api/experiments/Res`, Experiment)
-    if (!data) {
-     
-        return <p><Loading/></p>;
-      }
+   
       if(data)
       {
         return (
