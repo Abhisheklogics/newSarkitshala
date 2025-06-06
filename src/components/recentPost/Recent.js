@@ -63,6 +63,7 @@ const RecentPosts = () => {
     <div
       className={`
         w-full sm:max-w-[400px]
+       
         bg-gradient-to-r from-gray-900 via-black to-gray-700
         h-auto sm:h-[430px]
          dark:bg-gray-900 rounded-xl
@@ -72,7 +73,7 @@ const RecentPosts = () => {
       `}
     >
       {/* Header */}
-      <div className="sticky top-0 z-10 px-4 py-3 bg-gradient-to-r from-gray-900 via-black to-gray-700 backdrop-blur-md  text-white font-semibold text-lg sm:text-xl rounded-t-xl">
+      <div className="sticky top-0 z-10 px-4 py-3 border-gray-800 bg-gradient-to-r from-gray-900 via-black to-gray-700 backdrop-blur-md  text-white font-semibold text-lg sm:text-xl rounded-t-xl">
         Recent Posts
       </div>
 
