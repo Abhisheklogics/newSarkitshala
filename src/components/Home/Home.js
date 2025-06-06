@@ -127,7 +127,7 @@ export function HomePage() {
   <>
     <section className="mt-28 px-2 sm:px-4 max-w-7xl mx-auto">
       {/* Vortex Section */}
-      <div className="w-full rounded-md h-[30rem] overflow-hidden mb-10">
+      <div className="w-full rounded-md mt-[-230px] h-[30rem] overflow-hidden mb-4">
         <Vortex
           backgroundColor="black"
           className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
@@ -173,7 +173,7 @@ export function HomePage() {
         </div>
 
         {/* Recent Posts */}
-        <div className="w-full max-w-full rounded-2xl overflow-hidden">
+        <div className="w-full md:mt-40 max-w-full rounded-2xl overflow-hidden">
           <RecentPosts />
         </div>
       </div>
