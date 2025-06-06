@@ -34,14 +34,17 @@ export default function MyBook() {
     const updateSize = () => {
       const width = window.innerWidth;
       if (width < 480) {
-        setDimensions({ width: 280, height: 400 });
-      } else if (width < 768) {
-        setDimensions({ width: 320, height: 460 });
-      } else if (width < 1024) {
-        setDimensions({ width: 400, height: 600 });
-      } else {
-        setDimensions({ width: 500, height: 680 });
-      }
+  setDimensions({ width: 320, height: 460 });
+} else if (width < 768) {
+  setDimensions({ width: 360, height: 520 });
+} else if (width < 1024) {
+  setDimensions({ width: 480, height: 660 }); // bigger for tablets
+} else if (width < 1440) {
+  setDimensions({ width: 600, height: 800 }); // better for laptops
+} else {
+  setDimensions({ width: 700, height: 900 }); // desktops or large displays
+}
+
     };
     updateSize();
     window.addEventListener('resize', updateSize);
@@ -52,7 +55,7 @@ export default function MyBook() {
   const prevPage = () => bookRef.current?.pageFlip().flipPrev();
 
   return (
-    <div className="flex flex-col items-center justify-center relative min-h-screen py-6 px-2 bg-black overflow-hidden">
+    <div className="flex flex-col  md:mt-10 items-center justify-center relative min-h-screen py-6 px-2 bg-black overflow-hidden">
       <ShootingStars />
       <StarsBackground />
 
@@ -68,7 +71,7 @@ export default function MyBook() {
 
         {/* Flipbook */}
         <div
-          className="transition-all duration-300 ease-in-out drop-shadow-2xl max-w-full"
+          className="transition-all md:mt-10 duration-300 ease-in-out drop-shadow-2xl max-w-full"
           style={{ width: dimensions.width, height: dimensions.height }}
         >
           <HTMLFlipBook
@@ -106,12 +109,13 @@ export default function MyBook() {
                   </>
                 ) : (
                   <Image
-                    src={img}
-                    alt={`Page ${index}`}
-                    className="object-contain rounded-lg shadow border w-full h-full"
-                    sizes="(max-width: 768px) 90vw, 500px"
-                    priority={index < 3}
-                  />
+  src={img}
+  alt={`Page ${index}`}
+  className="object-contain rounded-lg shadow border w-full h-full max-h-full"
+  sizes="(max-width: 768px) 100vw, 700px"
+  priority={index < 3}
+/>
+
                 )}
               </div>
             ))}
