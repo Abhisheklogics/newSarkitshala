@@ -125,7 +125,7 @@ const testimonials = [
 export function HomePage() {
  return (
   <>
-    <section className="mt-28 p-2  sm:px-4 max-w-7xl mx-auto">
+    <section className="mt-28 md:px-2 p-1 sm:px-4 max-w-7xl mx-auto">
       {/* Vortex Section */}
       <div className="w-full z-0 rounded-md md:mt-[-30px] mt-[-270px] h-[30rem] overflow-hidden mb-4">
         <Vortex
