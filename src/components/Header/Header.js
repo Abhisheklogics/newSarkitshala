@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Search from '../Search/Search';
 import { usePathname } from 'next/navigation';
-
+import { Vortex } from '../ui/vortex';
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -48,15 +48,16 @@ export default function Header() {
     );
   };
 return (
-   
-      <header className="w-full bg-transparent  border-b border-gray-800 shadow-md z-10">
+    
+      <header className="w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 backdrop-blur-md border-b border-gray-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Mobile Logo */}
             <h1 className="text-white text-lg font-semibold md:hidden">Sarkitshala</h1>
 
-            {/* Desktop Nav */}
+            {/* Desktop Navigation and Search */}
             <nav className="hidden md:flex flex-1 justify-center items-center space-x-8 relative">
+              {/* Home + IoT */}
               <div className="flex items-center space-x-4">
                 <NavLink href="/" label="Home" />
                 <div className="relative group">
@@ -69,6 +70,7 @@ return (
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
+
                   <ul className="absolute top-full left-0 mt-2 w-48 bg-black/90 border border-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200 z-50">
                     {iotLinks.map(({ href, label }) => (
                       <li key={href}>
@@ -80,9 +82,13 @@ return (
                   </ul>
                 </div>
               </div>
+
+              {/* Other nav links */}
               {navLinks.filter(link => link.href !== '/').map(({ href, label }) => (
                 <NavLink key={href} href={href} label={label} />
               ))}
+
+              {/* Search */}
               <div className="ml-6">
                 <Search />
               </div>
@@ -109,7 +115,7 @@ return (
           </div>
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden bg-black/90 backdrop-blur-xl px-4 py-4 space-y-3 rounded-b-xl animate-slideDownFade">
             <ul className="space-y-2 font-medium text-white">
@@ -128,8 +134,6 @@ return (
             </ul>
           </div>
         )}
-
-        {/* Custom Animation */}
         <style jsx>{`
           @keyframes slideDownFade {
             0% {
@@ -146,6 +150,6 @@ return (
           }
         `}</style>
       </header>
- 
+  
   );
 }
