@@ -42,7 +42,7 @@ const Footer = () => {
 
         {/* Footer Tagline */}
         <div className="text-center md:text-left flex flex-col justify-center max-w-xs mx-auto md:mx-0">
-          <p className="text-gray-400 text-lg font-semibold px-6 py-4 rounded-lg bg-gradient-to-r from-orange-400 to-orange-600 shadow-lg cursor-default select-none">
+          <p className="text-white text-lg font-semibold px-6 py-4 rounded-lg  shadow-lg cursor-default select-none">
             Sarkitshala Presents
           </p>
         </div>

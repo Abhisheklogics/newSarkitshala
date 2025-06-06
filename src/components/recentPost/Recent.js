@@ -30,13 +30,9 @@ const RecentPosts = () => {
   ];
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-
-    handleResize(); // Initial check
+    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
+    handleResize();
     window.addEventListener('resize', handleResize);
-
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -62,19 +58,18 @@ const RecentPosts = () => {
   return (
     <div
       className={`
-        w-full sm:max-w-[400px]
-       
-        bg-gradient-to-r from-gray-900 via-black to-gray-700
-        h-auto sm:h-[430px]
-         dark:bg-gray-900 rounded-xl
-        mt-8 md:mt-4 mx-auto sm:mx-0
-        md:ml-0 ml-10
+        w-full sm:max-w-[420px]
+        bg-gradient-to-br from-gray-900 via-black to-gray-800
+        rounded-2xl border border-gray-700 shadow-xl
+        text-white overflow-hidden
+        md:mt-[600px]
+        md:ml-[-100px]
         relative
-        ${isDesktop ? 'md:absolute md:top-[85px] md:right-[10px]' : ''}
+        ${isDesktop ? 'md:absolute md:top-[85px] md:right-[10px]' : 'mx-auto'}
       `}
     >
       {/* Header */}
-      <div className="sticky top-0 z-10 px-4 py-3 border-gray-800 bg-gradient-to-r from-gray-900 via-black to-gray-700 backdrop-blur-md  text-white font-semibold text-lg sm:text-xl rounded-t-xl">
+      <div className="sticky top-0 z-10 px-5 py-3 bg-gradient-to-r from-gray-900 to-gray-800 backdrop-blur-md text-white font-bold text-lg border-b border-gray-700">
         Recent Posts
       </div>
 
@@ -83,8 +78,10 @@ const RecentPosts = () => {
         ref={listRef}
         className={`
           max-h-[374px]
-          overflow-y-auto ${isDesktop ? 'sm:overflow-hidden' : 'scrollbar-thin scrollbar-thumb-gray-500'}
-          px-3 py-2 space-y-3
+          px-3 py-3
+          space-y-3
+          overflow-y-auto
+          ${isDesktop ? 'sm:overflow-hidden' : 'scrollbar-thin scrollbar-thumb-gray-600'}
         `}
         onMouseEnter={() => setIsUserInteracting(true)}
         onMouseLeave={() => setIsUserInteracting(false)}
@@ -92,23 +89,19 @@ const RecentPosts = () => {
         onTouchEnd={() => setIsUserInteracting(false)}
       >
         {posts.map(({ id, slug, title, image }) => (
-          <li
-            key={id}
-            className="
-              flex items-center gap-3  dark:bg-gray-800 rounded-lg p-3
-               dark:hover:bg-gray-700 transition duration-200
-              cursor-pointer active:scale-[0.98]
-            "
-          >
-            <Link href={`/${slug}`} className="flex items-center gap-3 w-full">
+          <li key={id}>
+            <Link
+              href={`/${slug}`}
+              className="flex items-center gap-4 rounded-lg p-3 hover:bg-gray-800 transition-all duration-300 group"
+            >
               <Image
                 src={image}
                 alt={title}
                 width={60}
                 height={60}
-                className="rounded-md object-cover w-[60px] h-[60px]"
+                className="rounded-md w-[60px] h-[60px] object-cover shadow-md group-hover:scale-105 transition-transform"
               />
-              <p className="text-sm sm:text-base font-medium text-white dark:text-gray-100 line-clamp-2">
+              <p className="text-sm sm:text-base font-medium text-white group-hover:text-orange-400 line-clamp-2">
                 {title}
               </p>
             </Link>

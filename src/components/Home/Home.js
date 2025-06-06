@@ -125,11 +125,11 @@ const testimonials = [
 export function HomePage() {
  return (
   <>
-    <section className="mt-28 px-2 sm:px-4 max-w-7xl mx-auto">
+    <section className="mt-28 p-2 overflow-hidden sm:px-4 max-w-7xl mx-auto">
       {/* Vortex Section */}
-      <div className="w-full rounded-md mt-[-230px] h-[30rem] overflow-hidden mb-4">
+      <div className="w-full z-0 rounded-md md:mt-[-30px] mt-[-270px] h-[30rem] overflow-hidden mb-4">
         <Vortex
-          backgroundColor="black"
+          backgroundColor=""
           className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
         >
           <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
@@ -145,11 +145,11 @@ export function HomePage() {
       </div>
 
       {/* Grid container for ImageSlider and RecentPosts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Image Slider */}
-        <div className="w-full rounded-2xl overflow-hidden shadow-2xl">
+        <div className="w-full mt-[110px] rounded-2xl overflow-hidden shadow-2xl">
           <ImagesSlider
-            className="w-full h-[16rem] sm:h-[22rem] md:h-[28rem] lg:h-[32rem] rounded-xl"
+            className="w-full lg:w-[60rem] h-[16rem] sm:h-[22rem]  lg:h-[26rem] rounded-xl"
             images={images.map((img) => img.src)}
           >
             <motion.div
@@ -173,13 +173,13 @@ export function HomePage() {
         </div>
 
         {/* Recent Posts */}
-        <div className="w-full md:mt-40 max-w-full rounded-2xl overflow-hidden">
+        <div className="w-full  max-w-full rounded-2xl overflow-hidden">
           <RecentPosts />
         </div>
       </div>
     </section>
 
-    <section className="relative mt-16 sm:mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
+    <section className="relative mt-20 sm:mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
       <ShootingStars />
       <StarsBackground />
       <LampContainer>Explore Technologies</LampContainer>

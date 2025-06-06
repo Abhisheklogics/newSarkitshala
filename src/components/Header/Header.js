@@ -49,7 +49,7 @@ export default function Header() {
   };
 return (
     
-      <header className="w-full bg-gradient-to-r from-gray-900 via-black to-gray-900 backdrop-blur-md border-b border-gray-800 shadow-md">
+      <header className="w-full  z-[999] fixed top-0 bg-gradient-to-r from-gray-900 via-black to-gray-900 backdrop-blur-md border-b border-gray-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Mobile Logo */}
@@ -60,7 +60,7 @@ return (
               {/* Home + IoT */}
               <div className="flex items-center space-x-4">
                 <NavLink href="/" label="Home" />
-                <div className="relative group">
+                <div className="  relative group">
                   <button
                     type="button"
                     className="flex items-center px-3 py-3 text-sm font-medium text-white hover:text-blue-300 transition duration-300"
@@ -71,10 +71,10 @@ return (
                     </svg>
                   </button>
 
-                  <ul className="absolute top-full left-0 mt-2 w-48 bg-black/90 border border-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200 z-50">
+                  <ul className="absolute z-50  top-full left-0 mt-2 w-48 bg-black/90 border border-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity duration-200 ">
                     {iotLinks.map(({ href, label }) => (
                       <li key={href}>
-                        <Link href={href} onClick={closeMenu} className="block px-4 py-2 text-sm text-white hover:bg-gray-800 transition">
+                        <Link href={href} onClick={closeMenu} className="block z-50 px-4 py-2 text-sm text-white hover:bg-gray-800 transition">
                           {label}
                         </Link>
                       </li>
