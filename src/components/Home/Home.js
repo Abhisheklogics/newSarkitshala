@@ -128,26 +128,23 @@ export function HomePage() {
   <>
     <section className="mt-20 px-2 md:ml-[-12px] sm:px-4 max-w-7xl mx-auto">
   {/* Vortex Section */}
-  <div className="w-full rounded-md -mt-20 md:-mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
+  <div className="w-full rounded-md -mt-40 md:-mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
     <Vortex
       backgroundColor=""
       className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
     >
-      <h2 className="text-white text-xl sm:text-3xl md:text-5xl font-bold text-center">
+      <h2 className="text-white mt-28 md:mt-0 text-2xl sm:text-3xl md:text-5xl font-bold text-center">
         <FlipWords words={words} />
       </h2>
       <p className="text-white text-sm text-justify sm:text-base md:text-xl max-w-xl mt-4 sm:mt-6 text-center leading-relaxed">
-        Learn Arduino, IoT, and Embedded Systems
-        with projects, tutorials,
-        and real-world applications.
-                Guided by experts in the field.
+        Sarkitshala is  a open-source playground for building, learning, and innovating!
       </p>
     </Vortex>
   </div>
 
   {/* ImageSlider and RecentPosts */}
-  <div className="grid grid-cols-1 md:ml-[40px] md:grid-cols-2 gap-6">
-    <div className="w-full rounded-2xl overflow-hidden shadow-xl">
+  <div className="grid grid-cols-1  md:ml-[40px] md:grid-cols-2 gap-6">
+    <div className="w-full   md:mt-10 rounded-2xl overflow-hidden shadow-xl">
       <ImagesSlider
         className="w-full lg:w-[40rem] h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] rounded-xl"
         images={images.map((img) => img.src)}
@@ -172,7 +169,7 @@ export function HomePage() {
       </ImagesSlider>
     </div>
 
-    <div className="w-full max-w-full rounded-2xl overflow-hidden">
+    <div className="w-full md:mt-10 max-w-full rounded-2xl overflow-hidden">
       <RecentPosts />
     </div>
   </div>
