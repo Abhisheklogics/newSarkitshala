@@ -126,7 +126,6 @@ let words=['Welcome','To','Sarkitshala']
 export function HomePage() {
  return (
   <>
-<<<<<<< HEAD
     <section className="mt-20 px-2 md:ml-[-12px] sm:px-4 max-w-7xl mx-auto">
   {/* Vortex Section */}
   <div className="w-full rounded-md -mt-20 md:-mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
@@ -158,14 +157,6 @@ export function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="z-50 flex justify-center items-center h-full w-full"
-=======
-    <section className="mt-28 md:px-2 p-1 sm:px-4 max-w-7xl mx-auto">
-      {/* Vortex Section */}
-      <div className="w-full z-0 rounded-md md:mt-[-30px] mt-[-270px] h-[30rem] overflow-hidden mb-4">
-        <Vortex
-          backgroundColor=""
-          className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
->>>>>>> fe97c7034a6806a5a179e03ce7f1c674385e8f60
         >
           <div className="absolute inset-0 z-40">
             {images.map((img, index) => (
