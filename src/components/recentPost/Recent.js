@@ -58,31 +58,23 @@ const RecentPosts = () => {
   return (
     <div
       className={`
-        w-full sm:max-w-[420px]
+        w-full md:w-[420px]
         bg-gradient-to-br from-gray-900 via-black to-gray-800
-        rounded-2xl border border-gray-700 shadow-xl
+        rounded-2xl border border-gray-700 shadow-2xl
         text-white overflow-hidden
-        md:mt-[600px]
-        md:ml-[-100px]
-        relative
-        ${isDesktop ? 'md:absolute md:top-[85px] md:right-[10px]' : 'mx-auto'}
+        relative mx-auto
+        mt-14
+        md:mt-0
       `}
     >
-      {/* Header */}
-      <div className="sticky top-0 z-10 px-5 py-3 bg-gradient-to-r from-gray-900 to-gray-800 backdrop-blur-md text-white font-bold text-lg border-b border-gray-700">
-        Recent Posts
+      <div className="sticky top-0 z-10 px-5 py-3 bg-gradient-to-r from-gray-900 to-gray-800 text-white font-semibold text-lg border-b border-gray-700">
+         Recent Posts
       </div>
 
-      {/* List */}
       <ul
         ref={listRef}
-        className={`
-          max-h-[374px]
-          px-3 py-3
-          space-y-3
-          overflow-y-auto
-          ${isDesktop ? 'sm:overflow-hidden' : 'scrollbar-thin scrollbar-thumb-gray-600'}
-        `}
+        className={`max-h-[400px] px-3 py-3 space-y-3  overflow-y-auto
+    scrollbar-hide`}
         onMouseEnter={() => setIsUserInteracting(true)}
         onMouseLeave={() => setIsUserInteracting(false)}
         onTouchStart={() => setIsUserInteracting(true)}

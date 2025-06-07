@@ -13,6 +13,7 @@ import MyBook from '../ArdBook';
 import RecentPosts from '../recentPost/Recent';
 import { ShootingStars } from '../ui/shooting-stars';
 import { StarsBackground } from '../ui/stars-background.jsx';
+import {FlipWords} from '../ui/flip-words'
 // Static images
 import image1 from '../../../public/images/Arduino_SKT.webp';
 import image2 from '../../../public/images/jetson_Sarkitshala.webp';
@@ -121,103 +122,103 @@ const testimonials = [
     title: 'CEO, OpenAI',
   },
 ];
-
+let words=['Welcome','To','SarkitShala']
 export function HomePage() {
  return (
   <>
-    <section className="mt-28 p-2  sm:px-4 max-w-7xl mx-auto">
-      {/* Vortex Section */}
-      <div className="w-full z-0 rounded-md md:mt-[-30px] mt-[-270px] h-[30rem] overflow-hidden mb-4">
-        <Vortex
-          backgroundColor=""
-          className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
+    <section className="mt-20 px-2 md:ml-[-12px] sm:px-4 max-w-7xl mx-auto">
+  {/* Vortex Section */}
+  <div className="w-full rounded-md -mt-20 md:-mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
+    <Vortex
+      backgroundColor=""
+      className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
+    >
+      <h2 className="text-white text-xl sm:text-3xl md:text-5xl font-bold text-center">
+        <FlipWords words={words} />
+      </h2>
+      <p className="text-white text-sm text-justify sm:text-base md:text-xl max-w-xl mt-4 sm:mt-6 text-center leading-relaxed">
+        Learn Arduino, IoT, and Embedded Systems
+        with projects, tutorials,
+        and real-world applications.
+                Guided by experts in the field.
+      </p>
+    </Vortex>
+  </div>
+
+  {/* ImageSlider and RecentPosts */}
+  <div className="grid grid-cols-1 md:ml-[40px] md:grid-cols-2 gap-6">
+    <div className="w-full rounded-2xl overflow-hidden shadow-xl">
+      <ImagesSlider
+        className="w-full lg:w-[40rem] h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] rounded-xl"
+        images={images.map((img) => img.src)}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: -80 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="z-50 flex justify-center items-center h-full w-full"
         >
-          <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
-            Welcome to Sarkitshala
-          </h2>
-          <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center leading-relaxed">
-            Learn Arduino, IoT, and Embedded Systems<br />
-            with projects, tutorials,<br />
-            and real-world applications.<br />
-            Guided by experts in the field.
-          </p>
-        </Vortex>
-      </div>
-
-      {/* Grid container for ImageSlider and RecentPosts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Image Slider */}
-        <div className="w-full mt-[110px] rounded-2xl overflow-hidden shadow-2xl">
-          <ImagesSlider
-            className="w-full lg:w-[60rem] h-[16rem] sm:h-[22rem]  lg:h-[26rem] rounded-xl"
-            images={images.map((img) => img.src)}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: -80 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="z-50 flex justify-center items-center h-full w-full"
-            >
-              <div className="absolute inset-0 z-40">
-                {images.map((img, index) => (
-                  <Link
-                    key={index}
-                    href={img.href}
-                    className="absolute inset-0 block w-full h-full"
-                    aria-label={`Navigate to ${img.href}`}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          </ImagesSlider>
-        </div>
-
-        {/* Recent Posts */}
-        <div className="w-full  max-w-full rounded-2xl overflow-hidden">
-          <RecentPosts />
-        </div>
-      </div>
-    </section>
-
-    <section className="relative mt-20 sm:mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
-      <ShootingStars />
-      <StarsBackground />
-      <LampContainer>Explore Technologies</LampContainer>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
-        {images1.map((img, index) => (
-          <div
-            key={index}
-            className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all"
-          >
-            <Image
-              src={img}
-              alt={`Technology ${index + 1}`}
-              className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover transform group-hover:scale-105 transition duration-300"
-              priority={index < 2}
-            />
+          <div className="absolute inset-0 z-40">
+            {images.map((img, index) => (
+              <Link
+                key={index}
+                href={img.href}
+                className="absolute inset-0 block w-full h-full"
+                aria-label={`Navigate to ${img.href}`}
+              />
+            ))}
           </div>
-        ))}
+        </motion.div>
+      </ImagesSlider>
+    </div>
+
+    <div className="w-full max-w-full rounded-2xl overflow-hidden">
+      <RecentPosts />
+    </div>
+  </div>
+</section>
+
+<section className="relative mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
+  <ShootingStars />
+  <StarsBackground />
+  <LampContainer>Explore Technologies</LampContainer>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
+    {images1.map((img, index) => (
+      <div
+        key={index}
+        className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all"
+      >
+        <Image
+          src={img}
+          alt={`Technology ${index + 1}`}
+          className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover transform group-hover:scale-105 transition duration-300"
+          priority={index < 2}
+        />
       </div>
-    </section>
+    ))}
+  </div>
+</section>
 
-    <section className="w-full py-10 mt-20 px-2 sm:px-4 max-w-7xl mx-auto">
-      <StickyScroll content={content} />
-    </section>
+<section className="w-full py-10 mt-20 px-2 sm:px-4 max-w-7xl mx-auto">
+  <StickyScroll content={content} />
+</section>
 
-    <section className="mt-16 px-2 sm:px-4 max-w-7xl mx-auto">
-      <MyBook />
-    </section>
+<section className="mt-16 px-2 sm:px-4 max-w-7xl mx-auto">
+  <MyBook />
+</section>
 
-    <section className="h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-2 sm:px-4 max-w-7xl mx-auto">
-      <h1 className="text-white font-bold text-3xl sm:text-4xl mb-4 text-center">Latest Tech</h1>
-      <div className="w-full max-w-6xl">
-        <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
-      </div>
-    </section>
+<section className="h-[20rem] sm:h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-2 sm:px-4 max-w-7xl mx-auto">
+  <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-4 text-center">
+    Latest Tech
+  </h1>
+  <div className="w-full max-w-6xl">
+    <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
+  </div>
+</section>
 
-    <footer className="mt-20">
-      <Footer />
-    </footer>
+<footer className="mt-20">
+  <Footer />
+</footer>
   </>
 );
 
