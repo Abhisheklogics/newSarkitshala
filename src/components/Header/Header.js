@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Search from '../Search/Search';
 import { usePathname } from 'next/navigation';
-import { Vortex } from '../ui/vortex';
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -35,7 +35,7 @@ export default function Header() {
         href={href}
         onClick={closeMenu}
         className={`relative px-3 py-2 text-sm font-medium transition duration-300 ${
-          isActive ? 'text-blue-400 font-semibold' : 'text-white hover:text-blue-300'
+          isActive ? 'text-blue-500 font-semibold' : 'text-white hover:text-blue-500'
         }`}
       >
         {label}
@@ -49,7 +49,7 @@ export default function Header() {
   };
 return (
     
-      <header className="w-full  z-[999] fixed top-0 bg-gradient-to-r from-gray-900 via-black to-gray-900 backdrop-blur-md border-b border-gray-800 shadow-md">
+      <header className="w-full  z-[999] fixed top-0 bg-transparent backdrop-blur-md border-b border-gray-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Mobile Logo */}

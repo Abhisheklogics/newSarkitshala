@@ -74,7 +74,7 @@ const RecentPosts = () => {
       <ul
         ref={listRef}
         className={`max-h-[400px] px-3 py-3 space-y-3  overflow-y-auto
-    scrollbar-hide`}
+    hide-scrollbar`}
         onMouseEnter={() => setIsUserInteracting(true)}
         onMouseLeave={() => setIsUserInteracting(false)}
         onTouchStart={() => setIsUserInteracting(true)}

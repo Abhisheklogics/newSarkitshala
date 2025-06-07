@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { ImagesSlider } from '../ui/images-slider';
 import Link from 'next/link';
 import { StickyScroll } from '../ui/sticky-scroll-reveal';
-import { Vortex } from '../ui/vortex';
+import { Spotlight } from '../ui/spotlight-new';
 import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 import Image from 'next/image';
 import { LampContainer } from '../ui/lamp';
@@ -13,7 +13,7 @@ import MyBook from '../ArdBook';
 import RecentPosts from '../recentPost/Recent';
 import { ShootingStars } from '../ui/shooting-stars';
 import { StarsBackground } from '../ui/stars-background.jsx';
-import {FlipWords} from '../ui/flip-words'
+
 // Static images
 import image1 from '../../../public/images/Arduino_SKT.webp';
 import image2 from '../../../public/images/jetson_Sarkitshala.webp';
@@ -126,98 +126,136 @@ let words=['Welcome','To','Sarkitshala']
 export function HomePage() {
  return (
   <>
-    <section className="mt-20 px-2 md:ml-[-12px] sm:px-4 max-w-7xl mx-auto">
-  {/* Vortex Section */}
-  <div className="w-full rounded-md -mt-40 md:-mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
-    <Vortex
-      backgroundColor=""
-      className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
-    >
-      <h2 className="text-white mt-28 md:mt-0 text-2xl sm:text-3xl md:text-5xl font-bold text-center">
-        <FlipWords words={words} />
-      </h2>
-      <p className="text-white text-sm text-justify sm:text-base md:text-xl max-w-xl mt-4 sm:mt-6 text-center leading-relaxed">
-        Sarkitshala is  a open-source playground for building, learning, and innovating!
-      </p>
-    </Vortex>
-  </div>
-
-  {/* ImageSlider and RecentPosts */}
-  <div className="grid grid-cols-1  md:ml-[40px] md:grid-cols-2 gap-6">
-    <div className="w-full   md:mt-10 rounded-2xl overflow-hidden shadow-xl">
-      <ImagesSlider
-        className="w-full lg:w-[40rem] h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] rounded-xl"
-        images={images.map((img) => img.src)}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: -80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="z-50 flex justify-center items-center h-full w-full"
-        >
-          <div className="absolute inset-0 z-40">
-            {images.map((img, index) => (
-              <Link
-                key={index}
-                href={img.href}
-                className="absolute inset-0 block w-full h-full"
-                aria-label={`Navigate to ${img.href}`}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </ImagesSlider>
-    </div>
-
-    <div className="w-full md:mt-10 max-w-full rounded-2xl overflow-hidden">
-      <RecentPosts />
-    </div>
-  </div>
-</section>
-
-<section className="relative mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
-  <ShootingStars />
-  <StarsBackground />
-  <LampContainer>Explore Technologies</LampContainer>
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
-    {images1.map((img, index) => (
-      <div
-        key={index}
-        className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all"
-      >
-        <Image
-          src={img}
-          alt={`Technology ${index + 1}`}
-          className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover transform group-hover:scale-105 transition duration-300"
-          priority={index < 2}
-        />
+    
+    <section className="relative mt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+       <Spotlight />
+      {/* Grid Lines */}
+      <div className="absolute inset-y-0 left-0 w-px bg-neutral-200 dark:bg-neutral-700">
+        <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
       </div>
-    ))}
-  </div>
-</section>
+      <div className="absolute inset-y-0 right-0 w-px bg-neutral-200 dark:bg-neutral-700">
+        <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-px bg-neutral-200 dark:bg-neutral-700">
+        <div className="absolute mx-auto w-40 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+      </div>
 
-<section className="w-full py-10 mt-20 px-2 sm:px-4 max-w-7xl mx-auto">
-  <StickyScroll content={content} />
-</section>
+      <div className="relative z-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center text-center">
+        <h2 className="text-white text-2xl sm:text-4xl md:text-5xl font-bold max-w-4xl">
+          {words.map((word, index) => (
+            <motion.span
+              key={index}
+              initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              transition={{ duration: 0.3, delay: index * 0.1, ease: "easeInOut" }}
+              className="mr-2 inline-block"
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h2>
 
-<section className="mt-16 px-2 sm:px-4 max-w-7xl mx-auto">
-  <MyBook />
-</section>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.8 }}
+          className="text-white text-sm  sm:text-lg md:text-xl max-w-xl mt-6 leading-relaxed"
+        >
+          Sarkitshala is an open-source playground for building, learning, and innovating!
+        </motion.p>
 
-<section className="h-[20rem] sm:h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-2 sm:px-4 max-w-7xl mx-auto">
-  <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-4 text-center">
-    Latest Tech
-  </h1>
-  <div className="w-full max-w-6xl">
-    <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
-  </div>
-</section>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 1 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4"
+        >
+         
+        </motion.div>
+      </div>
 
-<footer className="mt-20">
-  <Footer />
-</footer>
+      {/* 🔷 ImageSlider & RecentPosts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-7xl mx-auto md:mt-36">
+        <div className="rounded-2xl overflow-hidden shadow-xl">
+          <ImagesSlider
+            className="w-full h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] rounded-xl"
+            images={images.map((img) => img.src)}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -80 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="z-50 flex justify-center items-center h-full w-full"
+            >
+              <div className="absolute inset-0 z-40">
+                {images.map((img, index) => (
+                  <Link
+                    key={index}
+                    href={img.href}
+                    className="absolute inset-0 block w-full h-full"
+                    aria-label={`Navigate to ${img.href}`}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </ImagesSlider>
+        </div>
+
+        <div className="rounded-2xl overflow-hidden">
+          <RecentPosts />
+        </div>
+      </div>
+
+      {/* 🔶 Explore Technologies */}
+      <section className="relative mt-20 px-4 overflow-hidden rounded-2xl py-10 shadow-xl max-w-7xl mx-auto">
+        <ShootingStars />
+        <StarsBackground />
+        <LampContainer>Explore Technologies</LampContainer>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
+          {images1.map((img, index) => (
+            <div
+              key={index}
+              className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all"
+            >
+              <Image
+                src={img}
+                alt={`Technology ${index + 1}`}
+                className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover transform group-hover:scale-105 transition duration-300"
+                priority={index < 2}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 🟩 Sticky Scroll Section */}
+      <section className="w-full py-10 mt-20 px-4 max-w-7xl mx-auto">
+        <StickyScroll content={content} />
+      </section>
+
+      {/* 📘 Book Section */}
+      <section className="mt-16 px-4 max-w-7xl mx-auto">
+        <MyBook />
+      </section>
+
+      {/* 🟦 Latest Tech Section */}
+      <section className="h-auto sm:h-[22rem] mt-16 rounded-md flex flex-col items-center justify-center bg-gray-900 text-white dark:bg-black dark:bg-grid-white/[0.05] overflow-hidden px-4 max-w-7xl mx-auto py-10">
+        <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl mb-4 text-center">
+          Latest Tech
+        </h1>
+        <div className="w-full max-w-6xl">
+          <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
+        </div>
+      </section>
+
+      {/* 🦶 Footer */}
+      <footer className="mt-20 px-4">
+        <Footer />
+      </footer>
+    </section>
   </>
 );
+;
 
 
 }
