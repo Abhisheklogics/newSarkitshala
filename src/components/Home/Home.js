@@ -126,7 +126,6 @@ let words=['Welcome','To','Sarkitshala']
 export function HomePage() {
  return (
   <>
-<<<<<<< HEAD
     
     <section className="relative mt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
        <Spotlight />
@@ -139,73 +138,6 @@ export function HomePage() {
       </div>
       <div className="absolute inset-x-0 bottom-0 h-px bg-neutral-200 dark:bg-neutral-700">
         <div className="absolute mx-auto w-40 h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
-=======
-    <section className="mt-20 px-2  sm:px-4 max-w-7xl mx-auto">
-  {/* Vortex Section */}
-  <div className="w-full rounded-md -mt-40 md:mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
-    <Vortex
-      backgroundColor=""
-      className="flex flex-col items-center justify-center px-4 md:px-10 py-6 w-full h-full"
-    >
-      <h2 className="text-white mt-28 md:mt-0 text-2xl sm:text-3xl md:text-5xl font-bold text-center">
-        <FlipWords words={words} />
-      </h2>
-      <p className="text-white text-sm text-justify sm:text-base md:text-xl max-w-xl mt-4 sm:mt-6 text-center leading-relaxed">
-        Sarkitshala is  a open-source playground for building, learning, and innovating!
-      </p>
-    </Vortex>
-  </div>
-
-  {/* ImageSlider and RecentPosts */}
-  <div className="grid grid-cols-1  md:ml-[40px] md:grid-cols-2 gap-6">
-    <div className="w-full   md:mt-10 rounded-2xl overflow-hidden shadow-xl">
-      <ImagesSlider
-        className="w-full lg:w-[40rem] h-[16rem] sm:h-[20rem] md:h-[24rem] lg:h-[28rem] rounded-xl"
-        images={images.map((img) => img.src)}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: -80 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="z-50 flex justify-center items-center h-full w-full"
-        >
-          <div className="absolute inset-0 z-40">
-            {images.map((img, index) => (
-              <Link
-                key={index}
-                href={img.href}
-                className="absolute inset-0 block w-full h-full"
-                aria-label={`Navigate to ${img.href}`}
-              />
-            ))}
-          </div>
-        </motion.div>
-      </ImagesSlider>
-    </div>
-
-    <div className="w-full md:mt-10 max-w-full rounded-2xl overflow-hidden">
-      <RecentPosts />
-    </div>
-  </div>
-</section>
-
-<section className="relative mt-20 px-2 sm:px-4 overflow-hidden rounded-2xl py-8 shadow-xl max-w-7xl mx-auto">
-  <ShootingStars />
-  <StarsBackground />
-  <LampContainer>Explore Technologies</LampContainer>
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-10">
-    {images1.map((img, index) => (
-      <div
-        key={index}
-        className="group relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all"
-      >
-        <Image
-          src={img}
-          alt={`Technology ${index + 1}`}
-          className="w-full h-32 sm:h-40 md:h-48 lg:h-56 object-cover transform group-hover:scale-105 transition duration-300"
-          priority={index < 2}
-        />
->>>>>>> 22a2b78fd478e5f719c773e40f73650de6fff17d
       </div>
 
       <div className="relative z-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center text-center">
@@ -322,8 +254,8 @@ export function HomePage() {
       </footer>
     </section>
   </>
-);
-;
+)
+
 
 
 }
