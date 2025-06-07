@@ -126,7 +126,7 @@ let words=['Welcome','To','Sarkitshala']
 export function HomePage() {
  return (
   <>
-    <section className="mt-20 px-2 md:ml-[-12px] sm:px-4 max-w-7xl mx-auto">
+    <section className="mt-20 px-2  sm:px-4 max-w-7xl mx-auto">
   {/* Vortex Section */}
   <div className="w-full rounded-md -mt-40 md:mt-8 h-[28rem] md:h-[32rem] overflow-hidden mb-10 relative z-0">
     <Vortex
