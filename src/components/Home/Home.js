@@ -122,7 +122,7 @@ const testimonials = [
     title: 'CEO, OpenAI',
   },
 ];
-let words=['Welcome','To','SarkitShala']
+let words=['Welcome','To','Sarkitshala']
 export function HomePage() {
  return (
   <>
