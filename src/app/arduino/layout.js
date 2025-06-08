@@ -35,16 +35,10 @@ const ToggleLinks = ({ toggle, links }) => (
 );
 
 export default function RootLayout({ children }) {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [toggles, setToggles] = useState({
     toggle1: true,
   });
-
-  const handleToggle = (toggleKey) => {
-    setToggles((prevState) => ({
-      ...prevState,
-      [toggleKey]: !prevState[toggleKey],
-    }));
-  };
 
   const experiments = [
     {
@@ -180,36 +174,84 @@ export default function RootLayout({ children }) {
 
   return (
     <>
-      <header className="">
-        <button 
-          className="md:hidden block bg-blue-500 text-white p-2 rounded-md mt-36 ml-4"
-          onClick={() => handleToggle('toggle1')}
-        >
-          Arduino Experiments
-        </button>
-      </header>
-
-      <nav
-        className={`${toggles.toggle1 ? "block" : "hidden"} md:block md:h-[500px]  2xl:h-[600px] md:fixed  md:overflow-y-scroll md:overflow-x-hidden flex flex-col mt-2 md:mt-24 ml-0  2xl:ml-10`}
-        aria-label="Sidebar Navigation"
+   <div className="flex h-screen bg-black text-white">
+      {/* Sidebar */}
+      <div
+        className={`fixed z-40 md:static md:translate-x-0 transform transition-transform duration-300 ease-in-out ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } w-64 bg-zinc-900 md:flex flex-col hidden md:flex`}
       >
-        <div className="md:w-[330px] h-fit md:h-[700px]  rounded p-4">
-          {experiments.map((experiment, index) => (
-            <section key={index}>
-              <ToggleButton
-                label={experiment.label}
-                onClick={() => handleToggle(experiment.key)}
-                isOpen={toggles[experiment.key]}
-              />
-              <ToggleLinks toggle={toggles[experiment.key]} links={experiment.links} />
-            </section>
-          ))}
+       
+        <div className="flex-1 overflow-y-auto">
+          <nav className="px-2 py-4 space-y-2">
+            {experiments.map((exp, i) => (
+              <div key={i}>
+                <button
+                  onClick={() => setToggles({ ...toggles, [exp.key]: !toggles[exp.key] })}
+                  className="w-full flex items-center justify-between px-4 py-2 text-white hover:bg-zinc-700 font-semibold"
+                >
+                  {exp.label}
+                  <span className={`transform transition-transform ${toggles[exp.key] ? 'rotate-180' : ''}`}>
+                    ▼
+                  </span>
+                </button>
+                <ul className={`pl-6 mt-1 space-y-1 text-sm ${!toggles[exp.key] ? 'hidden' : ''}`}>
+                  {exp.links.map((link, idx) => (
+                    <li key={idx}>
+                      <Link
+                        href={link.href}
+                        className="block px-2 py-1 rounded hover:bg-zinc-800 text-gray-300 hover:text-white"
+                      >
+                        {link.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
-      </nav>
+      </div>
 
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col overflow-y-auto">
+        {/* Top bar with hamburger and search */}
+        <div className="flex items-center justify-between h-16 bg-zinc-950 border-b border-zinc-800 px-4">
+          {/* Hamburger for mobile */}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-white md:hidden focus:outline-none"
+          >
+            <div className="space-y-1">
+              <div className="w-6 h-0.5 bg-white" />
+              <div className="w-6 h-0.5 bg-white" />
+              <div className="w-6 h-0.5 bg-white" />
+            </div>
+          </button>
+
+          {/* Search */}
+          <input
+            className="w-full max-w-md ml-4 bg-zinc-800 text-white placeholder-gray-400 border border-zinc-700 rounded-md px-4 py-2 focus:outline-none"
+            type="text"
+            placeholder="Search..."
+          />
+
+          {/* Right Icon */}
+          <button className="ml-4 text-white hover:text-gray-400 hidden md:inline-block">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
+              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l-7-7 7-7m5 14l7-7-7-7"></path>
+            </svg>
+          </button>
+        </div>
+
+        {/* Children content */}
+        <main className="p-6">{children}</main>
+      </div>
+    </div> 
      
 
-      <main className="flex-1 p-4">{children}</main>
+     
     </>
   );
 }

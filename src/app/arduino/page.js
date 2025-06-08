@@ -1,7 +1,8 @@
 import image1 from '../../../public/images/Arduino_SKT.webp';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { ShootingStars } from '@/components/ui/shooting-stars';
+import { StarsBackground } from '@/components/ui/stars-background';
 export const metadata = {
   title: "Best Arduino Projects & Tutorials for Beginners - Sarkitshala",
   description:
@@ -65,10 +66,11 @@ const headingClass = `text-lg md:text-2xl font-bold mb-2`;
 export default function Page() {
   return (
     <div className="flex flex-col md:flex-row">
+
       {/* Sidebar */}
-      <aside className="hidden md:block p-2 shadow-md rounded-md text-center md:fixed md:right-1 md:top-20 md:w-[200px] 2xl:w-fit max-w-xs mx-auto mt-4">
+      <aside className="hidden  md:block p-2 shadow-md rounded-md text-center md:fixed md:right-1 md:top-20 md:w-[200px] 2xl:w-fit max-w-xs mx-auto mt-4">
         <p className="font-semibold border text-lg p-2">Arduino Guide</p>
-        <div className="flex flex-col gap-2 mt-2 text-sm md:text-md">
+        <div className="flex  text-black flex-col gap-2 mt-2 text-sm md:text-md">
           {[
             { href: '#Arduino', label: 'Arduino' },
             { href: '#Overview-of-Arduino', label: 'Overview of Arduino' },
@@ -93,8 +95,9 @@ export default function Page() {
       </aside>
 
       {/* Main Content */}
-      <main className="w-full p-5 bg-white bg-cover rounded-xl leading-8 text-justify break-words font-serif h-fit overflow-y-auto md:w-[700px] md:ml-[320px] md:mt-20 md:p-5 md:bg-[#FFF0E5] 2xl:w-[820px] 2xl:ml-[430px]">
-       <h1 id="Arduino" className="hover:text-blue-500 text-2xl mb-11 text-center md:text-3xl font-bold">
+      <main className="w-full p-5 text-black bg-cover rounded-xl leading-8 text-justify break-words font-serif h-fit overflow-y-auto md:w-[700px]  md:mt-20 md:p-5 2xl:w-[820px] ">
+        
+       <h1 id="Arduino" className="hover:text-blue-500 text-2xl text-white mb-11 text-center md:text-3xl font-bold">
   Best Arduino Projects, Pin Guides & Step-by-Step Tutorials for Beginners
 </h1>
 
@@ -141,7 +144,7 @@ export default function Page() {
         <section className={sameClass}>
           <h3 id="PWM-Pins" className={headingClass}>4. PWM Pins</h3>
           <p>
-            Pins marked with `~` can output PWM signals. Used in applications like dimming LEDs, controlling speed of DC motors and angle of servos.
+            Pins marked with ~ can output PWM signals. Used in applications like dimming LEDs, controlling speed of DC motors and angle of servos.
           </p>
         </section>
 
@@ -183,7 +186,7 @@ export default function Page() {
     </div>
     <div>
       <h3 className="font-semibold">2. Is Arduino good for beginners?</h3>
-      <p>Yes! Arduino has a simple interface, a large supportive community, and plenty of tutorials. It’s ideal for beginners who want to learn electronics and coding.</p>
+      <p>Yes! Arduino has a simple interface, a large supportive community, and plenty of tutorials. It s ideal for beginners who want to learn electronics and coding.</p>
     </div>
    <div>
   <h3 className="font-semibold">3. Which Arduino board is best to start with?</h3>
@@ -218,7 +221,8 @@ export default function Page() {
             ))}
           </div>
         </div>
-        
+          <ShootingStars />
+              <StarsBackground />
       </main>
     </div>
   );
