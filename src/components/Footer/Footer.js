@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-r from-gray-900 via-black to-gray-900 backdrop-blur-md text-white w-full mt-16 shadow-xl">
+    <footer className=" bg-[#050A30] backdrop-blur-md text-white w-full mt-16 shadow-xl">
       <div className="max-w-7xl mx-auto px-6 py-2 flex flex-col md:flex-row md:justify-between gap-12 md:gap-0">
         
         {/* Branding & Description */}

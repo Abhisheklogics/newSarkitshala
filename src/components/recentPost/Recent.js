@@ -59,7 +59,7 @@ const RecentPosts = () => {
     <div
       className={`
         w-full md:w-[420px]
-        bg-gradient-to-br from-gray-900 via-black to-gray-800
+        bg-[#050A30]
         rounded-2xl border border-gray-700 shadow-2xl
         text-white overflow-hidden
         relative mx-auto

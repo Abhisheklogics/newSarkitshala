@@ -1,32 +1,33 @@
-
 'use client';
 import Link from "next/link";
 import { useState } from "react";
 
+/* === CSS CLASS CONSTANTS === */
+const layoutWrapper = "min-h-screen bg-gradient-to-br from-slate-50 via-white to-cyan-50 text-gray-900 grid grid-cols-1 mt-28 lg:grid-cols-[250px_1fr_250px]";
+const sidebarWrapper = " h-[400px]  overflow border-r px-4 py-6 lg:block fixed top-0 left-0 bottom-0 w-[250px] z-50 lg:static lg:w-auto";
+const sidebarCloseBtn = "block lg:hidden mb-4 mt-20 ml-20 text-red-500";
+const toggleBtnClass = "w-full text-left";
+const toggleBtnText = "font-semibold text-lg text-gray-800";
+const toggleLinksList = "space-y-2 mt-2";
+const toggleLinkItem = "text-blue-600 hover:underline text-sm";
+const mobileMenuBtn = "lg:hidden p-2 bg-blue-500 text-white fixed top-4 left-4 z-50 rounded shadow";
+const mainContent = "col-span-1 p-4 max-w-4xl w-full mx-auto";
+const guideSidebar = "hidden sm:block border-l p-4 sticky top-4 self-start bg-white";
+const guideTitle = "text-lg font-semibold mb-4";
+const guideLink = "block text-sm text-blue-600 hover:underline";
+
+/* === COMPONENTS === */
 const ToggleButton = ({ label, onClick, isOpen }) => (
-  <button
-    onClick={onClick}
-    aria-expanded={isOpen}
-    className="md:py-2 py-3 px-1 relative w-full md:w-[310px] h-fit md:ml-2 text-left mb-4"
-  >
-    <div className="flex justify-between items-center">
-      <h2 className="font-bold text-gray-800">{label}</h2>
-    
-    </div>
+  <button onClick={onClick} aria-expanded={isOpen} className={toggleBtnClass}>
+    <h2 className={toggleBtnText}>{label}</h2>
   </button>
 );
 
 const ToggleLinks = ({ toggle, links }) => (
-  <ul
-    className={`${toggle ? "block" : "hidden"} space-y-4`}
-    aria-hidden={!toggle}
-  >
+  <ul className={`${toggle ? "block" : "hidden"} ${toggleLinksList}`} aria-hidden={!toggle}>
     {links.map((link, index) => (
       <li key={index}>
-        <Link
-          href={link.href}
-          className="max-w-4xl font-bold  bg-white p-4 rounded border border-black shadow block px-4  text-sm   hover:text-orange-400"
-        >
+        <Link href={link.href} className={toggleLinkItem}>
           {link.text}
         </Link>
       </li>
@@ -34,41 +35,44 @@ const ToggleLinks = ({ toggle, links }) => (
   </ul>
 );
 
+/* === MAIN EXPORT === */
 export default function RootLayout({ children }) {
+  const [toggles, setToggles] = useState({ toggle1: true });
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [toggles, setToggles] = useState({
-    toggle1: true,
-  });
+
+  const handleToggle = (toggleKey) => {
+    setToggles((prevState) => ({
+      ...prevState,
+      [toggleKey]: !prevState[toggleKey],
+    }));
+  };
 
   const experiments = [
     {
       label: "Arduino Experiments",
       key: "toggle1",
       links: [
-          
-        { href: `/arduino/${'interfacing-led' }`, text: "Interfacing LED" },
-        { href: `/arduino/${'interfacing-rgb-led'}`, text: "Interfacing RGB LED " },
-    
-        { href: `/arduino/${'interfacing-seven-segment-display'}`, text: "Interfacing 7-Segement Display" },
-        { href: `/arduino/${'interfacing-ir-sensor'}`, text: "Interfacing IR Sensor" },
-       
-        { href: `/arduino/${'interfacing-ldr'}`, text: "Interfacing LDR Sensor" },
-        { href: `/arduino/${'interfacing-dtmf-module'}`, text: "Interfacing DTMF MODULE" },
-        { href: `/arduino/${'interfacing-keypad'}`, text: "Interfacing Keypad" },
-        { href: `/arduino/${'interfacing-oled-display-module'}`, text: "Interfacing OLED 0.96 inces Display Module" },
-        { href: `/arduino/${'interfacing-pir-sensor'}`, text: "Interfacing PIR Sensor" },
-        { href: `/arduino/${'interfacing-soil-moisture'}`, text: "Interfacing Soil Moisture Sensor" },
-        { href: `/arduino/${'interfacing-dc-motor'}`, text: "Interfacing DC Motor" },
-        { href: `/arduino/${'interfacing-servo-motor'}`, text: "Interfacing Servo Motor" },
-        { href: `/arduino/${'interfacing-gear-motor'}`, text: "Interfacing Gear Motor" },
-        { href: `/arduino/${'interfacing-traffic-light-system'}`, text: "Interfacing LED's for Traffic Light" },
-        { href: `/arduino/${'interfacing-lcd'}`, text: "Interfacing LCD" },
-        { href: `/arduino/${'interfacing-ultrasonic-sensor-with-led'}`, text: "Interfacing Ultrasonic & LED" },
-        { href: `/arduino/${'interfacing-oled-with-push-button'}`, text: "Interfacing Push Button & OLED" },
-        { href: `/arduino/${'interfacing-dht22'}`, text: "Interfacing DHT22" },
-        { href: `/arduino/${'interfacing-led-with-push-button'}`, text: "Interfacing LED & Push Button" },
-        { href: `/arduino/${'interfacing-joystick-module'}`, text: "Interfacing Joystick Module" },
-        { href: `/arduino/${'interfacing-laser-sensor'}`, text: "Interfacing Laser Sensor" },
+        { href: `/arduino/interfacing-led`, text: "Interfacing LED" },
+        { href: `/arduino/interfacing-rgb-led`, text: "Interfacing RGB LED" },
+        { href: `/arduino/interfacing-seven-segment-display`, text: "Interfacing 7-Segment Display" },
+        { href: `/arduino/interfacing-ir-sensor`, text: "Interfacing IR Sensor" },
+        { href: `/arduino/interfacing-ldr`, text: "Interfacing LDR Sensor" },
+        { href: `/arduino/interfacing-dtmf-module`, text: "Interfacing DTMF Module" },
+        { href: `/arduino/interfacing-keypad`, text: "Interfacing Keypad" },
+        { href: `/arduino/interfacing-oled-display-module`, text: "Interfacing OLED Display" },
+        { href: `/arduino/interfacing-pir-sensor`, text: "Interfacing PIR Sensor" },
+        { href: `/arduino/interfacing-soil-moisture`, text: "Interfacing Soil Moisture" },
+        { href: `/arduino/interfacing-dc-motor`, text: "Interfacing DC Motor" },
+        { href: `/arduino/interfacing-servo-motor`, text: "Interfacing Servo Motor" },
+        { href: `/arduino/interfacing-gear-motor`, text: "Interfacing Gear Motor" },
+        { href: `/arduino/interfacing-traffic-light-system`, text: "Traffic Light System" },
+        { href: `/arduino/interfacing-lcd`, text: "Interfacing LCD" },
+        { href: `/arduino/interfacing-ultrasonic-sensor-with-led`, text: "Ultrasonic & LED" },
+        { href: `/arduino/interfacing-oled-with-push-button`, text: "Push Button & OLED" },
+        { href: `/arduino/interfacing-dht22`, text: "Interfacing DHT22" },
+        { href: `/arduino/interfacing-led-with-push-button`, text: "LED & Push Button" },
+        { href: `/arduino/interfacing-joystick-module`, text: "Joystick Module" },
+        { href: `/arduino/interfacing-laser-sensor`, text: "Laser Sensor" },
         { href: `/arduino/${'interfacing-obstacle-avoidance-sensor'}`, text: "Interfacing Obstacle Avoidance Sensor" },
         { href: `/arduino/${'interfacing-finger-detecting-heartbeat'}`, text: "Interfacing Finger Detecting Heartbeat" },
         { href: `/arduino/${'interfacing-sound-sensor'}`, text: "Interfacing Sound Sensor Module" },
@@ -167,91 +171,60 @@ export default function RootLayout({ children }) {
         { href: `/arduino/${'interfacing-fingerprint-sensor-module'}`, text: "Interfacing Fingerprint Sensor Module" },
         { href: `/arduino/${'interfacing-gas-flow-sensor-arduino'}`, text: "Interfacing Gas Flow Sensor Module" },
         { href: `/arduino/${'interfacing-water-flow-sensor-yf-s201'}`, text: "Interfacing Water Flow Sensor Module" },
-        
-      ] 
+      
+      ],
     },
   ];
 
   return (
-    <>
-   <div className="flex h-screen bg-black text-white">
-      {/* Sidebar */}
-      <div
-        className={`fixed z-40 md:static md:translate-x-0 transform transition-transform duration-300 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } w-64 bg-zinc-900 md:flex flex-col hidden md:flex`}
-      >
-       
-        <div className="flex-1 overflow-y-auto">
-          <nav className="px-2 py-4 space-y-2">
-            {experiments.map((exp, i) => (
-              <div key={i}>
-                <button
-                  onClick={() => setToggles({ ...toggles, [exp.key]: !toggles[exp.key] })}
-                  className="w-full flex items-center justify-between px-4 py-2 text-white hover:bg-zinc-700 font-semibold"
-                >
-                  {exp.label}
-                  <span className={`transform transition-transform ${toggles[exp.key] ? 'rotate-180' : ''}`}>
-                    ▼
-                  </span>
-                </button>
-                <ul className={`pl-6 mt-1 space-y-1 text-sm ${!toggles[exp.key] ? 'hidden' : ''}`}>
-                  {exp.links.map((link, idx) => (
-                    <li key={idx}>
-                      <Link
-                        href={link.href}
-                        className="block px-2 py-1 rounded hover:bg-zinc-800 text-gray-300 hover:text-white"
-                      >
-                        {link.text}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
-        </div>
-      </div>
+    <div className={layoutWrapper}>
+      {/* Left Sidebar */}
+      <aside className={`${sidebarWrapper} ${sidebarOpen ? 'block' : 'hidden'}`}>
+        <button className={sidebarCloseBtn} onClick={() => setSidebarOpen(false)}>
+          Close
+        </button>
+        {experiments.map((experiment, index) => (
+          <div key={index} className="mb-6">
+            <ToggleButton
+              label={experiment.label}
+              onClick={() => handleToggle(experiment.key)}
+              isOpen={toggles[experiment.key]}
+            />
+            <ToggleLinks toggle={toggles[experiment.key]} links={experiment.links} />
+          </div>
+        ))}
+      </aside>
+
+      {/* Toggle Button (Mobile) */}
+      <button onClick={() => setSidebarOpen(!sidebarOpen)} className={mobileMenuBtn}>
+        {sidebarOpen ? 'Close' : 'Menu'}
+      </button>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-y-auto">
-        {/* Top bar with hamburger and search */}
-        <div className="flex items-center justify-between h-16 bg-zinc-950 border-b border-zinc-800 px-4">
-          {/* Hamburger for mobile */}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="text-white md:hidden focus:outline-none"
-          >
-            <div className="space-y-1">
-              <div className="w-6 h-0.5 bg-white" />
-              <div className="w-6 h-0.5 bg-white" />
-              <div className="w-6 h-0.5 bg-white" />
-            </div>
-          </button>
+      <main className={mainContent}>{children}</main>
 
-          {/* Search */}
-          <input
-            className="w-full max-w-md ml-4 bg-zinc-800 text-white placeholder-gray-400 border border-zinc-700 rounded-md px-4 py-2 focus:outline-none"
-            type="text"
-            placeholder="Search..."
-          />
-
-          {/* Right Icon */}
-          <button className="ml-4 text-white hover:text-gray-400 hidden md:inline-block">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
-              viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l-7-7 7-7m5 14l7-7-7-7"></path>
-            </svg>
-          </button>
+      {/* Right Sidebar (Guide) */}
+      <aside className={guideSidebar}>
+        <h3 className={guideTitle}>Arduino Guide</h3>
+        <div className="space-y-2">
+          {[
+            "#Arduino",
+            "#Overview-of-Arduino",
+            "#Arduino-Pins",
+            "#Digital-Pins",
+            "#Analog-Pins",
+            "#Power-Pins",
+            "#PWM-Pins",
+            "#Communication-Pins",
+            "#Steps-to-Get-Started-with-Arduino",
+            "#Conclusion"
+          ].map((id, i) => (
+            <Link key={i} href={id} className={guideLink}>
+              {id.replace(/#/g, '').replace(/-/g, ' ')}
+            </Link>
+          ))}
         </div>
-
-        {/* Children content */}
-        <main className="p-6">{children}</main>
-      </div>
-    </div> 
-     
-
-     
-    </>
+      </aside>
+    </div>
   );
 }

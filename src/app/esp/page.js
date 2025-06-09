@@ -1,5 +1,6 @@
-import Image from 'next/image';
+
 import espImage from '../../../public/images/esp.webp';
+import { LensCard } from '@/components/LensCard';
 
 export const metadata = {
   title: 'Complete ESP32 Setup & Projects Guide – Sarkitshala',
@@ -34,6 +35,8 @@ export const metadata = {
     dateModified: "2025-05-22",
   },
 };
+//&#39; pr &apos; '
+// " &quot; or &#34
 const sameClass = `mt-4 max-w-4xl bg-white border border-black p-6 rounded shadow-lg`;
 const headingClass = `text-lg md:text-2xl  font-bold mb-2`;
 export default function ESPSetupPage() {
@@ -45,19 +48,12 @@ export default function ESPSetupPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(metadata.structuredData) }}
       />
 
-      <main className="max-w-2xl mx-auto p-5 rounded-lg md:mt-24 md:ml-[400px] leading-relaxed">
+      <main className="grid grid-cols-1">
   <h1 className="text-center text-lg md:text-2xl font-bold mb-3">
     Complete ESP32 Setup & Projects Guide
   </h1>
 
-  <Image
-    src={espImage}
-    alt="ESP32 Microcontroller Setup and Projects"
-    width={700}
-    height={400}
-    className="rounded-lg mx-auto"
-    loading="lazy"
-  />
+ <LensCard image={espImage}/>
 
   <p className={sameClass}>
     ESP32 is one of the most popular microcontrollers for IoT and embedded projects. This guide covers
@@ -68,7 +64,7 @@ export default function ESPSetupPage() {
   {/* Section: Why ESP32? */}
   <section className={sameClass}>
     <h2 className={headingClass}>Why Choose ESP32 for Your Projects?</h2>
-    <ul className="list-disc list-inside text-gray-700 space-y-2">
+    <ul className="list-disc list-inside  space-y-2">
       <li>Dual-core 240MHz processor for efficient multitasking</li>
       <li>Built-in Wi-Fi and Bluetooth (Classic & BLE)</li>
       <li>34 programmable GPIO pins for sensors and peripherals</li>
@@ -192,3 +188,6 @@ void loop() {
     </>
   );
 }
+
+
+  
