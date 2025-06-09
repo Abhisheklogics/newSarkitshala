@@ -4,9 +4,8 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import getData from "@/app/apiCall";
 
-const Loading = dynamic(() => import('@/components/loading/Loading'), { ssr: false });
 
-const CodeBox = dynamic(() => import('@/components/code/code'), { ssr: false });
+const CodeBox = dynamic(() => import('@/components/code/code'));
 export async function generateStaticParams() {
   try {
       const response = await getData('https://sarkitshala.com/api/experiments/Res');
@@ -93,10 +92,7 @@ export default async function Page({ params }) {
     const { Experiment } = await params; 
     
     const data = await getData(`https://sarkitshala.com/api/experiments/Res`, Experiment)
-    if (!data) {
-     
-        return <p><Loading/></p>;
-      }
+   
       if(data)
       {
         return (
