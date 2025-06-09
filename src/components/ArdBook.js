@@ -55,7 +55,7 @@ export default function MyBook() {
   const prevPage = () => bookRef.current?.pageFlip().flipPrev();
 
   return (
-    <div className="flex flex-col  md:mt-10 items-center justify-center relative min-h-screen py-6 px-2 bg-black overflow-hidden">
+    <div className="flex flex-col  md:mt-10 items-center justify-center relative min-h-screen py-6 px-2 bg-black rounded-md overflow-hidden">
       <ShootingStars />
       <StarsBackground />
 

@@ -61,13 +61,13 @@ export default function Header() {
               </button>
 
               {/* Dropdown */}
-              <ul className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+              <ul className="absolute top-full left-0 mt-2 w-48 bg-gray-800 border border-gray-200 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
                 {iotLinks.map(({ href, label }) => (
                   <li key={href}>
                     <Link
                       href={href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-100 transition"
+                      className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-900 transition"
                     >
                       {label}
                     </Link>

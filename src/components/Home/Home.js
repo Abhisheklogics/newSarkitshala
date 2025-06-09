@@ -122,7 +122,7 @@ const testimonials = [
     title: 'CEO, OpenAI',
   },
 ];
-let words=['Welcome','To','Sarkitshala']
+
 export function HomePage() {
  return (
   <>
@@ -131,42 +131,16 @@ export function HomePage() {
 <section className="relative mt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden bg-gradient-to-r from-gray-900 via-black to-gray-900 text-gray-100">
   <Spotlight />
 
-
-  <div className="absolute inset-y-0 left-0 w-px bg-gray-300">
-    <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-400 to-transparent" />
-  </div>
-  <div className="absolute inset-y-0 right-0 w-px bg-gray-300">
-    <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-400 to-transparent" />
-  </div>
-  <div className="absolute inset-x-0 bottom-0 h-px bg-gray-300">
-    <div className="absolute mx-auto w-40 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent" />
-  </div>
-
-<WavyBackground className="w-full px-4 sm:px-6 md:px-8 max-w-7xl mx-auto pb-20 sm:pb-32 md:pb-40">
+<WavyBackground className="w-full  px-4 sm:px-6 md:px-8 max-w-7xl mx-auto pb-20 sm:pb-32 md:pb-40">
   <div className="relative z-10 py-16 sm:py-20 lg:py-24 flex flex-col items-center justify-center text-center">
     
-    <h2 className="text-gray-200 dark:text-gray-100 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight max-w-4xl">
-      {words.map((word, index) => (
-        <motion.span
-          key={index}
-          initial={{ opacity: 0, filter: "blur(4px)", y: 10 }}
-          animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-          transition={{ duration: 0.3, delay: index * 0.1, ease: "easeInOut" }}
-          className="mr-2 inline-block"
-        >
-          {word}
-        </motion.span>
-      ))}
+    <h2 className="text-gray-200 dark:text-gray-100 md:mt-20 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight max-w-4xl">
+     Welcome To Sarkitshala
     </h2>
 
-    <motion.p
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, delay: 0.8 }}
-      className="text-gray-200 dark:text-gray-200 text-sm sm:text-base md:text-lg lg:text-xl max-w-md sm:max-w-xl mt-4 sm:mt-6 md:mt-8 leading-relaxed"
-    >
+  
       Sarkitshala is an open-source playground for building, learning, and innovating!
-    </motion.p>
+   
     
   </div>
 </WavyBackground>
