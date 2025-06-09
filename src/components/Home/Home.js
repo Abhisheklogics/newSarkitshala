@@ -128,7 +128,7 @@ export function HomePage() {
   <>
     
   
-<section className="relative mt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden bg-gradient-to-r from-gray-900 via-black to-gray-900 text-gray-100">
+<section className="relative mt-20 px-2 sm:px-6 lg:px-2 max-w-7xl mx-auto overflow-hidden bg-gradient-to-r from-gray-900 via-black to-gray-900 text-gray-100">
   <Spotlight />
 
 <WavyBackground className="w-full  px-4 sm:px-6 md:px-8 max-w-7xl mx-auto pb-20 sm:pb-32 md:pb-40">
