@@ -109,8 +109,8 @@ export default function Header() {
 
       {/* Mobile Dropdown Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white/90 backdrop-blur-md px-4 py-4 shadow-md rounded-b-xl animate-slideDownFade">
-          <ul className="space-y-2 font-medium text-gray-800">
+        <div className="md:hidden bg-gray-800 backdrop-blur-md px-4 py-4 shadow-md rounded-b-xl animate-slideDownFade">
+          <ul className="space-y-2 font-medium text-gray-200">
             <li><NavLink href="/" label="Home" /></li>
             <li>
               <div className="pl-2 text-sm font-semibold text-gray-500">IoT</div>
