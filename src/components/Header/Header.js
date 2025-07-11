@@ -1,144 +1,156 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
-import Search from '../Search/Search';
+import Link from "next/link";
+import { useState } from "react";
+import { usePathname } from "next/navigation";
+import Search from "../Search/Search";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
 
-  const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/jetson', label: 'Jetson' },
-    { href: '/iot-sensors', label: 'Sensors' },
-    { href: '/stm32-microcontroller', label: 'STM32' },
-    { href: 'https://iotsimulation-tool.vercel.app/', label: 'Simulation' },
-    { href: '/hindicompiler', label: 'हिंदी में कोड' },
-    { href: 'https://codeeditor-five.vercel.app/', label: 'Compilers' },
+  /* ----------------------------- navigation data ---------------------------- */
+  const primaryLinks = [
+    { href: "/", label: "Home" },
+    { href: "/jetson", label: "Jetson" },
+    { href: "/iot-sensors", label: "Sensors" },
+    { href: "/stm32-microcontroller", label: "STM32" },
+    { href: "https://iotsimulation-tool.vercel.app/", label: "Simulation", external: true },
+    { href: "/hindicompiler", label: "हिंदी में कोड" },
+    { href: "https://codeeditor-five.vercel.app/", label: "Compilers", external: true },
   ];
 
   const iotLinks = [
-    { href: '/arduino', label: 'Arduino' },
-    { href: '/esp', label: 'ESP32' },
-    {href:"/computer-network-practical",label:'Computer Network '},
-    { href: '/raspberry', label: 'Raspberry Pi' },
-    { href: '/iotProtocols', label: 'Protocols' },
+    { href: "/arduino", label: "Arduino" },
+    { href: "/esp", label: "ESP32" },
+    { href: "/computer-network-practical", label: "Computer Network" },
+    { href: "/raspberry", label: "Raspberry Pi" },
+    { href: "/iotProtocols", label: "Protocols" },
   ];
 
-  const NavLink = ({ href, label }) => {
+  /* ---------------------------- small components --------------------------- */
+  const NavLink = ({ href, label, external = false }) => {
     const isActive = pathname === href;
+    const classes =
+      "relative px-3 py-2 text-sm font-medium transition-colors duration-300 after:absolute after:left-1/2 after:-bottom-px after:h-[2px] after:w-0 after:rounded-full after:bg-gradient-to-r after:from-blue-500 after:to-purple-500 after:transition-all after:duration-300 hover:text-blue-400 hover:after:w-full hover:after:left-0" +
+      (isActive ? " text-blue-400 after:w-full after:left-0" : " text-gray-300");
+
     return (
       <Link
         href={href}
-        className={`relative px-3 py-2 text-sm font-medium transition duration-300 ${
-          isActive ? 'text-blue-400 font-semibold' : 'text-gray-300 hover:text-blue-400'
-        }`}
-        onClick={() => setIsOpen(false)}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noreferrer" : undefined}
+        className={classes}
+        onClick={() => setMobileOpen(false)}
       >
         {label}
       </Link>
     );
   };
 
+  /* -------------------------------------------------------------------------- */
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md shadow-sm border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <h1 className="text-white text-lg font-bold md:hidden">Sarkitshala</h1>
+    <header className="fixed inset-x-0 top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/60">
+      {/* Container */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6 lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="flex items-center space-x-2 text-xl font-semibold text-white">
+          <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            Sarkitshala
+          </span>
+        </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex flex-1 justify-center items-center space-x-6">
-            <NavLink href="/" label="Home" />
-            <div className="relative group">
-              <button
-                className="flex items-center text-sm font-medium text-gray-300 hover:text-blue-400 transition"
-                type="button"
-              >
-                IOT
-                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              <ul className="absolute top-full left-0 mt-2 w-48 bg-zinc-900 border border-gray-700 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
-                {iotLinks.map(({ href, label }) => (
-                  <li key={href}>
-                    <Link
-                      href={href}
-                      onClick={() => setIsOpen(false)}
-                      className="block px-4 py-2 text-sm text-gray-300  hover:text-blue-600 transition"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {navLinks.filter(link => link.href !== '/').map(({ href, label }) => (
-              <NavLink key={href} href={href} label={label} />
-            ))}
-            <div className="ml-4">
-              <Search />
-            </div>
-          </nav>
-
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden">
+        {/* Desktop navigation */}
+        <nav className="hidden items-center space-x-6 md:flex">
+          {/* IOT dropdown */}
+          <div className="group relative">
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md hover:bg-zinc-800 focus:outline-none text-white"
+              type="button"
+              className="flex items-center text-sm font-medium text-gray-300 transition-colors hover:text-blue-400"
             >
-              {isOpen ? (
-                <svg className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
+              IOT
+              <svg
+                className="ml-1 h-4 w-4 transform transition-transform duration-200 group-hover:rotate-180"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
+
+            {/* Dropdown */}
+            <ul className="invisible absolute left-0 mt-3 w-52 origin-top-left scale-95 divide-y divide-gray-700 overflow-hidden rounded-xl border border-gray-700 bg-zinc-900/95 opacity-0 shadow-lg ring-1 ring-black/5 transition-all duration-200 group-hover:visible group-hover:scale-100 group-hover:opacity-100">
+              {iotLinks.map(link => (
+                <li key={link.href}>
+                  <NavLink {...link} />
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+
+          {/* Rest of links */}
+          {primaryLinks
+            .filter(link => link.href !== "/")
+            .map(link => (
+              <NavLink key={link.href} {...link} />
+            ))}
+
+          {/* Search */}
+          <div className="ml-4">
+            <Search />
+          </div>
+        </nav>
+
+        {/* Mobile toggle */}
+        <button
+          aria-label="Menu"
+          onClick={() => setMobileOpen(prev => !prev)}
+          className="flex h-10 w-10 items-center justify-center rounded-md text-white hover:bg-white/10 md:hidden"
+        >
+          {mobileOpen ? (
+            <svg className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          )}
+        </button>
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-black/90 backdrop-blur-md px-4 py-4 shadow-md rounded-b-xl animate-slideDownFade">
-          <ul className="space-y-3 font-medium text-white">
-            <li><NavLink href="/" label="Home" /></li>
-            <li>
-              
-              <ul className=" mt-1 ml-[-23px] px-4 py-2 text-sm text-gray-300  hover:text-blue-600 transition ">
-                {iotLinks.map(({ href, label }) => (
-                  <li key={href}><NavLink href={href} label={label} /></li>
-                ))}
-              </ul>
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden overflow-hidden transition-[max-height] duration-300 ${
+          mobileOpen ? "max-h-[100vh]" : "max-h-0"
+        }`}
+      >
+        <ul className="space-y-3 border-t border-gray-700 px-6 py-4">
+          {/* IOT section duplicated for mobile */}
+          {iotLinks.map(link => (
+            <li key={link.href}>
+              <NavLink {...link} />
             </li>
-            {navLinks.filter(link => link.href !== '/').map(({ href, label }) => (
-              <li key={href}><NavLink href={href} label={label} /></li>
-            ))}
-            <li className="pt-3 border-t border-gray-700"><Search /></li>
-          </ul>
-        </div>
-      )}
+          ))}
 
-      <style jsx>{`
-        @keyframes slideDownFade {
-          0% {
-            opacity: 0;
-            transform: translateY(-10px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        .animate-slideDownFade {
-          animation: slideDownFade 0.3s ease-out forwards;
-        }
-      `}</style>
+          {/* Remaining links */}
+          {primaryLinks
+            .filter(link => link.href !== "/")
+            .map(link => (
+              <li key={link.href}>
+                <NavLink {...link} />
+              </li>
+            ))}
+
+          {/* Search */}
+          <li className="border-t border-gray-700 pt-3">
+            <Search />
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }
