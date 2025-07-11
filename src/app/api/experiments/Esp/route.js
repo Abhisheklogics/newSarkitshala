@@ -7,9 +7,9 @@ export async function GET(request) {
     
     await dbConnect();
 
-  
+
     const url = new URL(request.url);
-   
+      console.log(url)
     const exId = url.searchParams.get('exId'); 
     console.log(exId)
    

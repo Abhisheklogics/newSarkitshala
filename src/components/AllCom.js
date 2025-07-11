@@ -1,22 +1,15 @@
 import Image from "next/image";
 
-import dynamic from "next/dynamic";
+import { CodeBlock } from "./ui/code-block";
 import   '../app/globals.css'
-const CodeBox = dynamic(() => import('@/components/code/code'));
+
 
 export default function AllCom({ data }) {
   
   return (
     <>
-    <div className="w-full p-4 md:p-5 bg-white md:bg-[#FFF0E5] rounded-xl leading-8 text-justify break-words font-serif h-fit overflow-y-auto 
-                md:w-[780px] md:ml-[340px] md:mt-20 
-                 xl:ml-[430px]">
-  
-
-       
-  
-
-        <h1 className="text-3xl font-bold mb-4 text-center">{data.mainTitle}</h1>
+    <div className="containerClass">
+  <h1 className="headingClass">{data.mainTitle}</h1>
   {data.image1 && <Image src={data.image1} height={800} width={740} className='md:ml-1 md:mt-4'/>}
 
         {data.title1 && (
@@ -126,8 +119,12 @@ export default function AllCom({ data }) {
     <section className="mb-6 mt-10 bg-white p-6 rounded shadow-lg border border-black"> 
               <h3 className="md:text-2xl text-lg md:mt-[-15px] mb-[-50px] font-bold hover:text-blue-500" id="Code"> Arduino Code</h3>    
   {data.code && 
-  
-        <CodeBox code={data.code.replace(/\\n/g, '\n')} language={'cpp'}/>
+  <CodeBlock
+         language="c"     
+           filename=""
+         highlightLines={[9, 13, 14, 18]}
+          code={data.code.replace(/\\n/g, '\n')} 
+       />
      }
       </section> 
         {data.title9 && data.applications && data.applications.length > 0 && (

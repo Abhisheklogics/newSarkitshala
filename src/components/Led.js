@@ -2,15 +2,18 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 
 const LEDArduino = ({data}) => {
-
+  const headingClass = "headingClass";
+  const paragraphClass = "paragraphText";
+   const sectionClass = "sectionHeading";
   return (
-    <>   <div className="h-fit w-full p-5  bg-cover rounded-xl leading-8 text-justify break-words 
-    md:h-fit md:w-[790px] md:ml-[330px] md:mt-24 2xl:ml-[430px] md:p-auto md:bg-cover md:rounded-xl md:leading-8 md:text-justify md:break-words md:text-wrap  md:bg-fixed">
-      <h1 className="text-3xl font-bold mb-6 text-center">Interfacing of LED with Arduino</h1>
+    <>  
+    
+     <div className="containerClass">
+      <h1 className="headingClass">Interfacing of LED with Arduino</h1>
       <Image src={data.image1} height={400} width={500} className="md:ml-28" />
-      <section className="mb-6 mt-10 max-w-4xl bg-white p-6 rounded shadow-lg border border-black">
+      <section className="sectionHeading">
         <h2 className="text-2xl font-semibold">1. LED (Light Emitting Diode)</h2>
-        <p>It is a semiconductor device that emits light when an electric current passes through it. It is a
+        <p className="paragraphClass">It is a semiconductor device that emits light when an electric current passes through it. It is a
 special type of diode that converts electrical energy directly into light energy through a
 process called electroluminescence. LEDs are widely used in various applications, including
 display panels, indicator lights, lighting systems, and communication devices due to their

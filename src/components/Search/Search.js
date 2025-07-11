@@ -37,7 +37,7 @@ export default function Search() {
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
-      if (inputRef.current && !(inputRef.current).contains(e.target)) {
+      if (inputRef.current && !inputRef.current.contains(e.target)) {
         setShowApplyData(false);
       }
     };
@@ -63,19 +63,19 @@ export default function Search() {
           className="
             w-full py-2.5 px-10
             rounded-lg
-            text-white
-            bg-gray-700 dark:bg-zinc-900
-            text-sm dark:text-white
-            shadow-sm dark:shadow-md
-            border border-gray-300 dark:border-zinc-700
-            focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400
-            placeholder:text-gray-100 dark:placeholder:text-gray-500
+            text-gray-100
+            bg-gray-700
+            text-sm
+            border border-gray-300
+            focus:outline-none focus:ring-2 focus:ring-blue-500
+            placeholder:text-gray-500
             transition-all duration-300
+            shadow-sm
           "
         />
 
         {/* Search Icon */}
-        <div className="absolute left-3 top-2.5 text-gray-100 dark:text-gray-400 pointer-events-none">
+        <div className="absolute left-3 top-2.5 text-gray-100 pointer-events-none">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 20 20">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 19-4-4m0-7A7 7 0 111 8a7 7 0 0114 0z" />
           </svg>
@@ -85,7 +85,7 @@ export default function Search() {
         {search && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-2.5 text-gray-100 dark:text-gray-400 hover:text-red-500 transition"
+            className="absolute right-3 top-2.5  hover:text-red-500 transition"
             aria-label="Clear search"
           >
             ✖
@@ -95,13 +95,13 @@ export default function Search() {
 
       {/* Suggestions */}
       {applyData.length > 0 && showApplyData && (
-        <div className="absolute left-0 right-0 top-full mt-2 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-700 rounded-lg shadow-xl z-50 max-h-60 overflow-y-auto">
+        <div className="absolute left-0 right-0 top-full mt-2 bg-gray-700 border border-gray-200 rounded-lg shadow-xl z-50 max-h-60 overflow-y-auto">
           {applyData.map((data) => (
             <Link
               key={data.ExperimentId}
               href={data.slug}
               onClick={clearSearch}
-              className="block px-4 py-2 text-sm text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-zinc-800 transition-all"
+              className="block px-4 py-2 text-sm  hover:bg-gray-100 transition-all"
             >
               {data.ExperimentName}
             </Link>

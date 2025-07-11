@@ -3,7 +3,7 @@ import getData from "@/app/apiCall";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const CodeBox = dynamic(() => import('@/components/code/code'));
+import { CodeBlock } from "@/components/ui/code-block";
 const AllCom = dynamic(() => import('@/components/AllCom'))
 const LEDArduino =dynamic(()=>import('@/components/Led'))
 
@@ -106,8 +106,6 @@ export async function generateMetadata({ params }) {
 
 
 
-
-
   
 
 
@@ -155,11 +153,9 @@ if(data['ExperimentId'] == '9' || data['ExperimentId'] == '11' || data['Experime
   return (
     <>
   
-    <div className="h-fit w-full p-5 bg-gray-100 md:bg-[#FFF0E5] bg-cover rounded-xl leading-8 text-justify break-words 
-    md:h-fit md:w-[790px] md:ml-[330px] md:mt-24 2xl:ml-[430px] md:p-auto md:bg-cover md:rounded-xl md:leading-8 md:text-justify md:break-words md:text-wrap  md:bg-fixed">
-
+    <div className="containerClass">
     
-        <h1  className="  text-center capitalize md:text-3xl text-xl font-bold ">{data.ExperimentName}</h1>
+        <h1  className="headingClass">{data.ExperimentName}</h1>
 
         <Image
 
@@ -172,12 +168,12 @@ if(data['ExperimentId'] == '9' || data['ExperimentId'] == '11' || data['Experime
 />
         <h2 className="text-sm mt-6 font-bold p-1 hover:text-white">{data.madeBy}</h2>
         <p className="">{data.madeByinfo}</p>
-        <p className="mt-4 max-w-4xl bg-white p-6 rounded shadow-lg border border-black" id="introduction">{data.madeByinfo1}<br/>{data.madeByinfo2}</p>
+        <p className="paragraphText" id="introduction">{data.madeByinfo1}<br/>{data.madeByinfo2}</p>
 
-        <p className="mt-4 max-w-4xl border border-black bg-white p-6 ] rounded shadow-lg ">
+        <p className="paragraphText ">
         <h2 className="md:text-2xl mt-8 font-bold text-lg md:mt-[-15px] hover:text-blue-500 mb-2 " id="Overview">{data.overview}</h2>{data.overviewinfo1}<br/>{data.overviewinfo2}</p>
 
-        <div className="mt-4 border border-black max-w-4xl bg-white p-6 rounded shadow-lg ">
+        <div className="sectionHeading ">
         <Image
             width={500}
             height={440}
@@ -191,7 +187,7 @@ if(data['ExperimentId'] == '9' || data['ExperimentId'] == '11' || data['Experime
         </div>
 
           <div>
-          <div className="mt-4  max-w-4xl border border-black bg-white p-6 rounded shadow-lg">
+          <div className="sectionHeading">
           <h2 className="hover:text-blue-500 md:mt-[-15px]  mt-12 capitalize text-lg md:text-2xl font-bold md:font-bold " id="Pin-Diagram">
             {data.pinDiagramInfo}
           </h2>
@@ -199,7 +195,7 @@ if(data['ExperimentId'] == '9' || data['ExperimentId'] == '11' || data['Experime
           </div>
 
           
-          <div className="mt-4  max-w-4xl bg-white border border-black p-6 rounded shadow-lg">
+          <div className="sectionHeading">
           <h2 className="hover:text-blue-500 md:mt-[-15px]  capitalize text-lg md:text-2xl font-bold " id="Circuit-Diagram">
             {data.CircuitDiagramInfo}</h2>
             <Image  height={400} width={500}  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px " className="md:ml-20" src={data.image4} alt={`${data.ExperimentName} - Circuit Diagram`} />
@@ -209,7 +205,7 @@ if(data['ExperimentId'] == '9' || data['ExperimentId'] == '11' || data['Experime
        
      
   {data.ExperimentId !== '14' && (
-  <div className="mt-4 p-6 bg-white border border-black  rounded shadow-lg max-w-4xl">
+  <div className="sectionHeading">
     <h3 className="md:text-2xl md:mt-[-15px] text-lg font-bold hover:text-blue-500" id="Steps">Steps</h3>
     {data.step && <p className="mt-4">{data.step}</p>}
     {data.step1 && <p className="mt-4">1. {data.step1}</p>}
@@ -221,18 +217,37 @@ if(data['ExperimentId'] == '9' || data['ExperimentId'] == '11' || data['Experime
   </div>
 )}
 
-        <p className=" mt-4 max-w-4xl bg-white p-6 border border-black rounded shadow-lg">
+        <p className=" paragraphText">
         <h3 className="md:text-2xl text-lg md:mt-[-15px] mb-[-50px] font-bold hover:text-blue-500" id="Code">Code</h3>
-        <CodeBox num={data.ExperimentId} exNam="ard" language={'c'} /></p>
+       
+       <CodeBlock
+       language="c"     
+         filename=""
+       highlightLines={[9, 13, 14, 18]}
+        code={`// Setup runs once when Arduino is powered
+void setup() {
+  pinMode(13, OUTPUT);  // Set pin 13 as output
+}
 
+// Loop runs forever
+void loop() {
+  digitalWrite(13, HIGH); // Turn LED ON
+  delay(1000);            // Wait 1 second
+  digitalWrite(13, LOW);  // Turn LED OFF
+  delay(1000);            // Wait 1 second
+}
+`} />
+       </p>
+
+     
       
         
-        <p className=" mt-4 max-w-4xl bg-white p-6 border border-black rounded shadow-lg">
+        <p className="paragraphText">
         <h3 className="md:text-2xl md:mt-[-15px]  text-lg mb-2  font-bold hover:text-blue-500" id="Conclusion">Conclusion</h3>
         {data.result}</p>
     
     </div>
-
+ 
   </>
 
   );

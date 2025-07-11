@@ -29,7 +29,9 @@ export const LampContainer = ({ children, className }) => {
 
       {/* Text Content */}
       <div className="relative z-10 text-center text-white text-lg md:text-xl font-medium">
-        {children}
+      <h2 className="text-3xl font-semibold text-center ">
+          Explore Technologies
+        </h2>
       </div>
     </div>
   );

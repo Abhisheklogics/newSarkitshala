@@ -10,6 +10,7 @@ export const Lens = ({
   position = { x: 200, y: 150 },
   hovering,
   setHovering,
+  
 }) => {
   const containerRef = useRef(null);
 
@@ -76,7 +77,7 @@ export const Lens = ({
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="absolute inset-0 overflow-hidden"
                 style={{
-                  maskImage: `radial-gradient(circle ${lensSize / 2}px at ${
+                  maskImage: `radial-t(circle ${lensSize / 2}px at ${
                     mousePosition.x
                   }px ${mousePosition.y}px, black 100%, transparent 100%)`,
                   WebkitMaskImage: `radial-gradient(circle ${

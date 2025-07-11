@@ -2,55 +2,65 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className=" bg-[#050A30] backdrop-blur-md text-white w-full mt-16 shadow-xl">
-      <div className="max-w-7xl mx-auto px-6 py-2 flex flex-col md:flex-row md:justify-between gap-12 md:gap-0">
+    <footer className="bg-gradient-to-br from-[#1e293b] via-[#0f172a] to-[#020617] w-full mt-16 border-t border-gray-300">
+      <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-10 text-gray-800">
         
         {/* Branding & Description */}
-        <div className="text-center md:text-left max-w-sm mx-auto md:mx-0">
-          <h1 className="text-2xl font-extrabold mb-4 cursor-pointer inline-block hover:text-orange-500 transition-colors duration-300">
+        <div>
+          <h1 className="text-2xl text-white font-extrabold mb-3 text-blue-700">
             Sarkitshala
           </h1>
-          <p className="text-gray-300 text-sm md:text-base leading-relaxed font-medium">
-            Learn Arduino, IoT, and Embedded Systems <br />
-            with projects, tutorials, <br />
-            and real-world applications. <br />
-            Guided by experts in the field.
+          <p className="text-sm leading-relaxed text-white">
+            Learn Arduino, IoT, and Embedded Systems with hands-on tutorials,
+            real-world projects, and expert guidance. Ideal for students,
+            hobbyists, and professionals.
           </p>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="flex flex-col items-center md:items-start justify-center  font-semibold text-sm">
-          <Link
-            href="/about"
-            className="px-6 py-1 rounded-lg  hover:text-blue-500 transition duration-300 w-full text-center md:text-left"
-          >
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className="px-6 py-1 rounded-lg hover:text-blue-500 transition duration-300 w-full text-center md:text-left"
-          >
-            Contact
-          </Link>
-          <Link
-            href="/privacy-policy"
-            className="px-6 py-1 rounded-lg hover:text-blue-500 transition duration-300 w-full text-center md:text-left"
-          >
-            Privacy Policy
-          </Link>
-        </nav>
+        {/* Useful Links */}
+        <div className='sm:ml-24 text-white'>
+          <h2 className="text-lg font-semibold mb-4">Quick Links</h2>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/about" className="hover:text-blue-600 transition">
+                About Us
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-blue-600 transition">
+                Contact
+              </Link>
+            </li>
+            <li>
+              <Link href="/privacy-policy" className="hover:text-blue-600 transition">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms-conditions" className="hover:text-blue-600 transition">
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link href="/disclaimer" className="hover:text-blue-600 transition">
+                Disclaimer
+              </Link>
+            </li>
+          </ul>
+        </div>
 
-        {/* Footer Tagline */}
-        <div className="text-center md:text-left flex flex-col justify-center max-w-xs mx-auto md:mx-0">
-          <p className="text-white text-lg font-semibold px-6 py-4 rounded-lg  shadow-lg cursor-default select-none">
-            Sarkitshala Presents
+        {/* Tagline or Newsletter Placeholder */}
+        <div>
+          <h2 className="text-lg font-semibold mb-4 text-white">Sarkitshala Updates</h2>
+          <p className="text-sm text-white">
+            Stay connected for the latest updates in embedded systems, IoT, and electronics education.
           </p>
         </div>
       </div>
 
-      {/* Copyright Bar */}
-      <div className="bg-gradient-to-r from-indigo-500 to-black text-center text-gray-400 text-sm py-2 select-none mt-10">
-        © {new Date().getFullYear()} Sarkitshala. All rights reserved.
+      {/* Bottom Bar */}
+      <div className=" text-white text-center text-xs py-3">
+        &copy; {new Date().getFullYear()} Sarkitshala. All Rights Reserved. | Empowering Embedded Innovation
       </div>
     </footer>
   );

@@ -1,1034 +1,505 @@
-let allData= [
+let ComputerNetworkData=[
+  {
+  "mainTitle": "Network Topologies Explained: Star, Bus, Ring, and Mesh",
+  "title": "Experiment on Network Topologies (Star, Bus, Ring, Mesh)",
+  "ExperimentId": "CN001",
+  "slug": "network-topologies-star-bus-ring-mesh",
+  "metaDescription": "Understand different network topologies like Star, Bus, Ring, and Mesh. Learn their structures, advantages, disadvantages, and real-world applications in networking.",
+  "title1": "Introduction",
+  "para1": "In computer networking, a network topology refers to the physical or logical arrangement of nodes and connections in a network. Understanding different types of network topologies is essential for designing efficient and reliable network systems. This experiment focuses on the four primary network topologies: Star, Bus, Ring, and Mesh.",
+  "title2": "Working Principle",
+  "para2": "Each network topology defines how computers, printers, switches, and other devices are interconnected. The choice of topology affects network performance, scalability, and fault tolerance. In this experiment, we will observe the structure, data flow, and characteristics of each topology using diagrams and simulation (if applicable).",
+  "workingSteps": [
+    "Study the structure of each topology using diagrams.",
+    "Understand the advantages and disadvantages of each type.",
+    "Analyze scenarios where each topology is best suited.",
+    "If possible, simulate simple connections using network simulation tools like Cisco Packet Tracer or GNS3."
+  ],
+  "formula": "",
+  "title3": "Components Required",
+  "components": [
+    "Network cables (Ethernet)",
+    "Switches or Hubs",
+    "Computers or Virtual Machines",
+    "Router (optional for simulation)",
+    "Cisco Packet Tracer or GNS3 (optional software)"
+  ],
+  "title4": "Pin Configuration",
+  "pinConfig": [
     {
-    title: "Implementation of AMQP on Raspberry Pi",
-    objective:
-      "To establish a message queuing system using AMQP with RabbitMQ on a Raspberry Pi. The Raspberry Pi will act as a publisher, sending sensor data, while a client device will act as a subscriber.",
-    methodology: [
-      "Install RabbitMQ as the message broker on Raspberry Pi.",
-      "Use Python and Pika library to publish and consume messages.",
-      "Simulate sensor data using a Python script.",
-    ],
-    steps: [
-      {
-        title: "Step 1: Install RabbitMQ on Raspberry Pi",
-        commands: [
-          "sudo apt update",
-          "sudo apt install rabbitmq-server -y",
-          "sudo systemctl enable rabbitmq-server",
-          "sudo systemctl start rabbitmq-server",
-        ],
-      },
-      {
-        title: "Step 2: Install Pika Library for Python",
-        commands: ["pip install pika"],
-      },
-      {
-        title: "Step 3: Create a Publisher Script on Raspberry Pi",
-        description: "This script sends random temperature values as messages.",
-        code: `import pika
-  import random
-  import time
-  
-  # Connection to RabbitMQ
-  connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-  channel = connection.channel()
-  
-  # Declare a queue
-  channel.queue_declare(queue='sensor_data')
-  
-  while True:
-      temp = random.uniform(20.0, 35.0)  # Simulated temperature data
-      message = f"Temperature: {temp:.2f}°C"
-      
-      # Publish message to queue
-      channel.basic_publish(exchange='',
-                            routing_key='sensor_data',
-                            body=message)
-      
-      print(f"Sent: {message}")
-      time.sleep(5)  # Send data every 5 seconds`,
-      },
-      {
-        title: "Step 4: Create a Subscriber Script to Read Data",
-        description:
-          "This script will run on another device (or the same Raspberry Pi) to receive and process messages.",
-        code: `import pika
-  
-  # Connection to RabbitMQ
-  connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-  channel = connection.channel()
-  
-  # Declare a queue
-  channel.queue_declare(queue='sensor_data')
-  
-  # Callback function to process received messages
-  def callback(ch, method, properties, body):
-      print(f"Received: {body.decode()}")
-  
-  # Consume messages from the queue
-  channel.basic_consume(queue='sensor_data',
-                        on_message_callback=callback,
-                        auto_ack=True)
-  
-  print("Waiting for messages. Press CTRL+C to exit.")
-  channel.start_consuming()`,
-      },
-    ],
-    applications: [
-      "Smart Agriculture: Send real-time sensor data to the cloud.",
-      "Industrial IoT: Ensure reliable communication between IoT nodes.",
-      "Home Automation: Control smart home devices via message queues.",
-    ],
-    futureResearchConcepts: [
-      "Integrating AMQP over WebSockets for real-time browser-based monitoring.",
-      "Using AMQP with AI models for predictive analytics in IoT.",
-      "Combining AMQP with Blockchain for secure IoT data transmission.",
-    ],
-  },
-  {
-    title: "Implementation of Bluetooth & BLE on ESP32",
-    objective:
-      "To establish Bluetooth Low Energy (BLE) communication using ESP32, where ESP32 acts as a BLE server broadcasting sensor data, and a smartphone or another ESP32 acts as a BLE client.",
-    methodology: [
-      "Set up ESP32 as a BLE server to advertise sensor data.",
-      "Connect a smartphone or another ESP32 as a BLE client to receive the data.",
-      "Use Arduino IDE with the ESP32 BLE library for implementation.",
-    ],
-    steps: [
-      {
-        title: "Step 1: Install ESP32 Board in Arduino IDE",
-        commands: [
-          "Open Arduino IDE.",
-          "Go to File → Preferences, and add the ESP32 board URL:\nhttps://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json",
-          "Install the ESP32 board from Boards Manager.",
-        ],
-      },
-      {
-        title: "Step 2: Install the Required BLE Library",
-        commands: [
-          'Go to Sketch → Include Library → Manage Libraries, and install:\n"ESP32 BLE Arduino" by Neil Kolban.',
-        ],
-      },
-      {
-        title: "Step 3: Write Code for ESP32 BLE Server",
-        description:
-          "This ESP32 BLE server continuously advertises temperature sensor data.",
-        code: `#include <BLEDevice.h>
-  #include <BLEUtils.h>
-  #include <BLEServer.h>
-  
-  #define SERVICE_UUID "12345678-1234-5678-1234-56789abcdef0"
-  #define CHARACTERISTIC_UUID "87654321-4321-6789-4321-abcdef012345"
-  
-  BLEServer* pServer = NULL;
-  BLECharacteristic* pCharacteristic = NULL;
-  
-  void setup() {
-      Serial.begin(115200);
-      BLEDevice::init("ESP32_BLE_Sensor");
-  
-      pServer = BLEDevice::createServer();
-      BLEService *pService = pServer->createService(SERVICE_UUID);
-      
-      pCharacteristic = pService->createCharacteristic(
-                          CHARACTERISTIC_UUID,
-                          BLECharacteristic::PROPERTY_READ | 
-                          BLECharacteristic::PROPERTY_NOTIFY
-                        );
-  
-      pCharacteristic->setValue("Temperature: 25°C");
-      pService->start();
-  
-      BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-      pAdvertising->addServiceUUID(SERVICE_UUID);
-      pAdvertising->setScanResponse(true);
-      BLEDevice::startAdvertising();
-      
-      Serial.println("BLE Server is running...");
-  }
-  
-  void loop() {
-      int temp = random(20, 35);  // Simulate temperature data
-      String tempValue = "Temperature: " + String(temp) + "°C";
-      pCharacteristic->setValue(tempValue.c_str());
-      pCharacteristic->notify();
-      Serial.println(tempValue);
-      delay(5000);  // Update every 5 seconds
-  }`,
-      },
-      {
-        title: "Step 4: Write Code for ESP32 BLE Client",
-        description:
-          "This ESP32 BLE client scans for BLE devices and receives temperature data.",
-        code: `#include <BLEDevice.h>
-  #include <BLEUtils.h>
-  #include <BLEScan.h>
-  #include <BLEAdvertisedDevice.h>
-  
-  #define SERVICE_UUID "12345678-1234-5678-1234-56789abcdef0"
-  
-  void setup() {
-      Serial.begin(115200);
-      BLEDevice::init("");
-  
-      BLEScan* pBLEScan = BLEDevice::getScan();
-      pBLEScan->setActiveScan(true);
-      
-      Serial.println("Scanning for BLE devices...");
-      pBLEScan->start(10, false);
-  }
-  
-  void loop() {
-      BLEScanResults foundDevices = BLEDevice::getScan()->getResults();
-      for (int i = 0; i < foundDevices.getCount(); i++) {
-          BLEAdvertisedDevice device = foundDevices.getDevice(i);
-          if (device.haveServiceUUID() && device.isAdvertisingService(BLEUUID(SERVICE_UUID))) {
-              Serial.print("Found ESP32 BLE Server: ");
-              Serial.println(device.getName().c_str());
-          }
-      }
-      delay(5000);
-  }`,
-      },
-    ],
-    applications: [
-      "Remote Sensor Monitoring: View ESP32 sensor values via BLE apps.",
-      "Health & Fitness Devices: BLE for wearable sensor data transmission.",
-      "Smart Home: Inter-device communication using low power BLE.",
-    ],
-    futureResearchConcepts: [
-      "Integrate BLE with cloud platforms for IoT dashboards.",
-      "Use BLE Mesh networking for broader smart home coverage.",
-      "Combine BLE with AI for proximity-based automation.",
-    ],
-  },
-
-  {
-    title: "Implementation of Cellular Communication on Arduino using GSM Module (SIM800L)",
-    objective:
-      "To implement cellular communication using an Arduino and a SIM800L GSM module for IoT applications. This setup allows the Arduino to send sensor data via SMS or HTTP requests to cloud platforms.",
-    methodology: [
-      "Connect the SIM800L GSM module to Arduino.",
-      "Use AT commands to send data via SMS or HTTP.",
-      "Implement communication with cloud platforms like ThingsBoard or ThingSpeak.",
-    ],
-    steps: [
-      {
-        title: "Hardware Requirements",
-        commands: [
-          "Arduino Uno/Nano",
-          "SIM800L GSM module",
-          "SIM card (2G/3G/4G) with an active data plan",
-          "Li-ion battery or 5V 2A power supply",
-          "Jumper wires",
-        ],
-      },
-      {
-        title: "Connections",
-        commands: [
-          "SIM800L VCC → External 5V supply (4.1V–4.4V preferred)",
-          "SIM800L GND → Arduino GND",
-          "SIM800L TX → Arduino RX (Pin 2)",
-          "SIM800L RX → Arduino TX (Pin 3)",
-          "SIM800L RST → Not connected",
-          "Note: Use a voltage divider or logic level shifter between Arduino TX and SIM800L RX to prevent damage.",
-        ],
-      },
-      {
-        title: "Step 1: Send SMS Using SIM800L",
-        description: "Code for sending SMS via SIM800L using AT commands.",
-        code: `#include <SoftwareSerial.h>
-  
-  SoftwareSerial sim800(2, 3);  // RX, TX
-  
-  void setup() {
-      Serial.begin(115200);
-      sim800.begin(9600);
-      
-      delay(1000);
-      Serial.println("Initializing SIM800L...");
-      
-      sim800.println("AT");
-      delay(1000);
-      
-      sim800.println("AT+CMGF=1");  // Set SMS mode
-      delay(1000);
-      
-      sim800.println("AT+CMGS=\\"+91XXXXXXXXXX\\"");  // Replace with recipient number
-      delay(1000);
-      
-      sim800.print("Temperature Alert! Sensor value: 30°C");
-      delay(1000);
-      
-      sim800.write(26);  // End SMS
-      Serial.println("Message Sent!");
-  }
-  
-  void loop() {
-  }`,
-      },
-      {
-        title: "Step 2: Send Data to a Cloud Platform via HTTP",
-        description: "Code for sending temperature data to ThingsBoard cloud platform via HTTP.",
-        code: `#include <SoftwareSerial.h>
-  
-  SoftwareSerial sim800(2, 3);  // RX, TX
-  
-  void setup() {
-      Serial.begin(115200);
-      sim800.begin(9600);
-      
-      Serial.println("Initializing SIM800L...");
-      sendCommand("AT", 1000);
-      
-      sendCommand("AT+SAPBR=3,1,\\"Contype\\",\\"GPRS\\"", 1000);
-      sendCommand("AT+SAPBR=3,1,\\"APN\\",\\"your_apn\\"", 1000);  // Replace with your APN
-      sendCommand("AT+SAPBR=1,1", 2000);
-      
-      sendCommand("AT+HTTPINIT", 1000);
-      sendCommand("AT+HTTPPARA=\\"CID\\",1", 1000);
-      sendCommand("AT+HTTPPARA=\\"URL\\",\\"http://demo.thingsboard.io/api/v1/YOUR_ACCESS_TOKEN/telemetry\\"", 1000);
-      sendCommand("AT+HTTPDATA=25,10000", 1000);
-      
-      sim800.println("{\\"temperature\\":30}");
-      delay(1000);
-      
-      sendCommand("AT+HTTPACTION=1", 10000);
-      sendCommand("AT+HTTPTERM", 1000);
-  }
-  
-  void loop() {}
-  
-  void sendCommand(String command, int timeout) {
-      sim800.println(command);
-      delay(timeout);
-  }`,
-      },
-    ],
-    applications: [
-      "Remote Monitoring: Use SMS to alert users in areas without Wi-Fi.",
-      "IoT with Cellular: Send telemetry to cloud via GSM where internet is not available.",
-      "Agricultural Sensors: Use GSM to send field data like temperature and moisture.",
-    ],
-    futureResearchConcepts: [
-      "Switch to NB-IoT or LTE-M for low-power wide-area cellular IoT.",
-      "Enable MQTT over GSM for real-time lightweight communication.",
-      "Integrate GPS with SIM800L to track and report device location.",
-    ],
-  },
-  {
-    title: "Implementation of CoAP on ESP32 for IoT Communication",
-    objective:
-      "To implement CoAP (Constrained Application Protocol) on ESP32 for lightweight, efficient IoT communication. CoAP is optimized for low-power and resource-constrained devices, making it ideal for IoT applications.",
-    methodology: [
-      "Set up an ESP32 with a CoAP client.",
-      "Use the CoAP Simple library to communicate with a CoAP server.",
-      "Send sensor data to a CoAP cloud server (e.g., CoAPthon, Eclipse Californium, or ThingsBoard).",
-    ],
-    steps: [
-      {
-        title: "Hardware Requirements",
-        commands: [
-          "ESP32 Development Board",
-          "DHT11 or DHT22 Sensor (for temperature & humidity)",
-          "Wi-Fi connectivity",
-          "Jumper wires",
-        ],
-      },
-      {
-        title: "Step 1: Install Required Libraries",
-        commands: [
-          "Arduino IDE",
-          "Install ESP32 board support (https://dl.espressif.com/dl/package_esp32_index.json)",
-          "Install CoAP Simple Library",
-          "Install DHT Sensor Library",
-        ],
-      },
-      {
-        title: "Step 2: CoAP Client Code for ESP32",
-        description: "This code reads sensor values from DHT11 and sends it to the CoAP server every 5 seconds.",
-        code: `#include <WiFi.h>
-  #include <coap-simple.h>
-  #include <DHT.h>
-  
-  #define WIFI_SSID "YourWiFiSSID"
-  #define WIFI_PASSWORD "YourWiFiPassword"
-  
-  #define DHTPIN 4  // Pin where the DHT sensor is connected
-  #define DHTTYPE DHT11
-  
-  DHT dht(DHTPIN, DHTTYPE);
-  WiFiUDP udp;
-  Coap coap(udp);
-  
-  void callback_response(CoapPacket &packet, IPAddress ip, int port) {
-      Serial.println("Response received from CoAP Server");
-  }
-  
-  void setup() {
-      Serial.begin(115200);
-      WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-      
-      while (WiFi.status() != WL_CONNECTED) {
-          delay(500);
-          Serial.print(".");
-      }
-      
-      Serial.println("Connected to WiFi");
-  
-      coap.start();
-      coap.response(callback_response);
-  }
-  
-  void loop() {
-      float temperature = dht.readTemperature();
-      float humidity = dht.readHumidity();
-  
-      if (!isnan(temperature) && !isnan(humidity)) {
-          String payload = "{\\"temperature\\":" + String(temperature) + ", \\"humidity\\":" + String(humidity) + "}";
-  
-          coap.put(IPAddress(192, 168, 1, 100), 5683, "sensor/data", payload.c_str());
-          Serial.println("Data Sent: " + payload);
-      } else {
-          Serial.println("Failed to read from DHT sensor");
-      }
-  
-      coap.loop();
-      delay(5000); // Send data every 5 seconds
-  }`,
-      },
-      {
-        title: "Step 3: CoAP Server Setup",
-        description: "Choose either a local CoAP server or a cloud-based one like ThingsBoard.",
-        commands: [
-          "**Option 1: Local CoAP Server (CoAPthon)**",
-          "`pip install coapthon3`",
-          "Run this server script in Python:",
-          `from coapthon.server.coap import CoAP
-  from coapthon.resources.resource import Resource
-  
-  class SensorResource(Resource):
-      def __init__(self, name="sensor"):
-          super(SensorResource, self).__init__(name)
-          self.payload = "Waiting for data"
-  
-      def render_PUT(self, request):
-          self.payload = request.payload
-          print("Received Data: ", self.payload)
-          return self
-  
-  server = CoAP(("0.0.0.0", 5683))
-  server.add_resource("sensor/data/", SensorResource())
-  server.listen(10)`,
-          "**Option 2: Cloud CoAP Server (ThingsBoard)**",
-          "Use the CoAP endpoint: `coap://demo.thingsboard.io/api/v1/YOUR_ACCESS_TOKEN/telemetry`",
-          "Replace IP in ESP32 code with `demo.thingsboard.io`.",
-        ],
-      },
-    ],
-    applications: [
-      "Smart Agriculture: Send real-time field data using CoAP with minimal power usage.",
-      "Home Automation: Control or monitor sensors in a local network using CoAP.",
-      "Industrial IoT: Use CoAP for low-bandwidth, high-efficiency telemetry.",
-    ],
-    futureResearchConcepts: [
-      "Secure CoAP (DTLS-based) communication with ESP32.",
-      "Implementing CoAP Observe for real-time push updates.",
-      "Comparing CoAP vs MQTT in resource-constrained environments.",
-    ],
-  },
-  {
-    title: "Implementation of DDS (Data Distribution Service) on Jetson Nano for Real-Time IoT Communication",
-    objective:
-      "To implement DDS (Data Distribution Service) on Jetson Nano for high-performance, real-time IoT messaging. DDS is widely used in autonomous systems, robotics, industrial automation, and edge computing due to its low-latency, high-reliability, and decentralized architecture.",
-    methodology: [
-      "Install a DDS Middleware (Fast DDS or Eclipse Cyclone DDS) on Jetson Nano.",
-      "Set up a DDS Publisher and Subscriber for sensor data transmission.",
-      "Use Python or C++ to publish sensor data from Jetson Nano.",
-      "Visualize real-time data on a remote device using DDS communication.",
-    ],
-    steps: [
-      {
-        title: "Hardware Requirements",
-        commands: [
-          "Jetson Nano (2GB/4GB)",
-          "Raspberry Pi (for cross-device communication test, optional)",
-          "Sensors (DHT11, MPU6050, etc.)",
-          "Ethernet or Wi-Fi connectivity",
-        ],
-      },
-      {
-        title: "Step 1: Install Fast DDS on Jetson Nano",
-        commands: [
-          "Update Jetson Nano:",
-          "`sudo apt update && sudo apt upgrade -y`",
-          "Install dependencies:",
-          "`sudo apt install -y cmake g++ python3-pip git libasio-dev libtinyxml2-dev`",
-          "Clone and install Fast DDS:",
-          "`git clone --recurse-submodules https://github.com/eProsima/Fast-DDS.git`",
-          "`cd Fast-DDS && mkdir build && cd build`",
-          "`cmake ..`",
-          "`make -j$(nproc)`",
-          "`sudo make install`",
-        ],
-      },
-      {
-        title: "Step 2: Configure Fast DDS",
-        commands: [
-          "Verify installation:",
-          "`fastdds --help`",
-          "Set environment variable:",
-          "`export FASTRTPS_DEFAULT_PROFILES_FILE=$HOME/.fastdds/DEFAULT_FASTRTPS_PROFILES.xml`",
-          "Create `DEFAULT_FASTRTPS_PROFILES.xml` file in `~/.fastdds/` with the following content:",
-          `<?xml version="1.0" encoding="UTF-8"?>
-  <profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
-      <participant profile_name="default_participant_profile">
-          <rtps>
-              <name>JetsonNano_Participant</name>
-          </rtps>
-      </participant>
-  </profiles>`,
-        ],
-      },
-      {
-        title: "Step 3: Create DDS Publisher on Jetson Nano",
-        description: "Python code for DDS Publisher that reads data from a DHT11 sensor and publishes it to the DDS network.",
-        code: `import fastdds
-  import time
-  import Adafruit_DHT
-  
-  DHT_SENSOR = Adafruit_DHT.DHT11
-  DHT_PIN = 4
-  
-  class TemperaturePublisher:
-      def __init__(self):
-          self.participant = fastdds.DomainParticipant(0)
-          self.publisher = self.participant.create_publisher()
-          self.topic = self.participant.create_topic("SensorData", fastdds.STRING_TYPE)
-          self.writer = self.publisher.create_datawriter(self.topic)
-  
-      def publish(self):
-          while True:
-              humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
-              if humidity is not None and temperature is not None:
-                  message = f'Temperature: {temperature}°C, Humidity: {humidity}%'
-                  self.writer.write(message)
-                  print(f"Published: {message}")
-              time.sleep(2)
-  
-  if __name__ == "__main__":
-      pub = TemperaturePublisher()
-      pub.publish()`,
-      },
-      {
-        title: "Step 4: Create DDS Subscriber on Jetson Nano or Another Device",
-        description: "Python code for DDS Subscriber that listens to the `SensorData` topic.",
-        code: `import fastdds
-  
-  class TemperatureSubscriber:
-      def __init__(self):
-          self.participant = fastdds.DomainParticipant(0)
-          self.subscriber = self.participant.create_subscriber()
-          self.topic = self.participant.create_topic("SensorData", fastdds.STRING_TYPE)
-          self.reader = self.subscriber.create_datareader(self.topic)
-  
-      def listen(self):
-          while True:
-              data = self.reader.read()
-              if data:
-                  print(f"Received: {data}")
-  
-  if __name__ == "__main__":
-      sub = TemperatureSubscriber()
-      sub.listen()`,
-      },
-      {
-        title: "Step 5: Testing DDS Communication",
-        commands: [
-          "Run the DDS Publisher on Jetson Nano:",
-          "`python3 dds_publisher.py`",
-          "Run the DDS Subscriber on another Jetson Nano or Raspberry Pi:",
-          "`python3 dds_subscriber.py`",
-          "Verify real-time data exchange over DDS.",
-        ],
-      },
-      {
-        title: "Step 6: Visualizing Data in Real-Time",
-        commands: [
-          "Use Fast DDS Monitor to check real-time DDS traffic:",
-          "`fastdds_monitor`",
-          "Connect DDS to IoT dashboards like Grafana or ThingsBoard for visualization.",
-          "Enable Quality of Service (QoS) policies for real-time reliability in edge/robotic systems.",
-        ],
-      },
-    ],
-    applications: [
-      "Autonomous vehicles and robotics where low-latency communication is critical.",
-      "Real-time industrial control systems over local DDS mesh networks.",
-      "Smart factories using DDS for machine-to-machine (M2M) communication.",
-    ],
-    futureResearchConcepts: [
-      "Integrating DDS with ROS2 (Robot Operating System) for real-time robotics.",
-      "Implementing secure DDS with RTPS over TLS.",
-      "Deploying large-scale DDS-based networks using edge clusters and Jetson nodes.",
-    ],
-  },
-  {
-    objective: "To implement LoRa/LoRaWAN communication using Arduino and the RFM95 LoRa module, enabling long-range wireless sensor data transmission to The Things Network (TTN).",
-    hardwareRequirements: [
-      "Arduino Uno/Nano",
-      "RFM95 LoRa Module",
-      "DHT11/DHT22 Sensor (Optional)",
-      "Jumper Wires"
-    ],
-    wiring: {
-      VCC: "3.3V",
-      GND: "GND",
-      NSS: "D10",
-      MOSI: "D11",
-      MISO: "D12",
-      SCK: "D13",
-      RST: "D9",
-      DIO0: "D2",
-      note: "The RFM95 module must use 3.3V logic levels, so use a logic level shifter if using a 5V Arduino."
+      "component": "Ethernet Cable",
+      "pins": "Uses RJ45 connector with 8-pin configuration"
     },
-    libraries: {
-      RadioHead: "Install from Library Manager",
-      LMIC: "IBM LMIC Framework (for LoRaWAN)"
-    },
-    transmitterCode: `#include <SPI.h>
-  #include <RH_RF95.h>
-  
-  #define RFM95_CS 10
-  #define RFM95_RST 9
-  #define RFM95_INT 2
-  
-  RH_RF95 rf95(RFM95_CS, RFM95_INT);
-  
-  void setup() {
-      Serial.begin(115200);
-      pinMode(RFM95_RST, OUTPUT);
-      digitalWrite(RFM95_RST, HIGH); delay(10);
-      digitalWrite(RFM95_RST, LOW); delay(10);
-      digitalWrite(RFM95_RST, HIGH); delay(10);
-  
-      if (!rf95.init()) {
-          Serial.println("LoRa init failed!");
-          while (1);
-      }
-  
-      rf95.setFrequency(915.0);
-      rf95.setTxPower(23, false);
-  
-      Serial.println("LoRa Sender Ready.");
-  }
-  
-  void loop() {
-      const char *msg = "Hello, LoRa!";
-      rf95.send((uint8_t *)msg, strlen(msg));
-      rf95.waitPacketSent();
-      Serial.println("Message Sent: Hello, LoRa!");
-      delay(5000);
-  }`,
-    receiverCode: `#include <SPI.h>
-  #include <RH_RF95.h>
-  
-  #define RFM95_CS 10
-  #define RFM95_RST 9
-  #define RFM95_INT 2
-  
-  RH_RF95 rf95(RFM95_CS, RFM95_INT);
-  
-  void setup() {
-      Serial.begin(115200);
-      pinMode(RFM95_RST, OUTPUT);
-      digitalWrite(RFM95_RST, HIGH); delay(10);
-      digitalWrite(RFM95_RST, LOW); delay(10);
-      digitalWrite(RFM95_RST, HIGH); delay(10);
-  
-      if (!rf95.init()) {
-          Serial.println("LoRa init failed!");
-          while (1);
-      }
-  
-      rf95.setFrequency(915.0);
-      Serial.println("LoRa Receiver Ready.");
-  }
-  
-  void loop() {
-      if (rf95.available()) {
-          uint8_t buf[RH_RF95_MAX_MESSAGE_LEN];
-          uint8_t len = sizeof(buf);
-          if (rf95.recv(buf, &len)) {
-              Serial.print("Received: ");
-              Serial.println((char*)buf);
-          }
-      }
-  }`,
-    ttnIntegration: {
-      steps: [
-        "Create a TTN account and register your device",
-        "Note your Device EUI, App EUI, and App Key",
-        "Install LMIC library",
-      ],
-      lmicCode: `#include <lmic.h>
-  #include <hal/hal.h>
-  #include <SPI.h>
-  
-  static const u1_t PROGMEM APPEUI[8] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 };
-  static const u1_t PROGMEM DEVEUI[8] = { 0x08, 0x07, 0x06, 0x05, 0x04, 0x03, 0x02, 0x01 };
-  static const u1_t PROGMEM APPKEY[16] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x10 };
-  
-  void os_getArtEui (u1_t* buf) { memcpy(buf, APPEUI, 8); }
-  void os_getDevEui (u1_t* buf) { memcpy(buf, DEVEUI, 8); }
-  void os_getDevKey (u1_t* buf) { memcpy(buf, APPKEY, 16); }
-  
-  static osjob_t sendjob;
-  
-  void setup() {
-      Serial.begin(115200);
-      os_init();
-      LMIC_reset();
-  }
-  
-  void loop() {
-      static uint8_t mydata[] = "Hello TTN!";
-      LMIC_setTxData2(1, mydata, sizeof(mydata) - 1, 0);
-      Serial.println("Packet sent to TTN!");
-      delay(60000);
-  }`,
-      viewData: "TTN Console → Applications → Your Device → Live Data"
-    },
-    loraVsLorawan: {
-      feature: ["Protocol", "Gateway Required", "Internet Connectivity", "Security"],
-      lora: ["Point-to-Point", "❌ No", "❌ No", "❌ No Encryption"],
-      lorawan: ["Uses Gateway & Cloud", "✅ Yes", "✅ Yes", "✅ AES-128 Encryption"]
+    {
+      "component": "Switch",
+      "pins": "Port-based; no specific pin usage required"
     }
-  },
-  {
-    objective: "To implement LWM2M communication on an ESP32 using the Eclipse Leshan client, enabling efficient device management and remote monitoring through an LWM2M server.",
-    hardwareRequirements: [
-      "ESP32 Development Board",
-      "Wi-Fi Network",
-      "PC/Laptop for running Leshan Server",
-      "Optional IoT Sensors (e.g., DHT11, Temperature, Humidity)"
-    ],
-    step1_serverSetup: [
-      "Clone the Eclipse Leshan GitHub repository.",
-      "Follow the Leshan Server Setup Guide for installation on a local or cloud server.",
-      "Run the Leshan server (default port: 5683)."
-    ],
-    step2_clientSetup: {
-      environment: "Use Arduino IDE or PlatformIO to set up your ESP32 development environment.",
-      libraries: ["WiFi.h", "CoAP.h (for LWM2M protocol)"],
-      serverConfig: {
-        code: `const char* serverAddress = "your_leshan_server_ip";\nconst int serverPort = 5683;`
-      }
+  ],
+  "note": "This is a theoretical and optionally simulated experiment. Hardware setup is minimal unless you are demonstrating in a lab.",
+  "title5": "Wiring & Connections",
+  "wiring": [
+    {
+      "topology": "Star",
+      "description": "All devices are connected to a central switch or hub."
     },
-    step3_lwm2mClientCode: {
-      wifiSetup: `const char* ssid = "your_wifi_ssid";\nconst char* password = "your_wifi_password";\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) {\n    delay(1000);\n    Serial.println("Connecting to WiFi...");\n  }\n  Serial.println("Connected to WiFi");\n}`,
-      basicClientCode: `#include <WiFi.h>\n#include <CoAP.h>\n\nconst char* serverAddress = "your_leshan_server_ip";\nconst int serverPort = 5683;\nconst char* ssid = "your_wifi_ssid";\nconst char* password = "your_wifi_password";\n\nvoid setup() {\n  Serial.begin(115200);\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) {\n    delay(1000);\n    Serial.println("Connecting to WiFi...");\n  }\n  Serial.println("Connected to WiFi");\n\n  lwm2m_client_init();\n  lwm2m_set_server_address(serverAddress, serverPort);\n}\n\nvoid loop() {\n  lwm2m_send_data();\n  delay(10000);\n}`,
-      defineResources: `#include <lwm2m.h>\n\nlwm2m_resource_t temperature_resource;\nfloat temperature_value = 25.0;\n\nvoid setup() {\n  lwm2m_init();\n  lwm2m_register_resource(&temperature_resource, 3303, 0, "Temperature", &temperature_value);\n}\n\nvoid loop() {\n  lwm2m_update_resource(&temperature_resource);\n  delay(5000);\n}`
+    {
+      "topology": "Bus",
+      "description": "All devices are connected to a single communication line with terminators at both ends."
     },
-    step4_communication: {
-      clientSetup: `void lwm2m_client_init() {\n  lwm2m_client_init(client);\n  lwm2m_set_server_address(client, serverAddress, serverPort);\n}`,
-      resourceHandling: `void lwm2m_update_resource(lwm2m_resource_t* resource) {\n  lwm2m_send_data(client, resource);\n}`
+    {
+      "topology": "Ring",
+      "description": "Each device is connected to two others, forming a ring for data to circulate."
     },
-    step5_monitoring: "Once ESP32 is running, the device will register with Leshan server and can be managed via the Leshan web UI or any CoAP client.",
-    step6_testing: "Verify that ESP32 successfully sends data to the server. Check that the resources like temperature are visible and retrievable via UI or CoAP queries.",
-    step7_security: {
-      objective: "Use DTLS for secure communication between ESP32 and Leshan server.",
-      code: `lwm2m_set_security_mode(client, LWM2M_SECURITY_DTLS);\nlwm2m_set_dtls_certificates(client, "client_cert.pem", "client_key.pem", "server_cert.pem");`
+    {
+      "topology": "Mesh",
+      "description": "Each device is connected to every other device for maximum redundancy."
     }
-  },
-  {
-    "title": "MQTT Implementation: ESP32 with PubSubClient Library",
-    "slug": "mqtt-esp32-pubsubclient",
-    "shortDesc": "Implement MQTT communication on ESP32 using the PubSubClient library to publish data to a broker like Mosquitto or AWS IoT.",
-    "longDesc": "This tutorial explains how to implement MQTT protocol on the ESP32 development board using the PubSubClient library. You'll learn how to connect the ESP32 to a Wi-Fi network, set up a local MQTT broker (Mosquitto), configure the ESP32 as an MQTT client, and publish sensor data to the broker. The guide also covers optional AWS IoT Core integration for cloud-based communication.",
-    "steps": [
-      {
-        "title": "Set Up MQTT Broker (Mosquitto)",
-        "desc": "Install Mosquitto using `sudo apt install mosquitto mosquitto-clients` and start the service with `sudo systemctl start mosquitto`. Ensure it's running on port 1883."
-      },
-      {
-        "title": "Install PubSubClient Library",
-        "desc": "Open Arduino IDE → Sketch → Include Library → Manage Libraries → Search and install 'PubSubClient' library."
-      },
-      {
-        "title": "Configure the MQTT Client on ESP32",
-        "desc": "Include WiFi and PubSubClient libraries. Define the MQTT broker IP, port, and credentials. Add your Wi-Fi SSID and password."
-      },
-      {
-        "title": "Set Up Wi-Fi and MQTT Client",
-        "desc": "Create a `setup_wifi()` function to connect to Wi-Fi. Initialize PubSubClient with server and callback in `setup()`."
-      },
-      {
-        "title": "Publish Data to MQTT Broker",
-        "desc": "Create a `loop()` function to check MQTT connection, call `reconnect()` if needed, and publish sensor data every 10 seconds."
-      },
-      {
-        "title": "MQTT Callback",
-        "desc": "Define a `mqtt_callback()` function to handle incoming MQTT messages and print them to Serial Monitor."
-      },
-      {
-        "title": "Monitor Data from MQTT Broker",
-        "desc": "Use MQTT Explorer or MQTT.fx to subscribe to `esp32/sensorData` topic and monitor the published data in real-time."
-      },
-      {
-        "title": "Use AWS IoT Core (Optional)",
-        "desc": "Create an AWS IoT Thing, download certificates, and update the MQTT configuration in the code to connect to AWS IoT Core securely using TLS."
-      }
-    ],
-    "components": [
-      "ESP32 Development Board",
-      "Wi-Fi Network",
-      "MQTT Broker (Mosquitto, AWS IoT Core, or similar)",
-      "Optional: Sensors (e.g., DHT11)"
-    ],
-    "code": [
-      {
-        "filename": "mqtt_esp32_pubsubclient.ino",
-        "content": "#include <WiFi.h>\n#include <PubSubClient.h>\n\nconst char* ssid = \"your_wifi_ssid\";\nconst char* password = \"your_wifi_password\";\nconst char* mqtt_server = \"mqtt.eclipse.org\";\nconst char* mqtt_username = \"your_username\";\nconst char* mqtt_password = \"your_password\";\nconst int mqtt_port = 1883;\n\nWiFiClient espClient;\nPubSubClient client(espClient);\n\nvoid setup_wifi() {\n  delay(10);\n  Serial.println();\n  Serial.print(\"Connecting to WiFi...\");\n\n  WiFi.begin(ssid, password);\n  while (WiFi.status() != WL_CONNECTED) {\n    delay(1000);\n    Serial.print(\".\");\n  }\n\n  Serial.println(\"Connected to WiFi\");\n}\n\nvoid mqtt_callback(char* topic, byte* payload, unsigned int length) {\n  Serial.print(\"Message arrived on topic: \");\n  Serial.println(topic);\n  String message = \"\";\n  for (int i = 0; i < length; i++) {\n    message += (char)payload[i];\n  }\n  Serial.println(\"Message: \" + message);\n}\n\nvoid reconnect() {\n  while (!client.connected()) {\n    Serial.print(\"Attempting MQTT connection...\");\n    if (client.connect(\"ESP32Client\", mqtt_username, mqtt_password)) {\n      Serial.println(\"connected\");\n      client.subscribe(\"esp32/topic\");\n    } else {\n      Serial.print(\"failed, rc=\");\n      Serial.print(client.state());\n      Serial.println(\" try again in 5 seconds\");\n      delay(5000);\n    }\n  }\n}\n\nvoid setup() {\n  Serial.begin(115200);\n  setup_wifi();\n  client.setServer(mqtt_server, mqtt_port);\n  client.setCallback(mqtt_callback);\n}\n\nvoid loop() {\n  if (!client.connected()) {\n    reconnect();\n  }\n  client.loop();\n  String sensorData = \"Temperature: 25.5°C\";\n  client.publish(\"esp32/sensorData\", sensorData.c_str());\n  delay(10000);\n}"
-      }
-    ],
-    
-  },
-  {
-    title: "MQTT Implementation: ESP32 with PubSubClient Library",
-    objective: "To implement MQTT communication on an ESP32 using the PubSubClient library, enabling data publishing to an MQTT broker (e.g., Mosquitto or AWS IoT Core).",
-    benefits: [
-      "Lightweight messaging protocol",
-      "Efficient for IoT communication",
-      "Supports real-time pub/sub architecture"
-    ],
-    hardware: [
-      "ESP32 Development Board",
-      "Wi-Fi Network",
-      "MQTT Broker (Mosquitto, AWS IoT Core, or similar)",
-      "(Optional) Sensors (e.g., DHT11, Temperature, Humidity)"
-    ],
-    steps: [
-      {
-        step: "Set Up MQTT Broker (Mosquitto)",
-        description: "Install Mosquitto and start the service. Use default port 1883 or configure broker accordingly."
-      },
-      {
-        step: "Install the PubSubClient Library",
-        description: "Install via Arduino IDE → Manage Libraries → Search 'PubSubClient'."
-      },
-      {
-        step: "Configure MQTT Client",
-        codeSnippet: `
-#include <WiFi.h>
-#include <PubSubClient.h>
-
-const char* mqtt_server = "mqtt.eclipse.org";
-const char* mqtt_username = "your_username";
-const char* mqtt_password = "your_password";
-const int mqtt_port = 1883;
-
-const char* ssid = "your_wifi_ssid";
-const char* password = "your_wifi_password";
-        `
-      },
-      {
-        step: "Wi-Fi & MQTT Setup",
-        description: "Connect to Wi-Fi and configure MQTT client.",
-        codeSnippet: `
-// Wi-Fi Setup
-WiFiClient espClient;
-PubSubClient client(espClient);
-
-void setup_wifi() {
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) delay(1000);
-}
-
-// MQTT Reconnect
-void reconnect() {
-  while (!client.connected()) {
-    if (client.connect("ESP32Client", mqtt_username, mqtt_password)) {
-      client.subscribe("esp32/topic");
-    } else {
-      delay(5000);
+  ],
+  "title6": "Source Code",
+  "code": "// No code required for this theoretical experiment. You may use simulation scripts or Packet Tracer configuration files.",
+  "title7": "Code Explanation",
+  "codeExplanation": "Since this experiment focuses on physical/logical topology design, there is no programming involved. For simulation, you can use drag-and-drop features of Cisco Packet Tracer or similar software.",
+  "title8": "Applications",
+  "applications": [
+    "Star topology is used in most LAN environments like offices and homes.",
+    "Bus topology was historically used in early Ethernet setups.",
+    "Ring topology is used in some fiber-optic and Token Ring networks.",
+    "Mesh topology is ideal for mission-critical networks like military communication or data centers."
+  ],
+  "title9": "Conclusion",
+  "conclusion": "Understanding different network topologies is crucial for building robust and efficient network systems. Each topology offers distinct advantages and trade-offs in terms of cost, performance, and scalability. This experiment provides foundational knowledge that helps in real-world network design and architecture.",
+  "faqs": [
+    {
+      "question": "Which network topology is most commonly used in modern LANs?",
+      "answer": "Star topology is the most commonly used due to its simplicity, ease of management, and scalability."
+    },
+    {
+      "question": "Why is Mesh topology not widely used in home networks?",
+      "answer": "Mesh topology requires a large number of connections and is costly and complex to implement, making it unsuitable for typical home use."
+    },
+    {
+      "question": "What happens if the central hub fails in a Star topology?",
+      "answer": "If the central hub or switch fails in a Star topology, the entire network can go down since all nodes depend on it."
+    },
+    {
+      "question": "Is Bus topology still relevant today?",
+      "answer": "Bus topology is largely outdated and replaced by more efficient topologies like Star, but it can still be useful in small or temporary setups."
+    },
+    {
+      "question": "Can we combine topologies in real-world networks?",
+      "answer": "Yes, hybrid topologies that mix features of Star, Mesh, and others are often used in complex enterprise or campus networks."
     }
-  }
+  ]
 }
-        `
-      },
-      {
-        step: "Publish Sensor Data",
-        codeSnippet: `
-void loop() {
-  if (!client.connected()) reconnect();
-  client.loop();
+,
+{
+  "mainTitle": "Static & Dynamic IP Configuration with Subnetting",
+  "title": "Experiment on Static and Dynamic IP Configuration with Subnetting",
+  "ExperimentId": "CN002",
+  "slug": "static-dynamic-ip-configuration-subnetting",
+  "metaDescription": "Learn how to configure Static and Dynamic IP addresses along with subnetting. Understand IP classes, DHCP, subnet masks, and their practical applications in networking.",
+  "title1": "Introduction",
+  "para1": "IP addressing is fundamental to network communication. In this experiment, we explore two types of IP assignment methods—Static and Dynamic—and understand how subnetting is used to segment networks efficiently. This hands-on experiment helps you learn how to manually assign IP addresses or automate the process using DHCP, along with performing subnet calculations.",
+  "title2": "Working Principle",
+  "para2": "Static IP addressing requires manually assigning an IP to each device. It ensures consistency but requires more management. Dynamic IP addressing uses DHCP (Dynamic Host Configuration Protocol) to automatically assign IPs, ideal for large, changing networks. Subnetting divides a large IP network into smaller, manageable sub-networks by modifying the subnet mask.",
+  "workingSteps": [
+    "Check the current IP configuration using 'ipconfig' (Windows) or 'ifconfig' (Linux/Mac).",
+    "Assign a static IP address manually in the OS network settings.",
+    "Set up a DHCP server (e.g., on a router or using software) for dynamic IP allocation.",
+    "Validate dynamic assignment by connecting devices and checking assigned IPs.",
+    "Perform subnetting by calculating valid subnets from a given IP block.",
+    "Verify subnet configurations using subnet calculators or manual binary division."
+  ],
+  "formula": "Number of Subnets = 2^n, where n = number of borrowed bits.\nNumber of Hosts = 2^h - 2, where h = number of host bits.",
+  "title3": "Components Required",
+  "components": [
+    "Two or more computers (Windows/Linux)",
+    "Router or DHCP server (software or hardware)",
+    "Ethernet cables or Wi-Fi network",
+    "Subnet calculator (optional)",
+    "Operating System with admin access"
+  ],
+  "title4": "Pin Configuration",
+  "pinConfig": [
+    {
+      "component": "Ethernet Cable (RJ45)",
+      "pins": "8 wires (Twisted pair), typically using pins 1, 2, 3, and 6 for data transfer"
+    }
+  ],
+  "note": "Ensure DHCP is enabled or disabled appropriately depending on whether you're testing dynamic or static configuration.",
+  "title5": "Wiring & Connections",
+  "wiring": [
+    {
+      "type": "Static IP",
+      "description": "Assign IP manually through the network adapter settings (e.g., 192.168.1.10, subnet: 255.255.255.0, gateway: 192.168.1.1)"
+    },
+    {
+      "type": "Dynamic IP",
+      "description": "Connect to a router or DHCP server which automatically assigns IP (e.g., 192.168.1.101)"
+    }
+  ],
+  "title6": "Source Code",
+  "code": "// Sample: Check and assign IP (Linux command line)\n\n// View current IP configuration\n$ ifconfig\n\n// Assign static IP\n$ sudo ifconfig eth0 192.168.1.20 netmask 255.255.255.0\n\n// Set default gateway\n$ sudo route add default gw 192.168.1.1\n\n// Restart networking service (Ubuntu)\n$ sudo systemctl restart networking.service",
+  "title7": "Code Explanation",
+  "codeExplanation": "The above commands show how to configure a static IP in a Linux system. 'ifconfig' displays network info, 'route add' sets the default gateway, and restarting the networking service applies changes. For dynamic IP, no manual command is required if DHCP is enabled on the network.",
+  "title8": "Applications",
+  "applications": [
+    "Static IPs are used for servers, printers, and devices requiring consistent access.",
+    "Dynamic IPs are suitable for general client devices in large networks (e.g., schools, offices).",
+    "Subnetting helps improve network performance and security in large-scale deployments.",
+    "Used in setting up LANs, Internet service provisioning, and enterprise IT infrastructure."
+  ],
+  "title9": "Conclusion",
+  "conclusion": "Understanding static and dynamic IP configuration is essential for any network administrator or enthusiast. Combined with subnetting, it provides the ability to build and manage scalable, structured, and secure networks. This experiment builds a strong foundation for real-world networking tasks.",
+  "faqs": [
+    {
+      "question": "What is the main difference between static and dynamic IP?",
+      "answer": "A static IP is manually assigned and remains fixed, while a dynamic IP is automatically assigned by a DHCP server and may change over time."
+    },
+    {
+      "question": "Why is subnetting important in networking?",
+      "answer": "Subnetting divides a large network into smaller sub-networks to enhance performance, improve management, and increase security."
+    },
+    {
+      "question": "Can I mix static and dynamic IPs in one network?",
+      "answer": "Yes, but ensure the static IPs are outside the DHCP range to avoid conflicts."
+    },
+    {
+      "question": "How do I calculate subnet ranges manually?",
+      "answer": "Convert IP and subnet mask to binary, perform bitwise AND to find the network address, and calculate range using the number of host bits."
+    }
+  ]
+},
+{
+  "mainTitle": "VLAN Configuration and Inter-VLAN Routing Explained",
+  "title": "Experiment on VLAN Configuration and Inter-VLAN Routing",
+  "ExperimentId": "CN003",
+  "slug": "vlan-configuration-inter-vlan-routing",
+  "metaDescription": "Learn how to configure VLANs and enable Inter-VLAN routing using Layer 3 switches or routers. Understand VLAN benefits, trunk ports, and routing between different VLANs in a network.",
+  "title1": "Introduction",
+  "para1": "VLAN (Virtual Local Area Network) is a method of creating multiple distinct broadcast domains within a single switch, logically segmenting the network. Inter-VLAN routing enables communication between devices in different VLANs using a Layer 3 switch or a router. This experiment demonstrates how to configure VLANs, assign ports, and enable inter-VLAN routing in a simulated or physical network environment.",
+  "title2": "Working Principle",
+  "para2": "Each VLAN behaves as an independent network. By default, devices in one VLAN cannot communicate with devices in another VLAN. Inter-VLAN routing is required to bridge this communication gap, typically achieved using a router (Router-on-a-Stick) or a Layer 3 switch. VLAN tagging (802.1Q) is used on trunk ports to carry traffic from multiple VLANs over a single link.",
+  "workingSteps": [
+    "Access the switch configuration mode.",
+    "Create multiple VLANs using VLAN IDs (e.g., VLAN 10, VLAN 20).",
+    "Assign specific switch ports to the respective VLANs.",
+    "Configure a trunk port to carry traffic from all VLANs to the router or Layer 3 switch.",
+    "Set up sub-interfaces on the router (Router-on-a-Stick) or SVIs on a Layer 3 switch for each VLAN.",
+    "Test communication between devices in the same and different VLANs."
+  ],
+  "formula": "",
+  "title3": "Components Required",
+  "components": [
+    "Layer 2 or Layer 3 Switch (Cisco or simulation)",
+    "Router (for Router-on-a-Stick)",
+    "PCs or Virtual Machines",
+    "Cisco Packet Tracer or GNS3 (for simulation)",
+    "Ethernet cables"
+  ],
+  "title4": "Pin Configuration",
+  "pinConfig": [
+    {
+      "component": "RJ45 Ethernet Cable",
+      "pins": "Uses pins 1, 2, 3, and 6 for data communication in full duplex"
+    }
+  ],
+  "note": "In simulation, use Packet Tracer or GNS3 to visualize VLANs and sub-interfaces effectively. In hardware, ensure switch/router supports required features.",
+  "title5": "Wiring & Connections",
+  "wiring": [
+    {
+      "connection": "Switch Port to PC",
+      "description": "Assign PC to access port in VLAN 10 or 20"
+    },
+    {
+      "connection": "Switch to Router",
+      "description": "Connect via trunk port; configure sub-interfaces on router (e.g., Gig0/0.10, Gig0/0.20)"
+    }
+  ],
+  "title6": "Source Code",
+  "code": "// Switch Configuration\nSwitch> enable\nSwitch# configure terminal\nSwitch(config)# vlan 10\nSwitch(config-vlan)# name HR\nSwitch(config-vlan)# exit\nSwitch(config)# vlan 20\nSwitch(config-vlan)# name Sales\nSwitch(config-vlan)# exit\nSwitch(config)# interface fastEthernet 0/1\nSwitch(config-if)# switchport mode access\nSwitch(config-if)# switchport access vlan 10\nSwitch(config)# interface fastEthernet 0/2\nSwitch(config-if)# switchport mode access\nSwitch(config-if)# switchport access vlan 20\nSwitch(config)# interface fastEthernet 0/24\nSwitch(config-if)# switchport mode trunk\n\n// Router-on-a-Stick Configuration\nRouter> enable\nRouter# configure terminal\nRouter(config)# interface gig0/0.10\nRouter(config-subif)# encapsulation dot1Q 10\nRouter(config-subif)# ip address 192.168.10.1 255.255.255.0\nRouter(config)# interface gig0/0.20\nRouter(config-subif)# encapsulation dot1Q 20\nRouter(config-subif)# ip address 192.168.20.1 255.255.255.0\nRouter(config)# exit"
+  ,
+  "title7": "Code Explanation",
+  "codeExplanation": "The switch configuration creates VLAN 10 and VLAN 20 and assigns ports accordingly. One port is set as trunk to carry traffic to the router. On the router, sub-interfaces are created with dot1Q encapsulation to handle tagged traffic. Each sub-interface is assigned an IP address acting as the default gateway for that VLAN.",
+  "title8": "Applications",
+  "applications": [
+    "Segmenting networks in offices or colleges based on departments.",
+    "Enhancing network security by isolating broadcast domains.",
+    "Allowing controlled communication between departments (HR, Finance, Sales).",
+    "Used in enterprise networks, data centers, and virtualized environments."
+  ],
+  "title9": "Conclusion",
+  "conclusion": "VLANs improve network management and security by logically segmenting devices. However, for cross-VLAN communication, inter-VLAN routing is essential. This experiment demonstrates the entire process of VLAN setup and enabling communication across VLANs through Router-on-a-Stick or Layer 3 switching.",
+  "faqs": [
+    {
+      "question": "What is a VLAN?",
+      "answer": "A VLAN (Virtual Local Area Network) is a logical grouping of devices that behave as if they are on the same LAN, even if they are on different physical networks."
+    },
+    {
+      "question": "Why do we need Inter-VLAN Routing?",
+      "answer": "Because VLANs are isolated by default. To allow devices from different VLANs to communicate, inter-VLAN routing is required using a router or Layer 3 switch."
+    },
+    {
+      "question": "What is the difference between trunk and access ports?",
+      "answer": "Access ports carry traffic for one VLAN, while trunk ports carry traffic for multiple VLANs using VLAN tagging (802.1Q)."
+    },
+    {
+      "question": "What is Router-on-a-Stick?",
+      "answer": "Router-on-a-Stick is a method where a single physical interface on a router is used to route traffic between multiple VLANs by using sub-interfaces and 802.1Q encapsulation."
+    },
+    {
+      "question": "Can I configure VLANs without a router?",
+      "answer": "Yes, but devices in different VLANs won’t be able to communicate unless inter-VLAN routing is configured through a Layer 3 device."
+    }
+  ]
+},
+{
+  "mainTitle": "RIP and OSPF Routing Protocol Implementation Explained",
+  "title": "Experiment on RIP and OSPF Routing Protocol Configuration",
+  "ExperimentId": "CN004",
+  "slug": "rip-ospf-routing-protocol-implementation",
+  "metaDescription": "Explore RIP and OSPF routing protocol configuration using Cisco routers. Learn their working, differences, and how to implement both using Cisco Packet Tracer or GNS3.",
+  "title1": "Introduction",
+  "para1": "Routing protocols are essential for dynamic communication between different networks. RIP (Routing Information Protocol) and OSPF (Open Shortest Path First) are two widely used interior gateway protocols. This experiment demonstrates the configuration of both RIP and OSPF using Cisco routers and explains their advantages, disadvantages, and real-world applications.",
+  "title2": "Working Principle",
+  "para2": "RIP is a distance-vector protocol that uses hop count as its routing metric. It updates the routing table every 30 seconds and supports a maximum of 15 hops. OSPF is a link-state protocol that uses Dijkstra's algorithm to compute the shortest path and provides faster convergence, better scalability, and hierarchical routing. Both protocols automatically share routing information to build and maintain routing tables.",
+  "workingSteps": [
+    "Set up a network topology with at least two routers and multiple PCs.",
+    "Assign IP addresses to router interfaces and PCs.",
+    "Enable RIP on all routers and configure the networks under RIP.",
+    "Replace RIP with OSPF and configure OSPF with appropriate process ID and area.",
+    "Test connectivity between all devices using ping commands.",
+    "Compare the behavior and convergence time between RIP and OSPF."
+  ],
+  "formula": "RIP Metric = Number of hops\nOSPF Metric = Cost based on bandwidth (Cost = 100,000,000 / Interface Bandwidth in bps)",
+  "title3": "Components Required",
+  "components": [
+    "2 or more Cisco routers (real or simulated)",
+    "2 or more PCs or end devices",
+    "Switches (optional)",
+    "Cisco Packet Tracer or GNS3",
+    "Ethernet cables"
+  ],
+  "title4": "Pin Configuration",
+  "pinConfig": [
+    {
+      "component": "Router Interfaces",
+      "pins": "Gig0/0 or FastEthernet0/0 used for connection; RJ45 standard applies"
+    }
+  ],
+  "note": "Use Cisco Packet Tracer for beginners or GNS3 for real IOS emulation. Ensure interface IPs are in different subnets.",
+  "title5": "Wiring & Connections",
+  "wiring": [
+    {
+      "connection": "Router1 to Router2",
+      "description": "Connect via GigabitEthernet or Serial cable depending on device"
+    },
+    {
+      "connection": "Router to PC",
+      "description": "Connect via switch or directly to Ethernet port"
+    }
+  ],
+  "title6": "Source Code",
+  "code": "// RIP Configuration on Router1\nRouter> enable\nRouter# configure terminal\nRouter(config)# interface gig0/0\nRouter(config-if)# ip address 192.168.1.1 255.255.255.0\nRouter(config-if)# no shutdown\nRouter(config)# router rip\nRouter(config-router)# version 2\nRouter(config-router)# network 192.168.1.0\nRouter(config-router)# network 10.0.0.0\n\n// OSPF Configuration on Router1\nRouter(config)# no router rip\nRouter(config)# router ospf 1\nRouter(config-router)# network 192.168.1.0 0.0.0.255 area 0\nRouter(config-router)# network 10.0.0.0 0.0.0.255 area 0",
+  "title7": "Code Explanation",
+  "codeExplanation": "In RIP configuration, we specify the routing protocol (RIP), version 2, and include networks to be advertised. In OSPF configuration, we first remove RIP, then enable OSPF with process ID 1 and assign networks with wildcard masks to OSPF area 0.",
+  "title8": "Applications",
+  "applications": [
+    "RIP is used in small networks with simple routing needs.",
+    "OSPF is widely used in enterprise and ISP networks for its speed and efficiency.",
+    "Both protocols are essential in CCNA-level training and network certification.",
+    "Used in dynamic routing configurations for routers in LANs and MANs."
+  ],
+  "title9": "Conclusion",
+  "conclusion": "Both RIP and OSPF offer dynamic routing, but OSPF is more scalable and reliable. This experiment provides insight into configuring and analyzing these protocols, helping students understand how routers share routes and make decisions based on metrics.",
+  "faqs": [
+    {
+      "question": "What is the difference between RIP and OSPF?",
+      "answer": "RIP is a distance-vector protocol using hop count, suitable for small networks. OSPF is a link-state protocol using cost as metric and supports larger, hierarchical networks."
+    },
+    {
+      "question": "Can I use both RIP and OSPF on the same router?",
+      "answer": "Yes, but it's not recommended unless you have redistribution configured to share routes between protocols."
+    },
+    {
+      "question": "Which routing protocol is faster?",
+      "answer": "OSPF converges faster than RIP due to its use of link-state database and SPF algorithm."
+    },
+    {
+      "question": "What is a wildcard mask in OSPF?",
+      "answer": "A wildcard mask is used in OSPF to define a range of IP addresses. For example, 0.0.0.255 covers 256 addresses in a subnet."
+    },
+    {
+      "question": "Is RIP still used in modern networks?",
+      "answer": "RIP is rarely used in production today but is still taught for foundational learning in network courses."
+    }
+  ]
+},
+{
+  "mainTitle": "DNS and DHCP Configuration Explained: A Practical Guide",
+  "title": "Experiment on DNS and DHCP Configuration",
+  "ExperimentId": "CN005",
+  "slug": "dns-dhcp-configuration-experiment",
+  "metaDescription": "Learn how to configure DNS and DHCP servers in a network. Understand how domain name resolution and dynamic IP assignment work using practical networking tools.",
+  "title1": "Introduction",
+  "para1": "DNS (Domain Name System) and DHCP (Dynamic Host Configuration Protocol) are core services in a networked environment. DHCP automatically assigns IP addresses to devices, while DNS resolves domain names into IP addresses. This experiment demonstrates how to configure both services on a server or router and test their functionality using client systems.",
+  "title2": "Working Principle",
+  "para2": "DHCP assigns dynamic IPs, subnet masks, gateways, and DNS server info to clients. It reduces manual errors and simplifies network management. DNS maps human-readable domain names (like google.com) to IP addresses. When a user enters a domain, a DNS query is sent to a DNS server which responds with the appropriate IP.",
+  "workingSteps": [
+    "Set up a basic network with at least one server and two clients.",
+    "Install and configure DHCP server with IP ranges, subnet, and DNS info.",
+    "Install and configure a DNS server with domain entries.",
+    "Configure client devices to obtain IP and DNS automatically.",
+    "Test DHCP by verifying IP assignment on clients.",
+    "Test DNS resolution using ping or nslookup commands."
+  ],
+  "formula": "",
+  "title3": "Components Required",
+  "components": [
+    "1 DHCP/DNS capable server (Windows/Linux)",
+    "2 or more client PCs",
+    "Switch or Router",
+    "Cisco Packet Tracer (for simulation) or VirtualBox (for real setup)",
+    "Ethernet cables"
+  ],
+  "title4": "Pin Configuration",
+  "pinConfig": [
+    {
+      "component": "Ethernet Cable (RJ45)",
+      "pins": "Uses pins 1, 2, 3, and 6 for Ethernet data transmission"
+    }
+  ],
+  "note": "In simulations like Packet Tracer, you can use the 'Server' node and enable both DHCP and DNS services from GUI.",
+  "title5": "Wiring & Connections",
+  "wiring": [
+    {
+      "connection": "Server to Switch",
+      "description": "Connect the DNS/DHCP server to the central switch"
+    },
+    {
+      "connection": "Clients to Switch",
+      "description": "All client devices connect to the same switch and receive IPs via DHCP"
+    }
+  ],
+  "title6": "Source Code",
+  "code": "// Linux DHCP Configuration (isc-dhcp-server)\n\n# Install DHCP server\n$ sudo apt install isc-dhcp-server\n\n# Edit config file\n$ sudo nano /etc/dhcp/dhcpd.conf\n\n# Sample Config\nsubnet 192.168.1.0 netmask 255.255.255.0 {\n  range 192.168.1.100 192.168.1.200;\n  option routers 192.168.1.1;\n  option domain-name-servers 192.168.1.10;\n  default-lease-time 600;\n  max-lease-time 7200;\n}\n\n// DNS Zone Setup (Bind9)\n$ sudo nano /etc/bind/named.conf.local\n\n# Sample Zone\nzone \"mydomain.local\" {\n  type master;\n  file \"/etc/bind/db.mydomain\";\n};\n\n// Sample zone file (/etc/bind/db.mydomain)\n$TTL 604800\n@   IN  SOA mydomain.local. admin.mydomain.local. (\n            2 ; Serial\n        604800 ; Refresh\n         86400 ; Retry\n       2419200 ; Expire\n        604800 ) ; Negative Cache TTL\n;\n@       IN  NS      mydomain.local.\n@       IN  A       192.168.1.10\nwww     IN  A       192.168.1.10",
+  "title7": "Code Explanation",
+  "codeExplanation": "The DHCP configuration specifies the IP range and DNS server to assign to clients. The DNS setup creates a local domain zone (mydomain.local) and resolves 'www' to the server's IP. This can be tested with a ping to www.mydomain.local from clients.",
+  "title8": "Applications",
+  "applications": [
+    "Used in enterprise networks for automatic IP assignment and internal domain resolution.",
+    "Helps reduce human errors in IP configuration and simplifies administration.",
+    "DNS is essential for hosting websites, email servers, and services within a network.",
+    "DHCP is used in homes, offices, data centers, and ISPs to manage IP addresses efficiently."
+  ],
+  "title9": "Conclusion",
+  "conclusion": "Configuring DHCP and DNS servers is essential for building any dynamic, user-friendly network. DHCP reduces admin effort, while DNS allows users to access services using readable names. This experiment builds a strong foundation for managing core network services.",
+  "faqs": [
+    {
+      "question": "What is the main difference between DHCP and DNS?",
+      "answer": "DHCP assigns IP addresses automatically, while DNS resolves domain names to IP addresses."
+    },
+    {
+      "question": "Can a single server handle both DHCP and DNS?",
+      "answer": "Yes, many servers (like Windows Server or Linux with Bind & DHCPD) can host both services simultaneously."
+    },
+    {
+      "question": "How can I check if a device received IP via DHCP?",
+      "answer": "On Windows, use `ipconfig /all` and look for 'DHCP Enabled: Yes'. On Linux, use `nmcli` or `ifconfig`."
+    },
+    {
+      "question": "What happens if DHCP server fails?",
+      "answer": "Clients won’t receive new IPs. Existing leases may work for some time until they expire, after which communication breaks down."
+    },
+    {
+      "question": "Can I use Google DNS with local DHCP?",
+      "answer": "Yes, you can configure DHCP to assign 8.8.8.8 and 8.8.4.4 as DNS servers to clients."
+    }
+  ]
+},
+{
+  "mainTitle": "Wireless Network Configuration with Security",
+  "title": "Experiment on Wireless Network Setup and Securing Wi-Fi",
+  "ExperimentId": "CN006",
+  "slug": "wireless-network-configuration-security",
+  "metaDescription": "Learn how to configure a secure wireless network with SSID, encryption (WPA2/WPA3), MAC filtering, and other wireless security practices using routers or access points.",
+  "title1": "Introduction",
+  "para1": "Wireless networking allows devices to connect to the internet or local network without physical cables. However, due to its open nature, it's crucial to configure it securely. In this experiment, we configure a wireless network, enable encryption, and apply security mechanisms like MAC filtering, SSID hiding, and firewall rules.",
+  "title2": "Working Principle",
+  "para2": "A wireless access point or router broadcasts an SSID that allows nearby devices to connect using Wi-Fi protocols. Security measures like WPA2/WPA3 encryption ensure only authorized users can access the network. Further security like MAC filtering and firewall rules add protection against unauthorized access or misuse.",
+  "workingSteps": [
+    "Connect to the wireless router’s admin panel using a web browser (typically 192.168.0.1 or 192.168.1.1).",
+    "Set a unique SSID (network name) for identification.",
+    "Choose WPA2 or WPA3 encryption and set a strong passphrase.",
+    "Enable MAC address filtering and add allowed device MACs.",
+    "Disable SSID broadcast if desired for additional obscurity.",
+    "Test the configuration by connecting a device to the secured network."
+  ],
+  "formula": "",
+  "title3": "Components Required",
+  "components": [
+    "Wireless router or access point",
+    "Laptop/mobile phone for configuration/testing",
+    "Ethernet cable (for initial configuration)",
+    "Browser and network admin credentials"
+  ],
+  "title4": "Pin Configuration",
+  "pinConfig": [
+    {
+      "component": "Ethernet (RJ45) for Initial Setup",
+      "pins": "Pins 1, 2, 3, 6 used for data in 100Mbps Ethernet setup"
+    }
+  ],
+  "note": "Many routers have a reset button to restore default settings if credentials are forgotten. Always change default passwords before deployment.",
+  "title5": "Wiring & Connections",
+  "wiring": [
+    {
+      "connection": "Router to Laptop (for setup)",
+      "description": "Use RJ45 cable to connect laptop to router for first-time configuration"
+    },
+    {
+      "connection": "Router to Internet (optional)",
+      "description": "Connect router’s WAN port to ISP modem for internet access"
+    }
+  ],
+  "title6": "Source Code",
+  "code": "// Wireless Setup Steps (Web Interface)\n\n1. Access router IP via browser: http://192.168.1.1\n2. Login with admin credentials\n3. Navigate to Wireless > Basic Settings\n   - SSID: MySecureWiFi\n   - Mode: 802.11n or 802.11ac\n4. Go to Wireless > Security\n   - Security Mode: WPA2-PSK or WPA3\n   - Encryption: AES\n   - Passphrase: StrongPassword123!\n5. Enable MAC Filtering (optional):\n   - Add allowed MACs only\n6. (Optional) Disable SSID Broadcast\n7. Save & Reboot router",
+  "title7": "Code Explanation",
+  "codeExplanation": "The steps above describe configuring wireless settings via a router's web interface. WPA2-PSK and WPA3 provide strong encryption. MAC filtering restricts access to known devices. Disabling SSID broadcast can help obscure the network from casual discovery.",
+  "title8": "Applications",
+  "applications": [
+    "Home and office Wi-Fi setup with secure access control.",
+    "Educational institutions ensuring only students/staff connect.",
+    "Public hotspots with layered security (e.g., captive portals + WPA).",
+    "IoT device networks with MAC filtering to block rogue devices."
+  ],
+  "title9": "Conclusion",
+  "conclusion": "Configuring a secure wireless network is vital for protecting user data and preventing unauthorized access. Using encryption, access control, and strong authentication ensures a stable and protected network environment. This experiment teaches best practices every network admin should know.",
+  "faqs": [
+    {
+      "question": "What is WPA2/WPA3 encryption?",
+      "answer": "WPA2 and WPA3 are wireless encryption standards that protect data sent over Wi-Fi from eavesdropping and unauthorized access. WPA3 is the latest and most secure standard."
+    },
+    {
+      "question": "Should I disable SSID broadcast?",
+      "answer": "Disabling SSID broadcast hides the network name from the public, adding a layer of obscurity, but it is not a primary security measure."
+    },
+    {
+      "question": "What is MAC filtering?",
+      "answer": "MAC filtering allows only approved device MAC addresses to connect to the wireless network, adding a layer of access control."
+    },
+    {
+      "question": "How strong should my Wi-Fi password be?",
+      "answer": "Use a password with at least 12 characters, combining uppercase, lowercase, numbers, and symbols. Avoid dictionary words or names."
+    },
+    {
+      "question": "Is it okay to keep using default admin credentials?",
+      "answer": "No. Default credentials are publicly known and pose a huge risk. Always change admin username and password."
+    }
+  ]
+}
 
-  String sensorData = "Temperature: 25.5°C";
-  client.publish("esp32/sensorData", sensorData.c_str());
-  delay(10000);
-}
-        `
-      },
-      {
-        step: "MQTT Callback Function",
-        codeSnippet: `
-void mqtt_callback(char* topic, byte* payload, unsigned int length) {
-  String message = "";
-  for (int i = 0; i < length; i++) {
-    message += (char)payload[i];
-  }
-}
-        `
-      },
-      {
-        step: "Monitor MQTT Data",
-        description: "Use MQTT.fx or MQTT Explorer to subscribe and visualize data from topic esp32/sensorData."
-      }
-    ]
-  },
 
-  {
-    title: "Wi-Fi Implementation: ESP32 using REST API for Cloud Services",
-    objective: "To implement Wi-Fi communication on an ESP32, using REST API to send real-time sensor data to cloud services like ThingSpeak, AWS, or Firebase.",
-    benefits: [
-      "Fast data transfer",
-      "Easy REST API integration",
-      "Real-time monitoring via cloud"
-    ],
-    hardware: [
-      "ESP32 Development Board",
-      "Wi-Fi Network",
-      "Cloud Service (e.g., ThingSpeak, Firebase, AWS)",
-      "(Optional) Sensors (e.g., DHT11, Temperature, Humidity)"
-    ],
-    steps: [
-      {
-        step: "Set Up Cloud Services",
-        description: "Create ThingSpeak or Firebase account and obtain API keys/URLs."
-      },
-      {
-        step: "Install Required Libraries",
-        description: "Install WiFi.h, HTTPClient.h, and optionally ArduinoJson via Arduino Library Manager."
-      },
-      {
-        step: "Configure Wi-Fi and API Keys",
-        codeSnippet: `
-const char* ssid = "your_wifi_ssid";
-const char* password = "your_wifi_password";
-const String writeAPIKey = "your_thingspeak_write_api_key";
-const String firebaseURL = "https://your-project-id.firebaseio.com/";
-        `
-      },
-      {
-        step: "Wi-Fi Connection Setup",
-        codeSnippet: `
-#include <WiFi.h>
-#include <HTTPClient.h>
-
-void setup() {
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) delay(1000);
-}
-        `
-      },
-      {
-        step: "Send Data to ThingSpeak",
-        codeSnippet: `
-void loop() {
-  if (WiFi.status() == WL_CONNECTED) {
-    HTTPClient http;
-    float sensorData = 25.5;
-    String url = "http://api.thingspeak.com/update?api_key=" + writeAPIKey + "&field1=" + String(sensorData);
-    http.begin(url);
-    int httpResponseCode = http.GET();
-    http.end();
-    delay(20000);
-  }
-}
-        `
-      },
-      {
-        step: "Send Data to Firebase (Optional)",
-        codeSnippet: `
-void sendToFirebase(float sensorData) {
-  HTTPClient http;
-  String jsonData = "{\"temperature\": " + String(sensorData) + "}";
-  http.begin(firebaseURL);
-  http.addHeader("Content-Type", "application/json");
-  int httpResponseCode = http.POST(jsonData);
-  http.end();
-}
-        `
-      },
-      {
-        step: "Monitor Data on Cloud",
-        description: "Use ThingSpeak graphs or Firebase Console → Realtime Database to view data."
-      }
-    ]
-  },
-  {
-    "title": "XMPP Implementation: Raspberry Pi using SleekXMPP Library for IoT Communication",
-    "objective": "To implement XMPP communication on a Raspberry Pi using the SleekXMPP library for real-time instant messaging, allowing IoT devices to exchange data instantly.",
-    "why": [
-      "✅ Real-Time Communication: Enables quick exchange of messages and updates.",
-      "✅ Lightweight Protocol: Well-suited for IoT devices where bandwidth and power consumption are crucial.",
-      "✅ Presence Information: XMPP can maintain device availability status (online/offline).",
-      "✅ Scalability: Efficient for large numbers of devices in a connected IoT system."
-    ],
-    "hardware_requirements": [
-      "Raspberry Pi (any version)",
-      "Wi-Fi/Network Connection",
-      "Sensors (e.g., Temperature, Humidity) – Optional",
-      "XMPP Server (e.g., Openfire, ejabberd, or a public service like Jabber.org)"
-    ],
-    "steps": [
-      {
-        "title": "Install the Necessary Libraries",
-        "description": "Install SleekXMPP and required dependencies on Raspberry Pi.",
-        "commands": [
-          "sudo apt-get update",
-          "sudo apt-get install python3 python3-pip",
-          "pip install sleekxmpp",
-          "sudo apt-get install libxml2-dev libxslt-dev"
-        ]
-      },
-      {
-        "title": "Set Up the XMPP Server",
-        "description": "Use a public XMPP server like Jabber.org or host a private one using Openfire or ejabberd.",
-        "options": [
-          "Create user account with username/password on public server",
-          "Set up Openfire/ejabberd for private control"
-        ]
-      },
-      {
-        "title": "Create an XMPP Client on Raspberry Pi",
-        "description": "Use SleekXMPP in Python to connect and send messages.",
-        "code_sample": "import sleekxmpp\nclass XmppClient(sleekxmpp.ClientXMPP):\n    # Connect, send messages, and handle responses\n    pass"
-      },
-      {
-        "title": "Send Sensor Data to the XMPP Server",
-        "description": "Read sensor data from DHT22 and send via XMPP.",
-        "code_sample": "import Adafruit_DHT\n# Read temperature and send as message"
-      },
-      {
-        "title": "Monitor Data",
-        "description": "Use an XMPP client to view messages sent from the Raspberry Pi in real time."
-      },
-      {
-        "title": "Advanced Features (Optional)",
-        "features": [
-          "Presence Status: Show device availability.",
-          "Group Messaging: Broadcast to multiple recipients or chatrooms.",
-          "Message Encryption: Secure communication.",
-          "Data Logging: Store received data in a database."
-        ]
-      }
-    ]
-  }
-  
-  
 ]
-  
-  
-  export default allData
+
+export default ComputerNetworkData

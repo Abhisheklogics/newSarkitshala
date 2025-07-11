@@ -1,268 +1,107 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const jetsonSchema = new mongoose.Schema({
-    ExperimentID: {
-        type: Number,
-    },
-    TName:{
-        type: String,
-    },
-    Disc1:{
-        type: String,
-    },
-    Disc2:{
-        type: String,
-    },
-    Compreq:{
-        type: Array,
-    },
-    ST1:{
-        type: Array,
-    },
-    
-    ST2:{
-        type: String,
-    },
+const JetsonNanoSchema = new mongoose.Schema({
+  ExpId: Number,
+  Tname: String,
+  Disc1: String,
+  Disc2: String,
 
-    ST3:{
-        type: String,
-    },
+  Compreq: [{ comp: String }],
 
-    Disc:{
-        type: String,
-    },
+  ST1: String,
+  D1: String,
+  D2: String,
+  D3: String,
+  D4: String,
+  D5: String,
+  D6: String,
+  D7: String,
 
-    JNDkit:{
-        type: Array,
-    },
+  ST2: String,
+  ST3: String,
+  Disc: String,
 
-    ST4:{
-        type: String,
-    },
+  JNDkit: [{ D1: String }],
 
-    J_SDK:{
-        type: Array,
-    },
+  ST4: String,
+  J_SDK: [{ D2: String }],
 
-    ST5:{
-        type: String,
-    },
+  ST5: String,
+  PS_Options: [{ D3: String }],
 
-    PS_Options:{
-        type: Array,
-    },
+  ST6: String,
+  CS_Options: [{ D4: String }],
 
-    ST6:{
-        type: String,
-    },
+  ST7: String,
+  CE_Options: [{ D5: String }],
 
-    CS_Options:{
-        type: Array,
-    },
+  ST8: String,
+  ST9: String,
+  App_Options: [{ D6: String }],
 
-    ST7:{
-        type: String,
-    },
+  ST10: String,
+  EndV: String,
 
-    CE_Options: {
-        type: Array,
-    },
+  ST11: String,
+  GS_Steps: [{ D7: String }],
 
-    ST8: {
-        type: String,
-    },
+  ST12: String,
+  ST13: String,
+  SDdisc: [{ Disc1: String }],
 
-    ST9: {
-        type: String,
-    },
+  ST14: String,
+  MusbDisc: [{ Disc1: String }],
 
-    App_Options:{
-        type: Array,
-    },
+  ST15: String,
+  Note: [{ D1: String }],
 
-    ST10:{
-        type: String,
-    },
+  ST16: String,
+  Mdata: String,
+  SDsteps: [{ W2: String }],
 
-    EndV:{
-        type: String,
-    },
-    ST11:{
-        type: String,
-    },
-    GS_Steps:{
-        type: Array,
-    },
+  ST17A: String,
+  Formatsdcard: String,
+  FSteps: [{ S1: String }],
 
-    ST12:{
-        type: String,
-    },
+  Write_Image: String,
+  Write_Steps: [{ W1: String }],
 
-    ST13:{
-        type: String,
-    },
+  ST17B: String,
+  Mac: String,
+  Etcherinfo: String,
+  EtcherSteps: [{ E1: String }],
+  CLI: String,
+  CLIS: [{ S1: String }],
 
-    SDdisc:{
-        type: Array,
-    },
+  ST17C: String,
+  LinuxM: [{ L1: String }],
+  ELI: String,
+  EL_S: [{ S1: String }],
+  CLI_Linus: String,
+  CLI_S: [{ S1: String }],
 
-    ST14:{
-        type: String,
-    },
+  Setup1stboot: String,
+  SetupDesc: String,
+  SetupOptions: [{ S1: String }],
+  Setup_Steps: [{ S1: String }],
 
-    MusbDisc:{
-        type: Array,
-    },
+  FBoot: String,
+  FB_Desc: String,
+  Initial_Setup: [{ S1: String }],
 
-    ST15:{
-        type: String,
-    },
-    Note:{
-        type: Array,
-    },
+  ST: String,
+  ST_Desc: String,
 
-    ST16:{
-        type: String,
-    },
+  InitialSHM: String,
+  Desc: [{ D1: String }],
 
-    Mdata:{
-        type: String,
-    },
+  S_Steps: String,
+  Steps: [{ S1: String }],
 
-    SDsteps:{
-        type: Array,
-    },
+  ST18: String,
+  Conc_Bpoint: [{ P1: String }],
 
-    ST17A:{
-        type: String,
-    },
-    
-    Formatsdcard:{
-        type: String,
-    },
+  img1: String,
+}, { timestamps: true });
 
-    FSteps:{
-        type: Array,
-    },
-
-    Write_Image:{
-        type: String,
-    },
-
-    Write_Steps:{
-        type: Array,
-    },
-
-    ST17B:{
-        type: String,
-    },
-
-    Mac:{
-        type: String,
-    },
-
-    Etcherinfo:{
-        type: String,
-    },
-
-    EtcherSteps:{
-        type: Array,
-    },
-
-    CLI:{
-        type: String,
-    },
-
-    CLIS:{
-        type: Array,
-    },
-
-    ST17C:{
-        type: String,
-    },
-
-    LinuxM:{
-        type: Array,
-    },
-
-    ELI:{
-        type: String,
-    },
-
-    EL_S:{
-        type: Array,
-    },
-
-    CLI_Linus:{
-        type: String,
-    },
-
-    
-    CLI_S:{
-        type: Array,
-    },
-    
-    Setup1stboot:{
-        type: String,
-    },
-    
-    SetupDesc:{
-        type: String,
-    },
-    
-    SetupOptions:{
-        type: Array,
-    },
-    
-    Setup_Steps:{
-        type: Array,
-    },
-    
-    FBoot:{
-        type: String,
-    },
-
-    FB_Desc:{
-        type: String,
-    },
-
-    Initial_Setup:{
-        type: Array,
-    },
-
-    ST:{
-        type: String,
-    },
-
-    ST_Desc: {
-        type: String,
-    },
-
-    InitialSHM:{
-        type: String,
-    },
-
-    Desc:{
-        type: Array,
-    },
-
-    S_Steps:{
-        type: String,
-    },
-
-    Steps:{
-        type: Array,
-    },
-
-    ST18:{
-        type: String,
-    },
-
-    Conc_Bpoint: {
-        type: Array,
-    },
-
-}
-)
-
-export const Jetson = mongoose.models.Jetson || mongoose.model('Jetson', jetsonSchema);
+export const jetsons= mongoose.models.jetsons || mongoose.model('jetsons', JetsonNanoSchema);

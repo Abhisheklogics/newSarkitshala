@@ -4,11 +4,9 @@ const CodeBox = dynamic(() => import('@/components/code/code'));
 
 export default function Esp({ data }) {
   return (
-    <div className="w-full p-4 md:p-5 bg-white md:bg-[#FFF0E5] rounded-xl leading-8 text-justify break-words font-serif h-fit overflow-y-auto 
-                md:w-[790px] md:ml-[350px] xl:ml-[440px] md:mt-20 
-                xl:w-[850px] ">
+    <div className="containerClass">
       
-      <h1 className="text-3xl font-bold mb-4 text-center">{data.mainTitle}</h1>
+      <h1 className="headingClass">{data.mainTitle}</h1>
 
       {/* Title 1 - Introduction */}
       {data.title1 && (

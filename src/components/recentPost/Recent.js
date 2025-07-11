@@ -13,32 +13,24 @@ import image7 from '../../../public/AllImages/image6.webp';
 import image11 from '../../../public/AllImages/RGBLED.webp';
 import image13 from '../../../public/AllImages/image13.webp';
 
+const posts = [
+  { id: 1, slug: "/jetson", title: "NVIDIA Jetson Nano Developer Kit", image: image1 },
+  { id: 2, slug: "arduino/interfacing-led", title: "Control an LED with Arduino", image: image2 },
+  { id: 3, slug: "arduino/interfacing-rgb-led", title: "Interfacing RGB LED with Arduino", image: image11 },
+  { id: 4, slug: "arduino/interfacing-seven-segment-display", title: "Interfacing 7-Segement Display", image: image13 },
+  { id: 5, slug: "arduino/interfacing-dc-motor", title: "Interfacing DC Motor", image: image3 },
+  { id: 6, slug: "arduino/interfacing-oled-display-module", title: "Interfacing OLED", image: image4 },
+  { id: 7, slug: "arduino/interfacing-pir-sensor", title: "Interfacing PIR Sensor", image: image6 },
+  { id: 8, slug: "arduino/interfacing-dht22", title: "Interfacing DHT11 Sensor", image: image7 },
+];
+
 const RecentPosts = () => {
   const listRef = useRef(null);
   const [isUserInteracting, setIsUserInteracting] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  const posts = [
-    { id: 1, slug: "/jetson", title: "NVIDIA Jetson Nano Developer Kit", image: image1 },
-    { id: 2, slug: "arduino/interfacing-led", title: "Control an LED with Arduino", image: image2 },
-    { id: 3, slug: "arduino/interfacing-rgb-led", title: "Interfacing RGB LED with Arduino", image: image11 },
-    { id: 4, slug: "arduino/interfacing-7-segment-display", title: "Interfacing 7-Segement Display", image: image13 },
-    { id: 5, slug: "arduino/interfacing-dc-motor", title: "Interfacing DC Motor", image: image3 },
-    { id: 6, slug: "arduino/interfacing-oled-display-module", title: "Interfacing OLED", image: image4 },
-    { id: 7, slug: "arduino/interfacing-pir-sensor", title: "Interfacing PIR Sensor", image: image6 },
-    { id: 8, slug: "arduino/interfacing-dht22", title: "Interfacing DHT11 Sensor", image: image7 },
-  ];
-
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useEffect(() => {
     const list = listRef.current;
-    if (!list || !isDesktop) return;
+    if (!list || window.innerWidth < 768) return;
 
     let scrollAmount = 0;
     const maxScroll = list.scrollHeight - list.clientHeight;
@@ -53,51 +45,39 @@ const RecentPosts = () => {
 
     const interval = setInterval(scrollList, 100);
     return () => clearInterval(interval);
-  }, [isUserInteracting, isDesktop]);
+  }, [isUserInteracting]);
 
   return (
-    <div
-      className={`
-        w-full md:w-[420px]
-        bg-[#050A30]
-        rounded-2xl border border-gray-700 shadow-2xl
-        text-white overflow-hidden
-        relative mx-auto
-        mt-14
-        md:mt-0
-      `}
-    >
-      <div className="sticky top-0 z-10 px-5 py-3 bg-gradient-to-r from-gray-900 to-gray-800 text-white font-semibold text-lg border-b border-gray-700">
-         Recent Posts
+    <div className="w-full max-w-[400px] h-[400px] bg-[#1e293b] rounded-xl mx-auto md:mx-0 relative md:absolute grid grid-cols-1 md:ml-20 shadow-lg border border-gray-700">
+      {/* Header */}
+      <div className="sticky top-0 z-10 px-4 py-3 bg-[#1e241b] text-white font-semibold text-lg md:text-xl rounded-t-xl">
+        Recent Posts
       </div>
 
+      {/* Post List */}
       <ul
         ref={listRef}
-        className={`max-h-[400px] px-3 py-3 space-y-3  overflow-y-auto
-    hide-scrollbar`}
+        className="h-[calc(100%-56px)] overflow-y-auto md:overflow-hidden px-3 py-2 space-y-3"
         onMouseEnter={() => setIsUserInteracting(true)}
         onMouseLeave={() => setIsUserInteracting(false)}
         onTouchStart={() => setIsUserInteracting(true)}
         onTouchEnd={() => setIsUserInteracting(false)}
       >
         {posts.map(({ id, slug, title, image }) => (
-          <li key={id}>
-            <Link
-              href={`/${slug}`}
-              className="flex items-center gap-4 rounded-lg p-3 hover:bg-gray-800 transition-all duration-300 group"
-            >
+          <Link key={id} href={`/${slug}`} >
+            <li className="flex items-center gap-4  rounded-lg p-3 hover:bg-[#475569] transition duration-200 text-white cursor-pointer active:scale-[0.98]">
               <Image
                 src={image}
                 alt={title}
                 width={60}
                 height={60}
-                className="rounded-md w-[60px] h-[60px] object-cover shadow-md group-hover:scale-105 transition-transform"
+                className="rounded-md object-cover w-[60px] h-[60px]"
               />
-              <p className="text-sm sm:text-base font-medium text-white group-hover:text-orange-400 line-clamp-2">
+              <p className="text-sm md:text-base font-medium text-gray-200">
                 {title}
               </p>
-            </Link>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

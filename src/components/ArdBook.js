@@ -17,120 +17,103 @@ import img11 from '../../public/ArdBook/11.webp';
 import imgauth from '../../public/ArdBook/About_Author.webp';
 import imgack from '../../public/ArdBook/Ack.webp';
 import imgcover from '../../public/ArdBook/cover.webp';
-
-import { ShootingStars } from './ui/shooting-stars.jsx';
-import { StarsBackground } from './ui/stars-background.jsx';
+import { StarsBackground } from './ui/stars-background';
+import { ShootingStars } from './ui/shooting-stars';
 
 const pages = [
   imgcover, imgauth, imgack,
-  img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11
+  img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11,
 ];
 
 export default function MyBook() {
   const bookRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 800, height: 680 });
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const updateSize = () => {
-      const width = window.innerWidth;
-      if (width < 480) {
-  setDimensions({ width: 320, height: 460 });
-} else if (width < 768) {
-  setDimensions({ width: 360, height: 520 });
-} else if (width < 1024) {
-  setDimensions({ width: 480, height: 660 }); // bigger for tablets
-} else if (width < 1440) {
-  setDimensions({ width: 600, height: 800 }); // better for laptops
-} else {
-  setDimensions({ width: 700, height: 900 }); // desktops or large displays
-}
-
-    };
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const nextPage = () => bookRef.current?.pageFlip().flipNext();
-  const prevPage = () => bookRef.current?.pageFlip().flipPrev();
+  const nextPage = () => bookRef.current.pageFlip().flipNext();
+  const prevPage = () => bookRef.current.pageFlip().flipPrev();
 
   return (
-    <div className="flex flex-col  md:mt-10 items-center justify-center relative min-h-screen py-6 px-2 bg-black rounded-md overflow-hidden">
-      <ShootingStars />
-      <StarsBackground />
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#111827] via-[#1f2937] to-[#0f172a] dark:bg-black text-white relative px-2 py-6">
+   
+      {/* Previous Button */}
+      <button
+        onClick={prevPage}
+        className="absolute left-2 md:left-6 z-20 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full p-3 shadow-lg transition"
+        aria-label="Previous Page"
+      >
+        ◀
+      </button>
 
-      <div className="flex justify-center items-center w-full relative z-10">
-        {/* Previous Button */}
-        <button
-          onClick={prevPage}
-          className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 rounded-full p-3 shadow text-xl text-gray-600 z-20"
-          aria-label="Previous Page"
+      {/* Flip Book */}
+      <div className="relative drop-shadow-2xl w-full max-w-[1000px]">
+        <HTMLFlipBook
+          ref={bookRef}
+          width={isMobile ? 300 : 500}
+          height={isMobile ? 420 : 680}
+          size="stretch"
+          minWidth={280}
+          maxWidth={1000}
+          minHeight={350}
+          maxHeight={680}
+          showCover={true}
+          mobileScrollSupport={true}
+          drawShadow={true}
+          useMouseEvents={true}
+          usePortrait={isMobile}
+          className="book rounded-xl"
         >
-          ◀
-        </button>
+          {/* Cover Page */}
+          <div className="flex flex-col justify-center items-center h-full bg-gradient-to-tr from-[#2563eb] to-[#4f46e5] dark:from-[#0f172a] dark:to-[#1e293b] text-white p-6">
+            <h1 className="text-3xl md:text-5xl font-extrabold font-serif drop-shadow-md mb-4 md:mb-6">
+              Arduino Book
+            </h1>
+            <p className="text-sm md:text-lg max-w-xs md:max-w-sm text-center font-light">
+              Arduino E-Book designed guide to electronics, automation & open-source projects.
+            </p>
+            <p className="absolute bottom-4 right-4 text-xs md:text-sm text-white/60">
+              IoT Students
+            </p>
+          </div>
 
-        {/* Flipbook */}
-        <div
-          className="transition-all md:mt-10 duration-300 ease-in-out drop-shadow-2xl max-w-full"
-          style={{ width: dimensions.width, height: dimensions.height }}
-        >
-          <HTMLFlipBook
-            ref={bookRef}
-            width={dimensions.width}
-            height={dimensions.height}
-            size="stretch"
-            minWidth={280}
-            maxWidth={1000}
-            minHeight={350}
-            maxHeight={800}
-            showCover={true}
-            mobileScrollSupport={true}
-            drawShadow={true}
-            useMouseEvents={true}
-            usePortrait={dimensions.width < 500}
-            className="book rounded-xl shadow-xl"
-          >
-            {pages.map((img, index) => (
-              <div
-                key={index}
-                className={`flex justify-center items-center h-full ${
-                  index === 0
-                    ? 'bg-gradient-to-br from-blue-900 to-black text-white p-6 flex-col'
-                    : 'bg-white p-2 md:p-4'
-                }`}
-              >
-                {index === 0 ? (
-                  <>
-                    <h1 className="text-2xl md:text-4xl font-bold font-serif mb-4">Arduino Book</h1>
-                    <p className="text-center text-sm md:text-lg font-light max-w-xs">
-                      A Beginner’s E-Book Guide to Electronics, Automation & IoT Projects.
-                    </p>
-                    <span className="absolute bottom-4 right-4 text-xs text-white/60">IoT Students</span>
-                  </>
-                ) : (
-                  <Image
-  src={img}
-  alt={`Page ${index}`}
-  className="object-contain rounded-lg shadow border w-full h-full max-h-full"
-  sizes="(max-width: 768px) 100vw, 700px"
-  priority={index < 3}
-/>
-
-                )}
-              </div>
-            ))}
-          </HTMLFlipBook>
-        </div>
-
-        {/* Next Button */}
-        <button
-          onClick={nextPage}
-          className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 rounded-full p-3 shadow text-xl text-gray-600 z-20"
-          aria-label="Next Page"
-        >
-          ▶
-        </button>
+          {/* Book Pages */}
+          {pages.map((img, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-zinc-900 flex flex-col justify-center items-center p-2 md:p-4"
+            >
+              <Image
+                src={img}
+                alt={`Page ${index + 1}`}
+                width={460}
+                height={680}
+                className="rounded-md object-contain shadow-md border dark:border-zinc-700"
+                priority={index < 3}
+              />
+              <span className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                Page {index + 1}
+              </span>
+            </div>
+          ))}
+        </HTMLFlipBook>
       </div>
+
+      {/* Next Button */}
+      <button
+        onClick={nextPage}
+        className="absolute right-2 md:right-6 z-20 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full p-3 shadow-lg transition"
+        aria-label="Next Page"
+      >
+        ▶
+      </button>
+         <StarsBackground/>
+      <ShootingStars/>
     </div>
   );
 }
