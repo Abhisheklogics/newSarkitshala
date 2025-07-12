@@ -65,7 +65,7 @@ const RecentPosts = () => {
       >
         {posts.map(({ id, slug, title, image }) => (
           <Link key={id} href={`/${slug}`} >
-            <li className="flex items-center gap-4  rounded-lg p-3 hover:bg-[#475569] transition duration-200 text-white cursor-pointer active:scale-[0.98]">
+            <li className="flex items-center gap-4  rounded p-3 hover:bg-[#475569] transition duration-200 text-white cursor-pointer active:scale-[0.98]">
               <Image
                 src={image}
                 alt={title}
