@@ -71,7 +71,7 @@ const RecentPosts = () => {
                 alt={title}
                 width={60}
                 height={60}
-                className="rounded-md object-cover w-[60px] h-[60px]"
+                className="roundeda object-cover w-[60px] h-[60px]"
               />
               <p className="text-sm md:text-base font-medium text-gray-200">
                 {title}
