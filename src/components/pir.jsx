@@ -3,7 +3,7 @@ import pir from '../../public/images/pir.webp'
 import { LensCard } from './LensCard';
 export default function PIRSensorTutorial() {
   return (
-    <div className="containerClass mt-10 md:mt-0">
+    <div className="articleContainer ">
       <h1 className="headingClass">Interfacing Arduino with PIR Sensor</h1>
       <LensCard image={pir}/>
   <section className="sectionHeading ">

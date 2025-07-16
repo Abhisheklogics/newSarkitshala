@@ -384,7 +384,7 @@ const experiments = [
 const ToggleButton = ({ label, onClick, isOpen }) => (
   <button onClick={onClick} aria-expanded={isOpen} className='toggle-btn'>
     <span className='toggle-btn-text'>{label}</span>
-    <span>{isOpen ? "🔽" : "▶️"}</span>
+   
   </button>
 );
 
@@ -402,7 +402,7 @@ const ToggleLinks = ({ toggle, links }) => (
 
 export default function RootLayout({ children }) {
   const [toggles, setToggles] = useState({
-    basic: false,
+    basic: true,
     intermediate: false,
     advanced: false,
   });

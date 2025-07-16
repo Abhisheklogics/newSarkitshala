@@ -69,7 +69,7 @@ export default function Page() {
    const sectionClass = "sectionHeading";
 
   return (
-    <div className="containerClass">
+    <div className="articleContainer ">
       <main >
         <div>
           <h1 id="Arduino" className="headingClass">

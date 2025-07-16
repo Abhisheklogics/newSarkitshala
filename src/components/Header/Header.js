@@ -51,7 +51,7 @@ export default function Header() {
   /* -------------------------------------------------------------------------- */
 
   return (
-    <header className="fixed md:w-full  inset-x-0 top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/60">
+    <header className="fixed md:w-full  inset-x-0 top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-blue/30">
       {/* Container */}
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6 lg:px-8">
         {/* Logo */}
