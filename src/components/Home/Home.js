@@ -9,7 +9,7 @@ import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 import { LampContainer } from '../ui/lamp';
 import Footer from '../Footer/Footer';
 import MyBook from '../ArdBook';
-import { Spotlight } from '../ui/spotlight-new';
+
 import RecentPosts from '../recentPost/Recent';
 import { TextGenerateEffect } from '../ui/text-generate-effect';
 

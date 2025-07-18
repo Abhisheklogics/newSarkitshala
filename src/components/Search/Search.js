@@ -52,62 +52,62 @@ export default function Search() {
   };
 
   return (
-    <div ref={inputRef} className="relative w-full max-w-md">
-      {/* Input */}
-      <div className="relative">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search Experiments..."
-          className="
-            w-full py-2.5 px-10
-            rounded-lg
-            text-gray-100
-            bg-gray-700
-            text-sm
-            border border-gray-300
-            focus:outline-none focus:ring-2 focus:ring-blue-500
-            placeholder:text-gray-500
-            transition-all duration-300
-            shadow-sm
-          "
-        />
+    <div ref={inputRef} className="relative w-full max-w-md mx-auto">
+  {/* Input Field */}
+  <div className="relative">
+    <input
+      type="text"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      placeholder="Search Experiments..."
+      className="
+        w-full py-3 px-12
+        rounded-xl
+        text-gray-100
+        bg-gray-800
+        text-sm
+        border border-gray-600
+        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+        placeholder:text-gray-400
+        transition-all duration-300 ease-in-out
+        shadow-inner
+      "
+    />
 
-        {/* Search Icon */}
-        <div className="absolute left-3 top-2.5 text-gray-100 pointer-events-none">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 20 20">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m19 19-4-4m0-7A7 7 0 111 8a7 7 0 0114 0z" />
-          </svg>
-        </div>
-
-        {/* Clear Button */}
-        {search && (
-          <button
-            onClick={clearSearch}
-            className="absolute right-3 top-2.5  hover:text-red-500 transition"
-            aria-label="Clear search"
-          >
-            ✖
-          </button>
-        )}
-      </div>
-
-      {/* Suggestions */}
-      {applyData.length > 0 && showApplyData && (
-        <div className="absolute left-0 right-0 top-full mt-2 bg-gray-700 border border-gray-200 rounded-lg shadow-xl z-50 max-h-60 overflow-y-auto">
-          {applyData.map((data) => (
-            <Link
-              key={data.ExperimentId}
-              href={data.slug}
-              onClick={clearSearch}
-              className="block px-4 py-2 text-sm  hover:bg-gray-100 transition-all"
-            >
-              {data.ExperimentName}
-            </Link>
-          ))}
-        </div>
-      )}
+    {/* Search Icon */}
+    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103 10.5a7.5 7.5 0 0013.15 6.15z" />
+      </svg>
     </div>
+
+    {/* Clear Button */}
+    {search && (
+      <button
+        onClick={clearSearch}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-red-500 transition"
+        aria-label="Clear search"
+      >
+        ✖
+      </button>
+    )}
+  </div>
+
+  {/* Suggestions */}
+  {applyData.length > 0 && showApplyData && (
+    <div className="absolute left-0 right-0 top-full mt-2 bg-gray-800 border border-gray-600 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto backdrop-blur-md">
+      {applyData.map((data) => (
+        <Link
+          key={data.ExperimentId}
+          href={data.slug}
+          onClick={clearSearch}
+          className="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-700 transition-all duration-200"
+        >
+          {data.ExperimentName}
+        </Link>
+      ))}
+    </div>
+  )}
+</div>
   );
 }
