@@ -70,7 +70,7 @@ export default function Page() {
 
   return (
     <div className="articleContainer ">
-      <main >
+      <main className='mt-20' >
         <div>
           <h1 id="Arduino" className="headingClass">
             Best Arduino Projects, Pin Guides & Step-by-Step Tutorials for Beginners
@@ -190,7 +190,7 @@ export default function Page() {
             </h3>
             <div >
               {[
-                { slug: 'interfacing-led', text: 'Control an LED with Arduino (Step-by-Step Guide)' },
+                { slug: 'interfacing-led', text: 'Interfacing Arduino with PIR Sensor' },
                 { slug: 'interfacing-rgb-led', text: 'Interfacing RGB LED' },
                 { slug: 'interfacing-7-segment-display', text: 'Interfacing 7-Segment Display' },
                 { slug: 'interfacing-oled', text: 'Interfacing OLED' },
