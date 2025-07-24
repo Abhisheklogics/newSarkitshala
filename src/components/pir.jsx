@@ -3,7 +3,7 @@ import pir from '../../public/images/pir.webp'
 import { LensCard } from './LensCard';
 export default function PIRSensorTutorial() {
   return (
-    <div className="articleContainer ">
+    <div className="articleContainer md:ml-0 ml-[-30px]">
       <h1 className="headingClass">Interfacing Arduino with PIR Sensor</h1>
       <LensCard image={pir}/>
   <section className="sectionHeading ">
@@ -19,7 +19,7 @@ export default function PIRSensorTutorial() {
       <section  className="sectionHeading">
         <h2 className="text-2xl font-semibold text-indigo-600 mb-4">Theory</h2>
         <ul className="list-disc pl-5 space-y-2 paragraphText">
-          <li><strong>What is PIR Sensor:</strong> A Passive Infrared (PIR) sensor detects motion by measuring changes in infrared radiation emitted by warm objects (like humans).</li>
+          <li><strong className='text-xl text-blue-400 font-semibold'>What is PIR Sensor:</strong> A Passive Infrared (PIR) sensor detects motion by measuring changes in infrared radiation emitted by warm objects (like humans).</li>
           <li><strong>How Does It Work:</strong> The sensor has two slots that detect infrared levels. When motion occurs, the levels change, triggering an output signal.</li>
           <li><strong>Why Use It:</strong> Motion detection is used in security systems, automatic lights, and smart home devices.</li>
           <li><strong>Learning Outcome:</strong> Understand how to connect, configure, and program an Arduino to detect motion events using a PIR sensor.</li>
@@ -141,7 +141,7 @@ void loop() {
   <h2 className="text-2xl font-semibold text-indigo-600 mb-4">Line-by-Line Code Breakdown</h2>
   <div className="overflow-auto ">
     <table className="w-full styledTable  paragraphText">
-      <thead className="bg-gray-100 text-gray-800">
+      <thead className="bg-gray-100 text-gray-900">
         <tr>
           <th className="p-2 border">Line</th>
           <th className="p-2 border">Code</th>
@@ -172,7 +172,7 @@ void loop() {
         ].map((row, i) => (
           <tr key={i} className="border-t hover:bg-gray-50">
             <td className="p-2 border">{row.line}</td>
-            <td className="p-2 border font-mono text-blue-600">{row.code}</td>
+            <td className="p-2 border font-mono">{row.code}</td>
             <td className="p-2 border">{row.desc}</td>
           </tr>
         ))}

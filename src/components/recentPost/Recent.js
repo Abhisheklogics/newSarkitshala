@@ -48,39 +48,41 @@ const RecentPosts = () => {
   }, [isUserInteracting]);
 
   return (
-    <div className="w-full max-w-[400px] h-[400px] bg-[#1e293b] rounded-xl mx-auto md:mx-0 relative md:absolute grid grid-cols-1 md:ml-20 shadow-lg border border-gray-700">
-      {/* Header */}
-      <div className="sticky top-0 z-10 px-4 py-3 bg-[#1e241b] text-white font-semibold text-lg md:text-xl rounded-t-xl">
-        Recent Posts
-      </div>
+   <div className="w-full max-w-[420px] h-[420px] bg-gradient-to-br from-[#1e293b] to-[#0f172a] rounded-2xl mx-auto md:mx-0 relative md:absolute grid grid-cols-1 md:ml-20 shadow-xl border border-gray-800 overflow-hidden transition-all duration-300">
+  {/* Header */}
+  <div className="sticky top-0 z-10 px-5 py-3 bg-[#0f172a] text-white font-bold text-lg md:text-xl rounded-t-2xl shadow-md flex items-center justify-between">
+    <span> Recent Posts</span>
 
-      {/* Post List */}
-      <ul
-        ref={listRef}
-        className="h-[calc(100%-56px)] overflow-y-auto md:overflow-hidden px-3 py-2 space-y-3"
-        onMouseEnter={() => setIsUserInteracting(true)}
-        onMouseLeave={() => setIsUserInteracting(false)}
-        onTouchStart={() => setIsUserInteracting(true)}
-        onTouchEnd={() => setIsUserInteracting(false)}
-      >
-        {posts.map(({ id, slug, title, image }) => (
-          <Link key={id} href={`/${slug}`} >
-            <li className="flex items-center gap-4  rounded p-3 hover:bg-[#475569] transition duration-200 text-white cursor-pointer active:scale-[0.98]">
-              <Image
+  </div>
+
+  
+  <ul
+    ref={listRef}
+    className="h-[calc(100%-56px)] overflow-y-auto md:overflow-hidden px-4 py-3 space-y-3 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+    onMouseEnter={() => setIsUserInteracting(true)}
+    onMouseLeave={() => setIsUserInteracting(false)}
+    onTouchStart={() => setIsUserInteracting(true)}
+    onTouchEnd={() => setIsUserInteracting(false)}
+  >
+    {posts.map(({ id, slug, title, image }) => (
+      <Link key={id} href={`/${slug}`}>
+        <li className="flex items-center gap-4 rounded-xl p-3 bg-[#1e293b] hover:bg-[#334155] hover:shadow-md transition duration-200 text-white cursor-pointer active:scale-[0.98]">
+          <Image
                 src={image}
                 alt={title}
                 width={60}
                 height={60}
-                className="roundeda object-cover w-[60px] h-[60px]"
+                className="rounded-md object-cover w-[60px] h-[60px]"
               />
-              <p className="text-sm md:text-base font-medium text-gray-200">
-                {title}
-              </p>
-            </li>
-          </Link>
-        ))}
-      </ul>
-    </div>
+          <p className="text-sm md:text-base font-semibold text-gray-100 line-clamp-2">
+            {title}
+          </p>
+        </li>
+      </Link>
+    ))}
+  </ul>
+</div>
+
   );
 };
 

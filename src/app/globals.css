@@ -173,8 +173,8 @@ body {
 
 .mobile-menu-btn {
   position: fixed;
-  top: 6rem;
-  left: 1rem;
+  top: 4rem;
+  left: 0.5rem;
   z-index: 50;
   background-color: #1e40af;
   color: white;
@@ -292,16 +292,7 @@ html {
 }
 
 /* Default Theme Variables */
-html[data-theme="light"] {
-  --clr-bg: var(--light-bg);
-  --clr-text: var(--light-text);
-  --clr-secondary: var(--light-secondary);
-  --clr-card: var(--light-card);
-  --clr-border: var(--light-border);
-  --clr-accent: var(--light-accent);
-  --clr-accent-light: var(--light-accent-light);
-  --clr-shadow: var(--light-shadow);
-}
+
 
 html[data-theme="dark"] {
   --clr-bg: var(--dark-bg);
@@ -325,13 +316,14 @@ body {
 /* Article container */
 
 .articleContainer {
-  padding: 2.5rem 2rem;
+  padding: 1rem 2rem;
+  
   background-color: var(--clr-card);
   border-radius: 1.25rem;
   box-shadow: var(--clr-shadow);
   transition: background 0.3s, color 0.3s;
   max-width: 960px;
-  margin: 0 auto;
+ 
 }
 
 /* Headings */

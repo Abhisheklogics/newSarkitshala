@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { useState } from "react";
-
-
+import { useMemo, useState } from "react";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+
+const pricingOptions = ["All", "Free", "Freemium", "Paid"];
 
 // Step 1: Add `category` to each tool
 const aiTools = [
@@ -722,9 +722,13 @@ const aiTools = [
 
 ];
 
-const pricingOptions = ["All", "Free", "Freemium", "Paid"];
 
-// Group tools by category
+
+
+
+
+
+// Utility to group tools by category
 const groupByCategory = (tools) => {
   return tools.reduce((groups, tool) => {
     const cat = tool.category || "Other";
@@ -734,20 +738,52 @@ const groupByCategory = (tools) => {
   }, {});
 };
 
+const ToolCard = ({ tool }) => (
+  <div className="group relative bg-[#1e293b]/40 border border-white/10 backdrop-blur-lg rounded-xl p-5 shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-blue-500 hover:shadow-blue-500/20">
+    <div className="absolute top-3 right-3">
+      <span
+        className={`text-[10px] font-bold px-2 py-1 rounded-full uppercase ${
+          tool.pricing === "Free"
+            ? "bg-green-500 text-white"
+            : tool.pricing === "Freemium"
+            ? "bg-yellow-400 text-black"
+            : tool.pricing === "Paid"
+            ? "bg-red-500 text-white"
+            : "bg-gray-500 text-white"
+        }`}
+      >
+        {tool.pricing}
+      </span>
+    </div>
+    <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-400 transition-colors">
+      {tool.name}
+    </h3>
+    <p className="text-sm text-gray-300 mb-4 line-clamp-3">{tool.description}</p>
+    <a
+      href={tool.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block mt-auto bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-md transition"
+    >
+      Visit Tool
+    </a>
+  </div>
+);
+
 const AIToolGrid = () => {
   const [selectedPricing, setSelectedPricing] = useState("All");
 
-  const categorizedTools = groupByCategory(
-    aiTools.filter(
+  const categorizedTools = useMemo(() => {
+    const filtered = aiTools.filter(
       (tool) => selectedPricing === "All" || tool.pricing === selectedPricing
-    )
-  );
+    );
+    return groupByCategory(filtered);
+  }, [selectedPricing]);
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-[#0b1120] via-[#0f172a] to-[#1e293b] text-white px-6 py-20">
       <StarsBackground />
       <ShootingStars />
-
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-10">
           <span className="bg-gradient-to-r from-blue-400 to-cyan-500 text-transparent bg-clip-text">
@@ -755,51 +791,18 @@ const AIToolGrid = () => {
           </span>
         </h1>
 
-        {/* Pricing Filter */}
-       
+        
 
-        {/* Categorized Cards */}
         {Object.entries(categorizedTools).map(([category, tools]) => (
           <div key={category} className="mb-20">
-            <h2 className="text-2xl font-semibold mb-6 border-b border-white/10 pb-2 pl-1">
-              {category}
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-2 h-6 bg-gradient-to-b from-blue-400 to-cyan-500 rounded"></div>
+              <h2 className="text-2xl font-semibold">{category}</h2>
+            </div>
 
             <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {tools.map((tool, index) => (
-               <div
-  key={index}
-  className="group relative bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl p-5 shadow-xl transition-transform duration-300 hover:scale-[1.03] hover:border-blue-500"
->
-  {/* Pricing Badge */}
-  <div className="absolute top-3 right-3">
-    <span
-      className={`text-[10px] font-bold px-2 py-1 rounded-full uppercase ${
-        tool.pricing === "Free"
-          ? "bg-green-500 text-white"
-          : tool.pricing === "Freemium"
-          ? "bg-yellow-400 text-black"
-          : "bg-red-500 text-white"
-      }`}
-    >
-      {tool.pricing}
-    </span>
-  </div>
-
-  <h3 className="text-lg font-semibold mb-2 group-hover:text-blue-400 transition-colors">
-    {tool.name}
-  </h3>
-  <p className="text-sm text-gray-300 mb-4 line-clamp-3">{tool.description}</p>
-  <a
-    href={tool.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block mt-auto bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-md transition"
-  >
-    Visit Tool
-  </a>
-</div>
-
+                <ToolCard key={tool.name + index} tool={tool} />
               ))}
             </div>
           </div>
@@ -810,4 +813,3 @@ const AIToolGrid = () => {
 };
 
 export default AIToolGrid;
-

@@ -69,8 +69,8 @@ export default function Page() {
    const sectionClass = "sectionHeading";
 
   return (
-    <div className="articleContainer ">
-      <main className='mt-20' >
+    <div className="articleContainer mt-20  md:ml-[200px]">
+      <main className='' >
         <div>
           <h1 id="Arduino" className="headingClass">
             Best Arduino Projects, Pin Guides & Step-by-Step Tutorials for Beginners
