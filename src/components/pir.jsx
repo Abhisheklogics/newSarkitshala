@@ -1,5 +1,5 @@
 import pir from '../../public/images/pir.webp'
-
+import Image from 'next/image';
 import { LensCard } from './LensCard';
 export default function PIRSensorTutorial() {
   return (
@@ -38,7 +38,10 @@ export default function PIRSensorTutorial() {
           <li>LED (Optional for indication)</li>
         </ul>
       </section>
-
+<Image src='https://res.cloudinary.com/drryay3rg/image/upload/v1753616146/pirPin_u80n97.webp'  width={400}
+                  height={400}/>
+                  <Image src='https://res.cloudinary.com/drryay3rg/image/upload/v1753616146/PirCir_pw63ee.webp'  width={400}
+                  height={400}/>
       <section  className="sectionHeading ">
         <h2 className="text-2xl font-semibold text-indigo-600 mb-4">Assembly Steps</h2>
         <ol className="list-decimal pl-5 space-y-1  paragraphText">
