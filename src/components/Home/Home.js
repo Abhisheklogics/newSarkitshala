@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ImagesSlider } from '../ui/images-slider';
-import { StickyScroll } from '../ui/sticky-scroll-reveal';
+
 import { InfiniteMovingCards } from '../ui/infinite-moving-cards';
 import { LampContainer } from '../ui/lamp';
 import Footer from '../Footer/Footer';
@@ -15,7 +15,7 @@ import { TextGenerateEffect } from '../ui/text-generate-effect';
 
 import image1 from '../../../public/images/Arduino_SKT.webp';
 import image2 from '../../../public/images/jetson_Sarkitshala.webp';
-import image4 from '../../../public/images/Bristo.jpg';
+import image4 from '../../../public/images/Bristo.webp';
 import image5 from '../../../public/images/esp.webp';
 import image6 from '../../../public/images/Pi_Sarkitshala.webp';
 import image7 from '../../../public/images/hr.jpg';

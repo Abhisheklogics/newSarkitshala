@@ -190,14 +190,9 @@ export default function Page() {
             </h3>
             <div >
               {[
-                { slug: 'interfacing-led', text: 'Interfacing Arduino with PIR Sensor' },
+                { slug: 'interfacing-pir-sensor', text: 'Interfacing Arduino with PIR Sensor' },
                 { slug: 'interfacing-rgb-led', text: 'Interfacing RGB LED' },
                 { slug: 'interfacing-7-segment-display', text: 'Interfacing 7-Segment Display' },
-                { slug: 'interfacing-oled', text: 'Interfacing OLED' },
-                { slug: 'interfacing-pir-sensor', text: 'Interfacing PIR Sensor' },
-                { slug: 'interfacing-soil-moisture', text: 'Interfacing Soil Moisture Sensor' },
-                { slug: 'interfacing-traffic-light-system', text: "Interfacing LED's for Traffic Light" },
-                { slug: 'interfacing-ultrasonic-sensor-with-led', text: 'Interfacing Ultrasonic Sensor with LED' },
                 { slug: 'interfacing-ir-sensor', text: 'Interfacing IR Sensor' },
               ].map((item, idx) => (
                 <Link

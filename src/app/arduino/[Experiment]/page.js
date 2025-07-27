@@ -108,16 +108,34 @@ const LEDArduino =dynamic(()=>import('@/components/Led'))
 
   
 import PIRSensorTutorial from "@/components/pir";
-
+import newData from "@/newData/newdata"
+import NewArduinoData from "@/components/newArdData";
 
 export default async function Page({params}) {
-const { Experiment } = params; 
-
-  return(
+const { Experiment } = await params;
+console.log(Experiment) 
+if(Experiment=='interfacing-pir-sensor'){
+ return(
     <div>
  <PIRSensorTutorial/>
     </div>
   )
+}
+if(Experiment=='interfacing-rgb-led'){
+ return(
+    <div>
+ <NewArduinoData  data={newData[0]}/>
+    </div>
+  )
+}
+if(Experiment=='interfacing-7-segment-display'){
+ return(
+    <div>
+ <NewArduinoData  data={newData[1]}/>
+    </div>
+  )
+}
+ 
 
 
 //   const { Experiment } = await params; 
