@@ -13,7 +13,7 @@ export default function Header() {
   const primaryLinks = [
     { href: "/", label: "Home" },
     { href: "/ai-tools", label: "AI-Tools" },
-    { href: "/iot-sensors", label: "Sensors" },
+    { href: "/jetson", label: "Jetson" },
     { href: "/stm32-microcontroller", label: "STM32" },
     { href: "https://iotsimulation-tool.vercel.app/", label: "Simulation", external: true },
     { href: "/hindicompiler", label: "हिंदी में कोड" },
@@ -23,9 +23,9 @@ export default function Header() {
   const iotLinks = [
     { href: "/arduino", label: "Arduino" },
     { href: "/esp", label: "ESP32" },
-    { href: "/computer-network-practical", label: "Computer Network" },
+    
     { href: "/raspberry", label: "Raspberry Pi" },
-    { href: "/jetson", label: "Jetson" },
+
     { href: "/iotProtocols", label: "Protocols" },
   ];
 
