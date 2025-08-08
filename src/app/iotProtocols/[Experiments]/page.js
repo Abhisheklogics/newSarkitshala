@@ -1,9 +1,7 @@
 import dynamic from 'next/dynamic';
 import allData from '@/components/data';
 
-const CodeBox = dynamic(() => import('@/components/code.jsx'), {
-  ssr: false,
-});
+const CodeBox = dynamic(() => import('@/components/code.jsx'));
 
 
 function LoRaExperimentCom({ data }) {
