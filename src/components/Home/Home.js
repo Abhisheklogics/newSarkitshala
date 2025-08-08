@@ -196,10 +196,10 @@ export function HomePage() {
       {/* Hero Section */}
       <section className="relative mt-28 px-4 sm:px-6 max-w-7xl mx-auto">
         <TextGenerateEffect words={words} />
-        <div className="grid grid-cols-1 sm:mt-6 mt-10 md:grid-cols-2 gap-10 md:gap-50">
-          <div className="sm:w-[46rem] rounded-xl overflow-hidden shadow-md">
+        <div className="grid grid-cols-1 sm:mt-6 mt-10 md:grid-cols-2 gap-10 md:gap-45">
+          <div className="sm:w-[47rem] rounded-xl overflow-hidden shadow-md">
             <ImagesSlider
-              className="h-[13rem] md:h-[25rem] rounded-xl"
+              className="h-[13rem] md:h-[26rem] rounded-xl"
               images={images.map((img) => img.src)}
             >
               <motion.div
