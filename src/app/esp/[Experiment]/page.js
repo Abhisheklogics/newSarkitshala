@@ -1,11 +1,11 @@
 
 
 
-import dynamic from "next/dynamic";
+
 
 import getData from "@/app/apiCall";
 
-const Esp = dynamic(() => import('@/components/Esp'), {ssr:false})
+import Esp from "@/components/Esp";
 export async function generateStaticParams() {
   try {
       const response = await getData('https://sarkitshala.com/api/experiments/Esp');
