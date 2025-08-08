@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic';
+
 import allData from '@/components/data';
 
 
