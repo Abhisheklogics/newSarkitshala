@@ -2,13 +2,11 @@
 import Image from "next/image";
 
 const LEDArduino = ({data}) => {
-  const headingClass = "headingClass";
-  const paragraphClass = "paragraphText";
-   const sectionClass = "sectionHeading";
+
   return (
     <>  
     
-     <div className="containerClass">
+     <div className="articleContainer">
       <h1 className="headingClass">Interfacing of LED with Arduino</h1>
       <Image src={data.image1} height={400} width={500} className="md:ml-28" />
       <section className="sectionHeading">

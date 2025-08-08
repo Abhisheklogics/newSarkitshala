@@ -72,7 +72,7 @@ body {
 /* === Sidebar === */
 .sidebar-wrapper {
   background-color: #1e293b;
-  height: 100vh;
+  height: 80%;
   width: 320px;
   overflow-y: auto;
   backdrop-filter: blur(12px);
@@ -173,10 +173,10 @@ body {
 
 .mobile-menu-btn {
   position: fixed;
-  top: 4rem;
-  left: 0.5rem;
+  top: 5rem;
+  left: 1rem;
   z-index: 50;
-  background-color: #1e40af;
+  background-color: #885ff8;
   color: white;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;

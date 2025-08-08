@@ -8,33 +8,33 @@ export default function AllCom({ data }) {
   
   return (
     <>
-    <div className="containerClass">
-  <h1 className="headingClass">{data.mainTitle}</h1>
+    <div className="articleContainer mt-12 md:mt-0 ml-[-43px] md:ml-0">
+  <h1 className="">{data.mainTitle}</h1>
   {data.image1 && <Image src={data.image1} height={800} width={740} className='md:ml-1 md:mt-4'/>}
 
         {data.title1 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title1}</h2>
+          <section >
+            <h2 >{data.title1}</h2>
             <p>{data.para1}</p>
           </section>
         )}
          {data.title2 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title2}</h2>
+          <section >
+            <h2 >{data.title2}</h2>
             <p>{data.para2}</p>
           </section>
         )}
 
         {data.arrangement && (
-          <section className='containerClass'>
-            <h2 className="headingClass">Arrangement</h2>
-            <pre className="whitespace-pre-wrap">{data.arrangement}</pre>
+          <section >
+            <h2 >Arrangement</h2>
+            <pre >{data.arrangement}</pre>
           </section>
         )}
 
         {data.title3 && data.types && data.types.length > 0 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title3}</h2>
+          <section >
+            <h2 >{data.title3}</h2>
             {data.types.map((type, index) => (
               <div key={index} className="mb-6">
                 <h3 className="text-lg font-semibold">{type.name}</h3>
@@ -49,7 +49,7 @@ export default function AllCom({ data }) {
         )}
 
          {data.title10 && (
-          <section className='containerClass'>
+          <section >
             <p className="headingClass">{data.title10}</p>
             <p className=" ml-4  mb-2">{data.para5}</p>
             <p className="ml-4 mb-2">{data.para6}</p>
@@ -60,11 +60,11 @@ export default function AllCom({ data }) {
         )}
 
         {data.title4 && data.configurations && data.configurations.length > 0 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title4}</h2>
+          <section>
+            <h2 >{data.title4}</h2>
             {data.configurations.map((config, index) => (
               <div key={index} className="mb-6">
-                {config.name && <h3 className="text-lg font-semibold">{config.name}</h3>}
+                {config.name && <h3 >{config.name}</h3>}
                 {Array.isArray(config.operation) && config.operation.length > 0 && (
                   <ul className="list-disc pl-6">
                     {config.operation.map((op, idx) => (
@@ -78,25 +78,25 @@ export default function AllCom({ data }) {
         )}
 
         {data.title5 && data.para2 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title5}</h2>
+          <section >
+            <h2 >{data.title5}</h2>
             <p>{data.para2}</p>
           </section>
         )}
          {data.title8 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title8}</h2>
+          <section >
+            <h2 >{data.title8}</h2>
             <p>{data.para4}</p>
           </section>
         )}
 
         {data.algorithms && data.algorithms.length > 0 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">Algorithm</h2>
+          <section >
+            <h2 >Algorithm</h2>
             <ol className="list-decimal pl-6">
               {data.algorithms.map((algo, index) => (
                 <li key={index} className="mb-4">
-                  <h3 className="text-lg font-semibold">{algo[`step${index + 1}`]}</h3>
+                  <h3 >{algo[`step${index + 1}`]}</h3>
                   <ul className="list-disc pl-6">
                     {algo.operation.map((op, i) => (
                       <li key={i}>{op}</li>
@@ -110,14 +110,14 @@ export default function AllCom({ data }) {
 
         
         {data.title11 && data.para9 && (
-          <section className='containerClass'>
-            <h2 className="headingClass">{data.title11}</h2>
+          <section >
+            <h2 >{data.title11}</h2>
             <p>{data.para9}</p>
           </section>
         )}
 
-    <section className="mb-6 mt-10 bg-white p-6 rounded shadow-lg border border-black"> 
-              <h3 className="md:text-2xl text-lg md:mt-[-15px] mb-[-50px] font-bold hover:text-blue-500" id="Code"> Arduino Code</h3>    
+    <section > 
+              <h3  id="Code"> Arduino Code</h3>    
   {data.code && 
   <CodeBlock
          language="c"     
@@ -128,8 +128,8 @@ export default function AllCom({ data }) {
      }
       </section> 
         {data.title9 && data.applications && data.applications.length > 0 && (
-          <section className="mb-6 mt-10 bg-white p-6 rounded shadow-lg border border-black">
-            <h2 className="headingClass">{data.title9}</h2>
+          <section >
+            <h2 >{data.title9}</h2>
             <ul className="list-disc pl-6">
               {data.applications.map((app, index) => (
                 <li key={index}>{app}</li>
@@ -140,8 +140,8 @@ export default function AllCom({ data }) {
         
 
         {data.conclusion && (
-          <section className="mb-6 mt-10 bg-white p-6 rounded shadow-lg border border-black">
-            <h2 className="headingClass">Conclusion</h2>
+          <section >
+            <h2 >Conclusion</h2>
             <p>{data.conclusion}</p>
           </section>
         )}
