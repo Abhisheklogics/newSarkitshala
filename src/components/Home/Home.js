@@ -139,93 +139,97 @@ const testimonials = [
 
 export function HomePage() {
   return (
-  <main className="text-gray-100 w-full min-h-screen ">
-  {/* Hero Section */}
-  <section className="relative mt-28 px-4 sm:px-6 lg:px-8 max-w-7xl w-full mx-auto min-h-screen flex flex-col justify-center">
-    <TextGenerateEffect words={words} />
-    <div className="grid grid-cols-1 sm:mt-6 mt-10 md:grid-cols-2 gap-10 md:gap-12">
-      <div className="w-full sm:w-[47rem] rounded-xl overflow-hidden shadow-md">
-        <ImagesSlider
-          className="h-[13rem] md:h-[26rem] rounded-xl"
-          images={images.map((img) => img.src)}
-        >
-          <motion.div
-            initial={{ opacity: 0, y: -80 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="z-50 flex justify-center items-center h-full w-full"
-          >
-            <div className="absolute inset-0 z-40">
-              {images.map((img, index) => (
-                <Link
-                  key={index}
-                  href={img.href}
-                  className="absolute inset-0 block w-full h-full"
-                  aria-label={`Navigate to ${img.href}`}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </ImagesSlider>
-      </div>
-      <div className="w-full rounded-xl overflow-hidden">
-        <RecentPosts />
-      </div>
-    </div>
-  </section>
-
-  {/* Explore Technologies */}
-  <section className="relative mt-20 px-4 sm:px-6 lg:px-8 max-w-7xl w-full mx-auto min-h-screen">
-    <LampContainer />
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
-      {exploreTechnologies.map((tech, index) => (
-        <Link
-          key={index}
-          href={tech.href}
-          className="group bg-[#1e293b] rounded-2xl p-4 border border-gray-700 shadow-md hover:shadow-xl transition-all"
-        >
-          <div className="overflow-hidden rounded-xl mb-3">
-            <Image
-              src={tech.src}
-              alt={tech.title}
-              width={300}
-              height={200}
-              className="w-full h-48 object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
-            />
+    <main className=" text-gray-100">
+      
+     
+      <section className="relative mt-28 px-4 sm:px-6 max-w-7xl mx-auto">
+        <TextGenerateEffect words={words} />
+        <div className="grid grid-cols-1 sm:mt-6 mt-10 md:grid-cols-2 gap-10 md:gap-45">
+          <div className="sm:w-[47rem] rounded-xl overflow-hidden shadow-md">
+            <ImagesSlider
+              className="h-[13rem] md:h-[26rem] rounded-xl"
+              images={images.map((img) => img.src)}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: -80 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="z-50 flex justify-center items-center h-full w-full"
+              >
+                <div className="absolute inset-0 z-40">
+                  {images.map((img, index) => (
+                    <Link
+                      key={index}
+                      href={img.href}
+                      className="absolute inset-0 block w-full h-full"
+                      aria-label={`Navigate to ${img.href}`}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </ImagesSlider>
           </div>
-          <h3 className="text-lg font-semibold">{tech.title}</h3>
-          <p className="text-sm text-gray-400 mt-1">{tech.desc}</p>
-        </Link>
-      ))}
-    </div>
-  </section>
+          <div className="w-full rounded-xl overflow-hidden">
+            <RecentPosts />
+          </div>
+        </div>
+      </section>
 
-  {/* Book Section */}
-  <section className="mt-16 px-4 sm:px-6 lg:px-8 max-w-7xl w-full mx-auto min-h-screen">
-    <h2 className="text-blue-400 text-3xl font-semibold text-center mb-6">
-      Arduino Book
-    </h2>
-    <MyBook />
-  </section>
+      {/* Explore Technologies */}
+      <section className="relative mt-20 px-4 max-w-7xl mx-auto">
+        <LampContainer />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-10">
+          {exploreTechnologies.map((tech, index) => (
+            <Link
+              key={index}
+              href={tech.href}
+              className="group bg-[#1e293b] rounded-2xl p-4 border border-gray-700 shadow-md hover:shadow-xl transition-all"
+            >
+              <div className="overflow-hidden rounded-xl mb-3">
+                <Image
+                  src={tech.src}
+                  alt={tech.title}
+                  width={300}
+                  height={200}
+                  className="w-full h-48 object-cover rounded-xl group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <h3 className="text-lg font-semibold">{tech.title}</h3>
+              <p className="text-sm text-gray-400 mt-1">{tech.desc}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
 
-  {/* Testimonials */}
-  <section className="h-auto mt-16 rounded-md flex flex-col items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8 max-w-7xl w-full mx-auto py-10 min-h-screen">
-    <h2 className="text-blue-400 font-bold text-3xl sm:text-4xl mb-4 text-center">
-      Latest Tech Insights
-    </h2>
-    <div className="w-full max-w-6xl">
-      <InfiniteMovingCards
-        items={testimonials}
-        direction="right"
-        speed="slow"
-      />
-    </div>
-  </section>
+      
+      
 
-  {/* Footer */}
-  <footer className="mt-20 w-full">
-    <Footer />
-  </footer>
-</main>
+      {/* Book Section */}
+      <section className="mt-16 px-4 max-w-7xl mx-auto">
+        <h2 className="text-blue-400 text-3xl font-semibold text-center mb-6">
+          Arduino Book
+        </h2>
+        <MyBook />
+      </section>
+
+      {/* Testimonials */}
+      <section className="h-auto mt-16 rounded-md flex flex-col items-center justify-center overflow-hidden px-4 max-w-7xl mx-auto py-10">
+        <h2 className="text-blue-400 font-bold text-3xl sm:text-4xl mb-4 text-center">
+          Latest Tech Insights
+        </h2>
+        <div className="w-full max-w-6xl">
+          <InfiniteMovingCards
+            items={testimonials}
+            direction="right"
+            speed="slow"
+          />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="mt-20">
+        <Footer />
+      </footer>
+    </main>
   );
 }
