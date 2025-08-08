@@ -72,58 +72,6 @@ const exploreTechnologies = [
   },
 ];
 
-const content = [
-  {
-    title: 'ARDUINO',
-    description:
-      'Arduino is an open-source microcontroller platform designed for building electronics projects.',
-    content: (
-      <div className="flex items-center justify-center h-full w-full text-white bg-pink-500 p-4 text-center">
-        Arduino boards work by reading input from sensors or buttons and converting it to output like turning on an LED or spinning a motor, using user-programmed logic via the Arduino IDE.
-      </div>
-    ),
-  },
-  {
-    title: 'ESP32',
-    description:
-      'ESP32 is a powerful microcontroller with built-in WiFi and Bluetooth support, perfect for IoT applications.',
-    content: (
-      <div className="flex items-center justify-center h-full w-full text-white bg-purple-600 p-4 text-center">
-        ESP32 integrates WiFi and Bluetooth for wireless communication and processes sensor data through its dual-core processor, enabling smart connectivity in real-time embedded systems.
-      </div>
-    ),
-  },
-  {
-    title: 'NVIDIA JETSON NANO',
-    description:
-      'NVIDIA Jetson Nano is a compact AI computing platform for edge AI and robotics applications.',
-    content: (
-      <div className="flex items-center justify-center h-full w-full text-white bg-lime-500 p-4 text-center">
-        Jetson Nano runs a Linux-based OS and executes AI models locally using its CUDA cores and GPU, making it ideal for computer vision, robotics, and machine learning at the edge.
-      </div>
-    ),
-  },
-  {
-    title: 'RASPBERRY PI',
-    description:
-      'Raspberry Pi is a compact, single-board computer designed for teaching computer science and electronics.',
-    content: (
-      <div className="flex items-center justify-center h-full w-full text-white bg-blue-500 p-4 text-center">
-        Raspberry Pi functions like a mini PC, supporting full OS environments and GPIO pins for hardware control, ideal for learning programming, automation, and multimedia projects.
-      </div>
-    ),
-  },
-  {
-    title: 'UAV',
-    description:
-      'A UAV is an aircraft that operates without a human pilot onboard, ideal for surveillance and delivery.',
-    content: (
-      <div className="flex items-center justify-center h-full w-full text-white bg-red-500 p-4 text-center">
-        UAVs operate autonomously or via remote control, using onboard sensors, GPS, and flight controllers to perform stable, automated flights for surveillance, mapping, and delivery tasks.
-      </div>
-    ),
-  },
-];
 
 const testimonials = [
   {
@@ -193,9 +141,9 @@ export function HomePage() {
   return (
     <main className=" text-gray-100">
       
-      {/* Hero Section */}
+     
       <section className="relative mt-28 px-4 sm:px-6 max-w-7xl mx-auto">
-        <TextGenerateEffect words={words} />
+        <TextGenerateEffect words={words}/>
         <div className="grid grid-cols-1 sm:mt-6 mt-10 md:grid-cols-2 gap-10 md:gap-45">
           <div className="sm:w-[47rem] rounded-xl overflow-hidden shadow-md">
             <ImagesSlider

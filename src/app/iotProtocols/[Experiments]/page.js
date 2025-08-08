@@ -1,6 +1,9 @@
-
+import dynamic from 'next/dynamic';
 import allData from '@/components/data';
 
+const CodeBox = dynamic(() => import('@/components/code.jsx'), {
+  ssr: false,
+});
 
 
 function LoRaExperimentCom({ data }) {
@@ -43,12 +46,12 @@ function LoRaExperimentCom({ data }) {
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Transmitter Code</h2>
-      
+        <CodeBox code={data.transmitterCode.trim()} language="cpp" />
       </section>
 
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Receiver Code</h2>
-       
+        <CodeBox code={data.receiverCode.trim()} language="cpp" />
       </section>
 
       <section className="mb-6">
@@ -59,7 +62,7 @@ function LoRaExperimentCom({ data }) {
           ))}
         </ul>
         <h3 className="text-lg font-semibold mb-2">LMIC Code</h3>
-      
+        <CodeBox code={data.ttnIntegration.lmicCode.trim()} language="cpp" />
         <p className="mt-2 text-gray-600">View data on: <strong>{data.ttnIntegration.viewData}</strong></p>
       </section>
 
@@ -134,26 +137,27 @@ function Lwm2mExperimentCom({ data }) {
           ))}
         </ul>
         <h3 className="font-semibold mt-2">Server Configuration</h3>
-      
+        <CodeBox code={data.step2_clientSetup.serverConfig.code.trim()} language="cpp" />
       </section>
 
       {/* Step 3: LWM2M Client Code */}
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Step 3: LWM2M Client Code</h2>
         <h3 className="font-semibold mt-2">WiFi Setup</h3>
-       
+        <CodeBox code={data.step3_lwm2mClientCode.wifiSetup.trim()} language="cpp" />
         <h3 className="font-semibold mt-2">Basic Client Code</h3>
-      
+        <CodeBox code={data.step3_lwm2mClientCode.basicClientCode.trim()} language="cpp" />
         <h3 className="font-semibold mt-2">Define Resources</h3>
-       
+        <CodeBox code={data.step3_lwm2mClientCode.defineResources.trim()} language="cpp" />
       </section>
 
       {/* Step 4: Communication Setup */}
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Step 4: LWM2M Communication Functions</h2>
         <h3 className="font-semibold mt-2">Client Init</h3>
+        <CodeBox code={data.step4_communication.clientSetup.trim()} language="cpp" />
         <h3 className="font-semibold mt-2">Resource Handling</h3>
-       
+        <CodeBox code={data.step4_communication.resourceHandling.trim()} language="cpp" />
       </section>
 
       {/* Step 5: Monitoring */}
@@ -172,7 +176,7 @@ function Lwm2mExperimentCom({ data }) {
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Step 7: Security Configuration</h2>
         <p className="text-gray-700"><strong>Objective:</strong> {data.step7_security.objective}</p>
-       
+        <CodeBox code={data.step7_security.code.trim()} language="cpp" />
       </section>
     </div>
   );
@@ -207,7 +211,10 @@ function ProtocolsCom({ data }) {
             {step.description && (
               <p className="mb-3 text-gray-700">{step.description}</p>
             )}
-           
+            {step.commands && (
+              <CodeBox code={step.commands.join('\n')} language="bash" />
+            )}
+            {step.code && <CodeBox code={step.code} language="python" />}
           </div>
         ))}
       </section>
@@ -260,7 +267,7 @@ function WifiEsp32RestApi({ data }) {
             {step.description && <p className="ml-4">{step.description}</p>}
             {step.codeSnippet && (
               <div className="mt-2 ml-4">
-              
+                <CodeBox code={step.codeSnippet.trim()} language="cpp" />
               </div>
             )}
           </li>
@@ -301,6 +308,7 @@ function MqttEsp32PubSubClient  ({data}) {
 
       <h2 className="text-xl font-semibold mb-2">Code: {data.code[0].filename}</h2>
      
+        <CodeBox code={data.code[0].content} language={'cpp'}/>
       
     </div>
   );
@@ -341,7 +349,10 @@ function XmppRaspberryPiSleekxmpp() {
           <strong>Install the Necessary Libraries</strong>
           <p className="ml-4">Install SleekXMPP and required dependencies on Raspberry Pi.</p>
           <div className="mt-2 ml-4">
-          
+            <CodeBox
+              code={`sudo apt-get update\nsudo apt-get install python3 python3-pip\npip install sleekxmpp\nsudo apt-get install libxml2-dev libxslt-dev`}
+              language="bash"
+            />
           </div>
         </li>
 
@@ -358,7 +369,10 @@ function XmppRaspberryPiSleekxmpp() {
           <strong>Create an XMPP Client on Raspberry Pi</strong>
           <p className="ml-4">Use SleekXMPP in Python to connect and send messages.</p>
           <div className="mt-2 ml-4">
-            
+            <CodeBox
+              code={`import sleekxmpp\nclass XmppClient(sleekxmpp.ClientXMPP):\n    # Connect, send messages, and handle responses\n    pass`}
+              language="python"
+            />
           </div>
         </li>
 
@@ -366,7 +380,10 @@ function XmppRaspberryPiSleekxmpp() {
           <strong>Send Sensor Data to the XMPP Server</strong>
           <p className="ml-4">Read sensor data from DHT22 and send via XMPP.</p>
           <div className="mt-2 ml-4">
-           
+            <CodeBox
+              code={`import Adafruit_DHT\n# Read temperature and send as message`}
+              language="python"
+            />
           </div>
         </li>
 

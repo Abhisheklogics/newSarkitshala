@@ -1,10 +1,7 @@
 
 
-import dynamic from "next/dynamic";
 
 import getData from "@/app/apiCall";
-
-
 
 
 export async function generateStaticParams() {
@@ -93,7 +90,7 @@ export default async function Page({ params }) {
     const { Experiment } = await params; 
     
     const data = await getData(`https://sarkitshala.com/api/experiments/Res`, Experiment)
-    
+  
       if(data)
       {
         return (

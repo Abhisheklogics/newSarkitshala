@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import   '../app/globals.css'
-
+const CodeBox = dynamic(() => import('@/components/code.jsx'));
 
 export default function Esp({ data }) {
   return (
@@ -82,7 +82,9 @@ export default function Esp({ data }) {
       {data.title6 && data.code && (
         <section className="containerClass">
           <h2 className="text-xl font-bold mb-4">{data.title6}</h2>
-         
+          {data.code && 
+            <CodeBox code={data.code.replace(/\\n/g, '\n')} language={'cpp'} />
+          }
         </section>
       )}
 

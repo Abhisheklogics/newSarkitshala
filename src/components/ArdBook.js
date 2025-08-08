@@ -40,12 +40,11 @@ export default function MyBook() {
   const prevPage = () => bookRef.current.pageFlip().flipPrev();
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#111827] via-[#1f2937] to-[#0f172a] dark:bg-black text-white relative px-2 py-6">
-   
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#111827] text-white relative px-2 py-6 overflow-hidden">
       {/* Previous Button */}
       <button
         onClick={prevPage}
-        className="absolute left-2 md:left-6 z-20 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full p-3 shadow-lg transition"
+        className="absolute left-2 md:left-8 z-20 bg-black/60 backdrop-blur-md hover:bg-white/20 text-white rounded-full p-3 shadow-lg transition border border-white/20"
         aria-label="Previous Page"
       >
         ◀
@@ -53,40 +52,50 @@ export default function MyBook() {
 
       {/* Flip Book */}
       <div className="relative drop-shadow-2xl w-full max-w-[1000px]">
-        <HTMLFlipBook
-          ref={bookRef}
-          width={isMobile ? 300 : 500}
-          height={isMobile ? 420 : 680}
-          size="stretch"
-          minWidth={280}
-          maxWidth={1000}
-          minHeight={350}
-          maxHeight={680}
-          showCover={true}
-          mobileScrollSupport={true}
-          drawShadow={true}
-          useMouseEvents={true}
-          usePortrait={isMobile}
-          className="book rounded-xl"
-        >
+       <HTMLFlipBook
+  ref={bookRef}
+  width={isMobile ? 340 : 500}
+  height={isMobile ? 500 : 680}
+  size="stretch"
+  minWidth={280}
+  maxWidth={1000}
+  minHeight={350}
+  maxHeight={680}
+  showCover={true}
+  mobileScrollSupport={true}
+  drawShadow={true}
+  useMouseEvents={true} // drag to flip enabled
+  usePortrait={isMobile}
+  className="book rounded-xl overflow-hidden select-none"
+  onClick={(e) => {
+    const { width } = bookRef.current.pageFlip().getPageFlip().getState();
+    const clickX = e.clientX;
+    const middle = width / 2;
+    if (clickX > middle) {
+      bookRef.current.pageFlip().flipNext();
+    } else {
+      bookRef.current.pageFlip().flipPrev();
+    }
+  }}
+>
           {/* Cover Page */}
-          <div className="flex flex-col justify-center items-center h-full bg-gradient-to-tr from-[#2563eb] to-[#4f46e5] dark:from-[#0f172a] dark:to-[#1e293b] text-white p-6">
-            <h1 className="text-3xl md:text-5xl font-extrabold font-serif drop-shadow-md mb-4 md:mb-6">
+          <div className="flex flex-col justify-center items-center h-full bg-gradient-to-tr from-[#2563eb] to-[#4f46e5] text-white p-6 relative">
+            <h1 className="text-3xl md:text-5xl font-extrabold font-serif drop-shadow-lg mb-4 ">
               Arduino Book
             </h1>
             <p className="text-sm md:text-lg max-w-xs md:max-w-sm text-center font-light">
-              Arduino E-Book designed guide to electronics, automation & open-source projects.
+              Your complete guide to electronics, automation & open-source projects.
             </p>
-            <p className="absolute bottom-4 right-4 text-xs md:text-sm text-white/60">
+            <span className="absolute bottom-4 right-4 text-xs md:text-sm text-white/60 italic">
               IoT Students
-            </p>
+            </span>
           </div>
 
           {/* Book Pages */}
           {pages.map((img, index) => (
             <div
               key={index}
-              className="bg-white dark:bg-zinc-900 flex flex-col justify-center items-center p-2 md:p-4"
+              className="bg-gradient-to-b from-white to-gray-100 dark:from-zinc-900 dark:to-zinc-800 flex flex-col justify-center items-center p-2 md:p-4 border border-gray-300 dark:border-zinc-700 shadow-inner"
             >
               <Image
                 src={img}
@@ -96,7 +105,7 @@ export default function MyBook() {
                 className="rounded-md object-contain shadow-md border dark:border-zinc-700"
                 priority={index < 3}
               />
-              <span className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              <span className="text-xs text-gray-500 dark:text-gray-400 mt-2 italic tracking-wide">
                 Page {index + 1}
               </span>
             </div>
@@ -107,13 +116,15 @@ export default function MyBook() {
       {/* Next Button */}
       <button
         onClick={nextPage}
-        className="absolute right-2 md:right-6 z-20 bg-zinc-800 hover:bg-zinc-700 text-white rounded-full p-3 shadow-lg transition"
+        className="absolute right-2 md:right-8 z-20 bg-black/60 backdrop-blur-md hover:bg-white/20 text-white rounded-full p-3 shadow-lg transition border border-white/20"
         aria-label="Next Page"
       >
         ▶
       </button>
-         <StarsBackground/>
-      <ShootingStars/>
+
+      {/* Background Effects */}
+      <StarsBackground />
+      <ShootingStars />
     </div>
   );
 }

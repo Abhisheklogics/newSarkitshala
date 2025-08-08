@@ -58,7 +58,7 @@ const RecentPosts = () => {
   
   <ul
     ref={listRef}
-    className="h-[calc(100%-56px)] overflow-y-auto md:overflow-hidden px-4 py-3 space-y-3 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+    className="h-[calc(100%-56px)] overflow-y-auto md:overflow-hidden  px-4 py-3 space-y-6 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
     onMouseEnter={() => setIsUserInteracting(true)}
     onMouseLeave={() => setIsUserInteracting(false)}
     onTouchStart={() => setIsUserInteracting(true)}
@@ -74,7 +74,7 @@ const RecentPosts = () => {
                 height={60}
                 className="rounded-md object-cover w-[60px] h-[60px]"
               />
-          <p className="text-sm md:text-base font-semibold text-gray-100 line-clamp-2">
+          <p className="text-sm md:text-base  line-clamp-2">
             {title}
           </p>
         </li>
