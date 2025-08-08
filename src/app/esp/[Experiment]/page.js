@@ -2,11 +2,9 @@
 
 
 import dynamic from "next/dynamic";
-import Image from "next/image";
+
 import getData from "@/app/apiCall";
-const CodeBox=dynamic(()=>import('@/components/code/code'),{
-  ssr:false
-})
+
 const Esp = dynamic(() => import('@/components/Esp'), {ssr:false})
 export async function generateStaticParams() {
   try {

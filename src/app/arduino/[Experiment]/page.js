@@ -1,11 +1,6 @@
 
-import getData from "@/app/apiCall";
-import Image from "next/image";
-import dynamic from "next/dynamic";
 
-import { CodeBlock } from "@/components/ui/code-block";
-const AllCom = dynamic(() => import('@/components/AllCom'))
-const LEDArduino =dynamic(()=>import('@/components/Led'))
+
 
 // export async function generateStaticParams() {
 //   try {
